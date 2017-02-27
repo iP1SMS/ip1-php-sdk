@@ -8,3 +8,5 @@ composer.phar
 
 # Dia Diagram autosave files
 *.dia.autosave
+*.dia~
+*.dia.autosave~
