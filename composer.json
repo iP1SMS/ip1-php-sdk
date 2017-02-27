@@ -1,0 +1,16 @@
+{
+  "name": "ip1/phprestclient",
+  "description": "A PHP client library for the IP1SMS RESTful API",
+  "type": "library",
+    "authors": [
+        {
+            "name": "Hannes Kindströmmer",
+            "email": "hannes@kindstrommer.se",
+            "homepage": "ip1sms.com",
+            "role": "Developer"
+        }
+    ],
+    "require" : {
+        "php" : "^7.0"
+    }
+}
