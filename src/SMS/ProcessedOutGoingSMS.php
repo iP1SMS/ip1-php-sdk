@@ -26,7 +26,7 @@ class ProcessedOutGoingSMS extends OutGoingSMS
     {
         return $this->recipient;
     }
-    public function toStdClass(): stdClass
+    public function jsonSerialize(): \stdClass
     {
         $returnObject = parent::toStdClass();
         if (!empty($this->bundleID)) {

@@ -4,7 +4,7 @@ use \IP1\RESTClient\Recipient\Group;
 
 namespace \IP1\RESTClient\SMS;
 
-class OutGoingSMS extends SMS implements \IP1\RESTClient\Core\Component
+class OutGoingSMS extends SMS implements \JsonSerializable
 {
     private $numbers = [];
     private $contacts = [];
@@ -24,7 +24,7 @@ class OutGoingSMS extends SMS implements \IP1\RESTClient\Core\Component
         $this->groups[] = $group;
     }
 
-    public function toStdClass(): stdClass
+    public function jsonSerialize(): \stdClass
     {
         $returnObject = parent::toStdClass();
         $returnObject->Email = $this->email;

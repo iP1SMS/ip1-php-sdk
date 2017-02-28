@@ -4,7 +4,7 @@ use IP1\RESTClient\Core\Component;
 
 namespace \IP1\RESTClient\SMS;
 
-abstract class SMS implements Component
+abstract class SMS implements \JsonSerializable
 {
     protected $prio;
     protected $from;
@@ -23,7 +23,7 @@ abstract class SMS implements Component
     {
         $this->prio = $priority;
     }
-    public function toStdClass(): stdClass
+    public function jsonSerialize(): \stdClass
     {
         $returnObject = new \stdClass();
         $returnObject->Prio = $this->prio;
