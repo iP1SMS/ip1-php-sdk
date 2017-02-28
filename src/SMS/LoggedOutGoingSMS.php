@@ -15,11 +15,11 @@ class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableCompone
     {
         return IS_READ_ONLY;
     }
-    public function getUpdated(): DateTime
+    public function getUpdated(): \DateTime
     {
         return $this->updated;
     }
-    public function getCreated(): DateTime
+    public function getCreated(): \DateTime
     {
         return $this->created;
     }
