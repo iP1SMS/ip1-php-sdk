@@ -1,8 +1,8 @@
 <?php
 
-use \IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponent;
 
-namespace \IP1\RESTClient\SMS;
+namespace IP1\RESTClient\SMS;
 
 class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableComponent
 {
@@ -25,7 +25,7 @@ class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableCompone
     }
     public function jsonSerialize(): \stdClass
     {
-        $returnObject = parent::toStdClass();
+        $returnObject = parent::jsonSerialize();
         $returnObject->UpdatedDate = $this->updated;
         $returnObject->CreatedDate = $this->created;
         return $returnObject;

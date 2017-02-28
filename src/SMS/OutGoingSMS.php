@@ -1,8 +1,8 @@
 <?php
-use \IP1\RESTClient\Recipient\Contact;
-use \IP1\RESTClient\Recipient\Group;
+use IP1\RESTClient\Recipient\Contact;
+use IP1\RESTClient\Recipient\Group;
 
-namespace \IP1\RESTClient\SMS;
+namespace IP1\RESTClient\SMS;
 
 class OutGoingSMS extends SMS implements \JsonSerializable
 {
@@ -26,12 +26,12 @@ class OutGoingSMS extends SMS implements \JsonSerializable
 
     public function jsonSerialize(): \stdClass
     {
-        $returnObject = parent::toStdClass();
+        $returnObject = parent::jsonSerialize();
         $returnObject->Email = $this->email;
         if (count($this->numbers) > 0) {
             $returnObject->Numbers = $this->numbers;
         }
-        if (count($this-contacts) > 0) {
+        if (count($this->contacts) > 0) {
             $returnObject->Contacts = [];
             foreach ($this->contacts as $contact) {
                 $returnObject->Contacts[] = $contact->getID();

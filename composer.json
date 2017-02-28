@@ -10,6 +10,11 @@
             "role": "Developer"
         }
     ],
+    "autoload": {
+    "psr-4": {
+      "IP1\\RESTClient\\": "src"
+    }
+  },
     "require" : {
         "php" : "^7.0"
     },

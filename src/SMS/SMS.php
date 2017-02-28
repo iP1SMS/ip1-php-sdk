@@ -1,8 +1,6 @@
 <?php
 
-use IP1\RESTClient\Core\Component;
-
-namespace \IP1\RESTClient\SMS;
+namespace IP1\RESTClient\SMS;
 
 abstract class SMS implements \JsonSerializable
 {

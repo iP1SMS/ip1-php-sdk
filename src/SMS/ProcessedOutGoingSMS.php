@@ -1,7 +1,7 @@
 <?php
 
 
-namespace \IP1\RESTClient\SMS;
+namespace IP1\RESTClient\SMS;
 
 class ProcessedOutGoingSMS extends OutGoingSMS
 {
@@ -28,7 +28,7 @@ class ProcessedOutGoingSMS extends OutGoingSMS
     }
     public function jsonSerialize(): \stdClass
     {
-        $returnObject = parent::toStdClass();
+        $returnObject = parent::jsonSerialize();
         if (!empty($this->bundleID)) {
             $returnObject->BundleID = $this->bundleID;
         }
