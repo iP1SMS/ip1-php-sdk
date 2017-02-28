@@ -26,4 +26,21 @@ class ProcessedOutGoingSMS extends OutGoingSMS
     {
         return $this->recipient;
     }
+    public function toStdClass(): stdClass
+    {
+        $returnObject = parent::toStdClass();
+        if (!empty($this->bundleID)) {
+            $returnObject->BundleID = $this->bundleID;
+        }
+        if (!empty($this->status)) {
+            $returnObject->Status = $this->status;
+        }
+        if (!empty($this->statusDescription)) {
+            $returnObject->StatusDescription = $this->statusDescription;
+        }
+        if (!empty($this->recipient)) {
+            $returnObject->Recipient = $this->recipient;
+        }
+        return $returnObject;
+    }
 }

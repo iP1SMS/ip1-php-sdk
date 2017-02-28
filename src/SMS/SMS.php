@@ -23,4 +23,12 @@ abstract class SMS implements Component
     {
         $this->prio = $priority;
     }
+    public function toStdClass(): stdClass
+    {
+        $returnObject = new \stdClass();
+        $returnObject->Prio = $this->prio;
+        $returnObject->From = $this->from;
+        $returnObject->Message = $this->message;
+        return $returnObject;
+    }
 }

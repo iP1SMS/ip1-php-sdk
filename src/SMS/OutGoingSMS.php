@@ -1,8 +1,10 @@
 <?php
+use \IP1\RESTClient\Recipient\Contact;
+use \IP1\RESTClient\Recipient\Group;
 
 namespace \IP1\RESTClient\SMS;
 
-class OutGoingSMS extends SMS
+class OutGoingSMS extends SMS implements \IP1\RESTClient\Core\Component
 {
     private $numbers = [];
     private $contacts = [];
@@ -22,9 +24,10 @@ class OutGoingSMS extends SMS
         $this->groups[] = $group;
     }
 
-    public function toJson(int $styleArg = 0): string
+    public function toStdClass(): stdClass
     {
-        $returnObject = new \stdClass();
+        $returnObject = parent::toStdClass();
+        $returnObject->Email = $this->email;
         if (count($this->numbers) > 0) {
             $returnObject->Numbers = $this->numbers;
         }
@@ -40,6 +43,6 @@ class OutGoingSMS extends SMS
                 $returnObject->Groups[] = $group->getID();
             }
         }
-        return json_encode($returnObject, $styleArg);
+        return $returnObject;
     }
 }
