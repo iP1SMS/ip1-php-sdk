@@ -34,6 +34,13 @@ class Contact implements \JsonSerializable
     }
     public static function createFromStdClass(\stdClass $stdContact): Contact
     {
+        if (empty($stdContact->FirstName)) {
+            throw new \InvalidArgumentException("stdClass argument must contain FirstName attribute");
+        }
+        if (empty($stdContact->Phone)) {
+            throw new \InvalidArgumentException("stdClass argument must contain Phone attribute");
+        }
+
         $contact = new Contact($stdContact->FirstName, $stdContact->Phone);
         isset($stdContact->LastName) ? $contact->setLastName($stdContact->LastName) : null;
         isset($stdContact->Title) ? $contact->setTitle($stdContact->Title) : null;
