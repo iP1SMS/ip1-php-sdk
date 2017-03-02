@@ -11,10 +11,24 @@ class Contact implements \JsonSerializable
     private $phone;
     private $email;
     private $notes;
-
-    private function __construct(
+    /**
+    * @param string $firstName
+    * @param string $phoneNumber
+    * @param string $lastName
+    * @param string $title
+    * @param string $organization
+    * @param string $email
+    * @param string $notes
+    *
+    */
+    public function __construct(
         string $firstName,
-        string $phoneNumber
+        string $phoneNumber,
+        string $lastName = null,
+        string $title = null,
+        string $organization = null,
+        string $email = null,
+        string $notes = null
     ) {
         if (empty($firstName)) {
             throw new \InvalidArgumentException("\$firstName cannot be empty.");
@@ -24,61 +38,24 @@ class Contact implements \JsonSerializable
         }
         $this->firstName =  $firstName;
         $this->phone = $phoneNumber;
+        $this->lastName = $lastName;
+        $this->title = $title;
+        $this->organization = $organization;
+        $this->email = $email;
+        $this->notes = $notes;
     }
-
-
-
-    public static function createFromJSON(string $jsonContact)
+    public function jsonSerialize(): array
     {
-        return self::createFromStdClass(json_decode($jsonContact));
-    }
-    public static function createFromStdClass(\stdClass $stdContact): Contact
-    {
-        if (empty($stdContact->FirstName)) {
-            throw new \InvalidArgumentException("stdClass argument must contain FirstName attribute");
-        }
-        if (empty($stdContact->Phone)) {
-            throw new \InvalidArgumentException("stdClass argument must contain Phone attribute");
-        }
-
-        $contact = new Contact($stdContact->FirstName, $stdContact->Phone);
-        isset($stdContact->LastName) ? $contact->setLastName($stdContact->LastName) : null;
-        isset($stdContact->Title) ? $contact->setTitle($stdContact->Title) : null;
-        isset($stdContact->Organization) ? $contact->setOrganization($stdContact->Organization) : null;
-        isset($stdContact->Email) ? $contact->setEmail($stdContact->Email) : null;
-        isset($stdContact->Notes) ? $contact->setNotes($stdContact->Notes) : null;
-        return $contact;
-    }
-    public static function createFromAttributes(
-        string $firstName,
-        string $phoneNumber,
-        string $lastName = null,
-        string $title = null,
-        string $organization = null,
-        string $email = null,
-        string $notes = null
-    ) {
-        $contact = new Contact($firstName, $phoneNumber);
-        $contact->setLastName($lastName);
-        $contact->setOrganization($organization);
-        $contact->setTitle($title);
-        $contact->setEmail($email);
-        $contact->setNotes($notes);
-        return $contact;
-    }
-    public function jsonSerialize()
-    {
-        $returnObject = new \stdClass();
-        $returnObject->FirstName = $this->firstName ?:null;
-        $returnObject->LastName = $this->lastName ?:null;
-        $returnObject->Title = $this->title ?:null;
-        $returnObject->Organization = $this->organization ?: null;
-        $returnObject->Phone = $this->phone ?:null;
-        $returnObject->Email = $this->email ?: null;
-        $returnObject->Notes = $this->notes ?:null;
-
-
-        return array_filter((array) $returnObject);
+        $returnArray = [
+            'FirstName' => $this->firstName,
+            'LastName' => $this->lastName,
+            'Organization' => $this->organization,
+            'Phone' => $this->phone,
+            'Email' => $this->email,
+            'Title' => $this->title,
+            'Notes' => $this->notes,
+        ];
+        return array_filter($returnArray);
     }
     public function setFirstName(string $firstName)
     {

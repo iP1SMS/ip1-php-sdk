@@ -1,7 +1,7 @@
 <?php
 
 
-use \IP1\RESTClient\Recipient\Contact;
+use IP1\RESTClient\Recipient\RecipientFactory;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -20,26 +20,26 @@ class ContactTest extends TestCase
     public function __construct()
     {
         parent::__construct();
-        $this->completeContactString = trim(file_get_contents("tests/resources/contact.json"));
-        $this->incompleteContactString = trim(file_get_contents("tests/resources/incomplete_contact.json"));
-        $this->minimalContactString = trim(file_get_contents("tests/resources/minimal_contact.json"));
+        $this->completeContactString = trim(file_get_contents("tests/resources/contact/contact.json"));
+        $this->incompleteContactString = trim(file_get_contents("tests/resources/contact/incomplete_contact.json"));
+        $this->minimalContactString = trim(file_get_contents("tests/resources/contact/minimal_contact.json"));
         $this->completeContactStd = json_decode($this->completeContactString);
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
     }
     public function testCreateFromStdClass()
     {
-        $contact = Contact::createFromStdClass($this->completeContactStd);
-        $this->assertEquals($this->completeContactString, json_encode($contact));
+        $contact = RecipientFactory::createContactFromStdClass($this->completeContactStd);
+        $this->assertEquals($this->completeContactStd, json_decode(json_encode($contact)));
     }
     public function testCreateFromJSON()
     {
-        $contact = Contact::createFromJSON($this->completeContactString);
-        $this->assertEquals($this->completeContactString, json_encode($contact));
+        $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
+        $this->assertEquals($this->completeContactStd, json_decode(json_encode($contact)));
     }
     public function testCreateFromAttributes()
     {
-        $contact = Contact::createFromAttributes(
+        $contact = RecipientFactory::createContactFromAttributes(
             $this->completeContactStd->FirstName,
             $this->completeContactStd->Phone,
             $this->completeContactStd->LastName,
@@ -48,45 +48,42 @@ class ContactTest extends TestCase
             $this->completeContactStd->Email,
             $this->completeContactStd->Notes
         );
-        $this->assertEquals($this->completeContactString, json_encode($contact));
+        $this->assertEquals($this->completeContactStd, json_decode(json_encode($contact)));
     }
     public function testCreateFromIncompleteAttributes()
     {
-        $jsonContact = trim(file_get_contents("tests/resources/incomplete_contact.json"));
-        $this->completeContactStd = json_decode($jsonContact);
-
-        $contact = Contact::createFromAttributes(
-            $this->completeContactStd->FirstName,
-            $this->completeContactStd->Phone,
-            isset($this->completeContactStd->LastName) ? $this->completeContactStd->LastName : null,
-            isset($this->completeContactStd->Title) ?  $this->completeContactStd->Title : null,
-            isset($this->completeContactStd->Organization) ? $this->completeContactStd->Organization : null,
-            isset($this->completeContactStd->Email) ? $this->completeContactStd->Email : null,
-            isset($this->completeContactStd->Notes) ? $this->completeContactStd->Notes : null
+        $contact = RecipientFactory::createContactFromAttributes(
+            $this->incompleteContactStd->FirstName,
+            $this->incompleteContactStd->Phone,
+            $this->incompleteContactStd->LastName ?? null,
+            $this->incompleteContactStd->Title ?? null,
+            $this->incompleteContactStd->Organization ?? null,
+            $this->incompleteContactStd->Email ?? null,
+            $this->incompleteContactStd->Notes ?? null
         );
-        $this->assertEquals($jsonContact, json_encode($contact));
+          $this->assertEquals($this->incompleteContactStd, json_decode(json_encode($contact)));
     }
     public function testCreateFromIncompleteJSON()
     {
-        $contact = Contact::createFromJSON($this->incompleteContactString);
-        $this->assertEquals($this->incompleteContactString, json_encode($contact));
+        $contact = RecipientFactory::createContactFromJSON($this->incompleteContactString);
+          $this->assertEquals($this->incompleteContactStd, json_decode(json_encode($contact)));
     }
     public function testCreateFromIncompleteStdClass()
     {
-        $contact = Contact::createFromStdClass($this->incompleteContactStd);
-        $this->assertEquals($this->incompleteContactString, json_encode($contact));
+        $contact = RecipientFactory::createContactFromStdClass($this->incompleteContactStd);
+          $this->assertEquals($this->incompleteContactStd, json_decode(json_encode($contact)));
     }
     /**
     * @expectedException InvalidArgumentException
     */
     public function testPrivateConstructorWithInvalidArguments()
     {
-        Contact::createFromAttributes("", $this->completeContactStd->Phone);
-        Contact::createFromAttributes($this->completeContactStd->FirstName, "");
+        RecipientFactory::createContactFromAttributes("", $this->completeContactStd->Phone);
+        RecipientFactory::createContactFromAttributes($this->completeContactStd->FirstName, "");
     }
     public function testGettersWithMembersSet()
     {
-        $contact = Contact::createFromJSON($this->completeContactString);
+        $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
         $this->assertEquals($this->completeContactStd->FirstName, $contact->getFirstName());
         $this->assertEquals($this->completeContactStd->LastName, $contact->getLastName());
         $this->assertEquals($this->completeContactStd->Phone, $contact->getPhoneNumber());
@@ -97,7 +94,7 @@ class ContactTest extends TestCase
     }
     public function testGettersWithMembersNotSet()
     {
-        $contact = Contact::createFromJSON($this->minimalContactString);
+        $contact = RecipientFactory::createContactFromJSON($this->minimalContactString);
         $this->assertEquals($this->minimalContactStd->FirstName, $contact->getFirstName());
         $this->assertEquals("", $contact->getLastName());
         $this->assertEquals($this->minimalContactStd->Phone, $contact->getPhoneNumber());
@@ -108,7 +105,7 @@ class ContactTest extends TestCase
     }
     public function testSetters()
     {
-        $contact = Contact::createFromJSON($this->minimalContactString);
+        $contact = RecipientFactory::createContactFromJSON($this->minimalContactString);
 
         $contact->setFirstName("Lorem");
         $contact->setLastName("Ipsum");
