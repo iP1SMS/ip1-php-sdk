@@ -12,14 +12,14 @@ class Contact implements \JsonSerializable
     private $email;
     private $notes;
     /**
-    * @param string $firstName
-    * @param string $phoneNumber
-    * @param string $lastName
-    * @param string $title
-    * @param string $organization
-    * @param string $email
-    * @param string $notes
+    * The Contact constructor
     *
+    * @param string $firstName               The first name of the contact in question
+    * @param string $phoneNumber             Contact phone number: with country code and without spaces and dashes
+    * @param string $lastName (optional)     Contact last name
+    * @param string $organization (optional) Contact company or other organization
+    * @param string $email (optional)        Contact email address
+    * @param string $notes (optional)        Contact notes
     */
     public function __construct(
         string $firstName,
@@ -44,6 +44,9 @@ class Contact implements \JsonSerializable
         $this->email = $email;
         $this->notes = $notes;
     }
+    /**
+    * @return array
+    */
     public function jsonSerialize(): array
     {
         $returnArray = [
@@ -57,58 +60,108 @@ class Contact implements \JsonSerializable
         ];
         return array_filter($returnArray);
     }
+    /**
+    * @param string $firstName Sets the first name of the contact
+    */
     public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
     }
+
+    /**
+    * @param string $lastName|null Sets the last name of the contact
+    */
     public function setLastName(?string $lastName)
     {
         $this->lastName = $lastName;
     }
+
+    /**
+    * @param string $phoneNumber Sets the phone number of the contact
+    */
     public function setPhoneNumber(string $phoneNumber)
     {
         $this->phone = $phoneNumber;
     }
+
+    /**
+    * @param string $title|null Sets the title of the contact
+    */
     public function setTitle(?string $title)
     {
         $this->title = $title;
     }
+
+    /**
+    * @param string $organization|null Sets the contact company or other organization the contact belongs to
+    */
     public function setOrganization(?string $organization)
     {
         $this->organization = $organization;
     }
+
+    /**
+    * @param string $email|null Sets the email adress of the contact
+    */
     public function setEmail(?string $email)
     {
         $this->email = $email;
     }
+
+    /**
+    * @param string $firstName Sets the first name of the contact
+    */
     public function setNotes(?string $notes)
     {
         $this->notes = $notes;
     }
+    /**
+    * @return string The contacts first name
+    */
     public function getFirstName():string
     {
         return $this->firstName;
     }
+    /**
+    * @return string The contacts last name
+    */
     public function getLastName():string
     {
         return $this->lastName ?? "";
     }
+    /**
+    * @return string  The contacts phone number
+    */
     public function getPhoneNumber():string
     {
         return $this->phone;
     }
+    /**
+    * @return string  The contacts email
+    */
     public function getEmail():string
     {
         return $this->email ?? "";
     }
+
+    /**
+    * @return string  The contacts title
+    */
     public function getTitle():string
     {
         return $this->title ?? "";
     }
+
+    /**
+    * @return string  The contacts company or other organization
+    */
     public function getOrganization():string
     {
         return $this->organization ?? "";
     }
+    /**
+    * @return string  The contact notes
+    */
     public function getNotes():string
     {
         return $this->notes ?? "";
