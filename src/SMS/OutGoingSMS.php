@@ -65,6 +65,17 @@ class OutGoingSMS extends SMS implements \JsonSerializable
         $this->numbers = array_values($this->numbers);
     }
     /**
+    * Returns the number in the given index.
+    * @param int $index
+    */
+    public function getNumber(int $index)
+    {
+        if ($index >= count($this->numbers)) {
+            throw new \IP1\RESTClient\Exception\UndefinedOffsetException();
+        }
+        return $this->numbers[$index];
+    }
+    /**
     * Returns all the number recipient list.
     * @return array
     */
