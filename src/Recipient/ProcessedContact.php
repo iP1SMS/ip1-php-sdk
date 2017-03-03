@@ -60,12 +60,12 @@ class ProcessedContact extends Contact implements UpdatableComponent
     /**
     * @return bool Wether the object is read only or not
     */
-    public function getReadOnly(): bool
+    public function isReadOnly(): bool
     {
         return self::IS_READ_ONLY;
     }
     /**
-    * @param  DateTimeZone $timezone (optional) The timezone that the user wants to get the DateTime in.
+    * @param  DateTimeZone $timezone (optional) The timezone that the user wants to get the DateTime in. Default is UTC
     * @return DateTime  When the Contact was added
     */
     public function getCreated(\DateTimeZone $timezone = null): ?\DateTime

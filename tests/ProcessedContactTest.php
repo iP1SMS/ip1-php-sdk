@@ -39,7 +39,7 @@ class ProcessedContactTest extends TestCase
         $this->assertEquals(new \DateTime($this->completeContactStd->Modified, new DateTimeZone("UTC")), $contact->getUpdated());
         $this->assertEquals(new \DateTime($this->completeContactStd->Created, new DateTimeZone("UTC")), $contact->getCreated());
         $this->assertEquals($this->completeContactStd->ID, $contact->getID());
-        $this->assertEquals(ProcessedContact::IS_READ_ONLY, $contact->getReadOnly());
-        $this->assertEquals(false, $contact->getReadOnly());
+        $this->assertEquals(ProcessedContact::IS_READ_ONLY, $contact->isReadOnly());
+        $this->assertEquals(false, $contact->isReadOnly());
     }
 }

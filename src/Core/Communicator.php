@@ -48,7 +48,7 @@ class Communicator
     *   @param string $endPoint    The URI that the function should use.
     *   @param string $method      The HTTP method that should be used, valid ones are: POST, GET, DELETE, PUT.
     *   @param string $content     A JSON string containing all additional data that doesn't belong in $endPoint.
-    *   @param bool $https         Wether the the API call should use HTTPS or not(HTTP).
+    *   @param bool $https         Whether the the API call should use HTTPS or not(HTTP).
     *   @return string             The response from the API
     */
     private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): string
