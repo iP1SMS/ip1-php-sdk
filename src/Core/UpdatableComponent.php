@@ -1,7 +1,16 @@
 <?php
-
+/**
+* Contains the UpdatableComponent interface
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+*/
 namespace IP1\RESTClient\Core;
 
+/**
+* If an entity can be changed by the user or API after it has been added to the API that class implements this interface.
+* @package \IP1\RESTClient\Core
+*/
 interface UpdatableComponent extends ProcessedComponent
 {
     /**

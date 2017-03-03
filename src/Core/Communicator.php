@@ -1,13 +1,26 @@
 <?php
-
+/**
+* Contains Communicator class
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+*/
 namespace IP1\RESTClient\Core;
 
+/**
+* Handles request to the API and converts the responses into the data classes.
+* @package \IP1\RESTClient\Core
+*/
 class Communicator
 {
     private $accessQuery;
 
     const DOMAIN = "api.ip1sms.com";
-
+    /**
+    * Communicator constructor
+    * @param string $accountToken
+    * @param string $accessToken
+    */
     public function __construct(string $accountToken, string $accessToken)
     {
         $this->accessQuery =  base64_encode($accountToken .":" . $accessToken);

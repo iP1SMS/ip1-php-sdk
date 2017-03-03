@@ -1,12 +1,19 @@
 <?php
-
 /**
- *
- */
+* Contains the ProcessedContact class
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+*/
 namespace IP1\RESTClient\Recipient;
 
 use \IP1\RESTClient\Core\UpdatableComponent;
 
+/**
+* A Contact that has been added to the API. Has all the options that a normal Contact has.
+* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
+* @package \IP1\RESTClient\SMS;
+*/
 class ProcessedContact extends Contact implements UpdatableComponent
 {
     private $updated;
@@ -45,8 +52,7 @@ class ProcessedContact extends Contact implements UpdatableComponent
     }
 
     /**
-    * @param  DateTimeZone $timezone (optional) The timezone that the user wants to get the DateTime in.
-    * @return DateTime When the contact was updated/modified last
+    * {@inheritDoc}
     */
     public function getUpdated(\DateTimeZone $timezone = null): ?\DateTime
     {
@@ -58,7 +64,7 @@ class ProcessedContact extends Contact implements UpdatableComponent
         return $this->updated ?? null;
     }
     /**
-    * @return bool Wether the object is read only or not
+    * @return bool Whether the object is read only or not
     */
     public function isReadOnly(): bool
     {
@@ -94,8 +100,10 @@ class ProcessedContact extends Contact implements UpdatableComponent
             ['ID' => $this->contactID],
             $contactArray,
             [
-                'Modified' => $this->updated->format("Y-m-d\TH:i:s."). substr($this->updated->format('u'), 0, 3) ?? null,
-                'Created' => $this->created->format("Y-m-d\TH:i:s."). substr($this->updated->format('u'), 0, 3) ?? null,
+                'Modified' => $this->updated->format("Y-m-d\TH:i:s.").
+                  substr($this->updated->format('u'), 0, 3) ?? null,
+                'Created' => $this->created->format("Y-m-d\TH:i:s.").
+                  substr($this->updated->format('u'), 0, 3) ?? null,
             ]
         );
         return array_filter($returnArray);

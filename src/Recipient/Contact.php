@@ -1,7 +1,17 @@
 <?php
-
+/**
+* Contains the Contact class
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+*/
 namespace IP1\RESTClient\Recipient;
 
+/**
+* Contact class that represents the JSON that is sent to the API when adding a new Contact
+* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
+* @package \IP1\RESTClient\Recipient;
+*/
 class Contact implements \JsonSerializable
 {
     private $firstName;

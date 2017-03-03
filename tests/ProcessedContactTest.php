@@ -1,4 +1,9 @@
 <?php
+/**
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+*/
 use PHPUnit\Framework\TestCase;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\ProcessedContact;
