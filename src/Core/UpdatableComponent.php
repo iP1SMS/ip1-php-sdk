@@ -8,7 +8,8 @@
 namespace IP1\RESTClient\Core;
 
 /**
-* If an entity can be changed by the user or API after it has been added to the API that class implements this interface.
+* If an entity can be changed by the user or the API after it has been added to the API
+*   that class implements this interface.
 * @package \IP1\RESTClient\Core
 */
 interface UpdatableComponent extends ProcessedComponent

@@ -14,4 +14,4 @@ pipelines:
           - composer install
           - vendor/bin/phpunit
           - vendor/bin/phpcbf --standard=PSR2 src
-          - vendor/bin/phpcs
+          - vendor/bin/phpcs --standard=PSR2 src
