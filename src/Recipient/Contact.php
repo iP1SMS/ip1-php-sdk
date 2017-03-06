@@ -70,6 +70,10 @@ class Contact implements \JsonSerializable
         ];
         return array_filter($returnArray);
     }
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize());
+    }
     /**
     * @param string $firstName Sets the first name of the contact
     */

@@ -39,7 +39,7 @@ abstract class SMS implements \JsonSerializable
     */
     public function __construct(string $sender, string $message)
     {
-        $this->from = $sender;
+        $this->setSender($sender);
         $this->message = $message;
     }
     /**
@@ -65,6 +65,13 @@ abstract class SMS implements \JsonSerializable
     */
     public function setSender(string  $sender): void
     {
+
+        if (preg_match("/^\+?[0-9]+$/m", $sender) && strlen($sender) > 18) {
+            trigger_error("Sender number too long, max length is 18 digits", E_USER_WARNING);
+        } elseif (strlen($sender) > 11) {
+            trigger_error("Sender string too long, non numeric senders have max length of 11 characters.", E_USER_WARNING);
+        }
+        // We do not truncate the sender as the API will do that and the developer might request the sender string back.
         $this->from = $sender;
     }
     /**

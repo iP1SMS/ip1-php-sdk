@@ -1,5 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Exception;
 use IP1\RESTClient\SMS\OutGoingSMS;
 use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
@@ -15,7 +16,7 @@ class OutGoingSMSTest extends TestCase
     {
         $contact = RecipientFactory::createProcessedContactFromJSON(file_get_contents('tests/resources/processed_contact/processed_contact.json'));
 
-        $sms = new OutGoingSMS("Jack Sparrow", "Why is the rum gone?");
+        $sms = new OutGoingSMS("Jack", "Why is the rum gone?");
         $sms->addNumber("12025550111");
         $sms->addContact($contact);
         $stdSMS = json_decode(json_encode($sms));
@@ -23,7 +24,7 @@ class OutGoingSMSTest extends TestCase
     }
     public function testNumbers()
     {
-        $sms = new OutGoingSMS("Jack Sparrow", "Why is the rum gone?");
+        $sms = new OutGoingSMS("Jack", "Why is the rum gone?");
         $sms->addNumber("12025550111");
         $this->assertEquals(1, count($sms->getAllNumbers()));
         $sms->removeNumber(0);
