@@ -4,7 +4,13 @@
   convertWarningsToExceptions="true">
   <testsuites>
     <testsuite name="recipient">
-      <directory>tests</directory>
+      <directory>tests/recipient</directory>
+    </testsuite>
+    <testsuite name="sms">
+      <directory>tests/sms</directory>
+    </testsuite>
+    <testsuite name="general">
+      <directory>tests/general</directory>
     </testsuite>
   </testsuites>
 </phpunit>
