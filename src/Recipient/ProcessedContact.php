@@ -100,10 +100,10 @@ class ProcessedContact extends Contact implements UpdatableComponent
             ['ID' => $this->contactID],
             $contactArray,
             [
-                'Modified' => $this->updated->format("Y-m-d\TH:i:s.").
-                  substr($this->updated->format('u'), 0, 3) ?? null,
-                'Created' => $this->created->format("Y-m-d\TH:i:s.").
-                  substr($this->updated->format('u'), 0, 3) ?? null,
+                'Modified' => isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
+                  substr($this->updated->format('u'), 0, 3) : null,
+                'Created' => isset($this->created) ? $this->created->format("Y-m-d\TH:i:s.").
+                  substr($this->updated->format('u'), 0, 3) : null,
             ]
         );
         return array_filter($returnArray);
