@@ -7,6 +7,7 @@
 */
 namespace IP1\RESTClient\Recipient;
 
+use IP1\RESTClient\Recipient\ProcessedGroup;
 use IP1\RESTClient\Recipient\ProcessedContact;
 
 /**
@@ -123,5 +124,19 @@ class RecipientFactory
             isset($stdContact->Modified) ? new \DateTime($stdContact->Modified, new \DateTimeZone("UTC")) : null
         );
         return $contact;
+    }
+    public static function createProcessedGroupFromJSON(string $jsonContact): ProcessedGroup
+    {
+        return self::createProcessedGroupFromStdClass(json_decode($jsonGroup));
+    }
+    public static function createProcessedGroupFromStdClass(\stdClass $stdContact): ProcessedGroup
+    {
+        return new ProcessedGroup(
+            $stdContact->Name,
+            $stdContact->Color,
+            $stdContact->ID,
+            new \DateTime($stdContact->Created),
+            new \DateTime($stdContact->Modified)
+        );
     }
 }
