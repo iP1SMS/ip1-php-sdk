@@ -9,6 +9,7 @@ namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Recipient\ProcessedGroup;
 use IP1\RESTClient\Recipient\ProcessedContact;
+use IP1\RESTClient\Recipient\ProcessedMembership;
 
 /**
 * Handles construction of Recipients.
@@ -138,5 +139,30 @@ class RecipientFactory
             new \DateTime($stdContact->Created),
             new \DateTime($stdContact->Modified)
         );
+    }
+    public static function createProcessedMembershipFromJSON(string $jsonMembership): ProcessedMembership
+    {
+        return self::createProcessedMembershipFromStdClass(json_decode($jsonMembership));
+    }
+    public static function createProcessedMembershipFromStdClass(\stdClass $stdMembership): ProcessedMembership
+    {
+        return new ProcessedMembership(
+            $stdMembership->Group,
+            $stdMembership->Contact,
+            $stdMembership->ID,
+            new \DateTime($stdMembership->Created)
+        );
+    }
+    public static function createProcessedMembershipsFromStdClassArray(array $stdMemberships): array
+    {
+        $memberships = [];
+        foreach ($stdMemberships as $m) {
+            $memberships[] = self::createProcessedMembershipFromStdClass($m);
+        }
+        return $memberships;
+    }
+    public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): array
+    {
+        return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
     }
 }
