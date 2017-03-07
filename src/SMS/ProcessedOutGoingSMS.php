@@ -8,17 +8,46 @@
 
 namespace IP1\RESTClient\SMS;
 
+use IP1\RESTClient\Core\UpdatableComponent;
+
 /**
 * The response from the API when you post an SMS to the API
 * @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
 * @package \IP1\RESTClient\SMS
 */
-class ProcessedOutGoingSMS extends OutGoingSMS
+class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
 {
+    private $smsID;
     private $bundleID;
     private $status;
     private $statusDescription;
     private $recipient;
+    private $created;
+    private $updated;
+    const IS_READ_ONLY = true;
+
+    public function __construct(
+        string $sender,
+        string $message,
+        string $recipient,
+        int $smsID,
+        \DateTime $created,
+        \DateTime $updated,
+        int $status,
+        string $statusDescription = "",
+        ?int $bundleID = null
+    ) {
+
+        $this->from = $sender;
+        $this->message = $message;
+        $this->recipient = $recipient;
+        $this->smsID = $smsID;
+        $this->status = $status;
+        $this->statusDescription = $statusDescription;
+        $this->bundleID = $bundleID;
+        $this->created = $created;
+        $this->updated = $updated;
+    }
     /**
     * @return int Message bundle ID, if any
     */
@@ -49,23 +78,43 @@ class ProcessedOutGoingSMS extends OutGoingSMS
     {
         return $this->recipient;
     }
-    /** {@inheritDoc} */
-    public function jsonSerialize(): \stdClass
+    public function getUpdated(\DateTimeZone $timezone = null): ?\DateTime
     {
-        $returnObject = parent::jsonSerialize();
-        if (!empty($this->bundleID)) {
-            $returnObject->BundleID = $this->bundleID;
+        if (!is_null($timezone)) {
+            $returnDate = clone $this->updated;
+            $returnDate->setTimeZone($timezone);
+            return $returnDate;
         }
-        if (!empty($this->status)) {
-            $returnObject->Status = $this->status;
+        return $this->updated ?? null;
+    }
+    /**
+    * @return bool Whether the object is read only or not
+    */
+    public function isReadOnly(): bool
+    {
+        return self::IS_READ_ONLY;
+    }
+    /**
+    * @param  DateTimeZone $timezone (optional) The timezone that the user wants to get the DateTime in. Default is UTC
+    * @return DateTime  When the Contact was added
+    */
+    public function getCreated(\DateTimeZone $timezone = null): ?\DateTime
+    {
+        if (!is_null($timezone)) {
+            $returnDate = clone $this->created;
+            $returnDate->setTimeZone($timezone);
+            return $returnDate;
         }
-        if (!empty($this->statusDescription)) {
-            $returnObject->StatusDescription = $this->statusDescription;
-        }
-        if (!empty($this->recipient)) {
-            $returnObject->Recipient = $this->recipient;
-        }
-        return $returnObject;
+        return $this->created ?? null;
+    }
+    /**
+    * @return int SMS ID
+    */
+    public function getID():int
+    {
+        return $this->smsID;
+    }
+
     /** {@inheritDoc} */
     public function jsonSerialize(): array
     {
