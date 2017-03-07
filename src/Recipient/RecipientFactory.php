@@ -89,6 +89,14 @@ class RecipientFactory
     {
         return self::createProcessedContactFromStdClass(json_decode($jsonContact));
     }
+    public static function createProcessedContactFromStdClassArray(array $contactArray): array
+    {
+        $contacts = [];
+        foreach ($contactArray as $c) {
+            $contacts[] = self::createProcessedContactFromStdClass($c);
+        }
+        return $contacts;
+    }
     /**
     * Creates a ProcessedContact using the stdClass given.
     * @param \stdClass $stdContact An stdClass object matching the format of the IP1 SMS API
