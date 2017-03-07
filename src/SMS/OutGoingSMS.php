@@ -43,6 +43,7 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     * Adds the number to the recipient list.
     * @param string $number A number that should be added to the recipient list
     */
+
     public function addNumber(string $number): void
     {
         $this->numbers[] = $number;
@@ -153,25 +154,24 @@ class OutGoingSMS extends SMS implements \JsonSerializable
 
 
     /** {@inheritDoc} */
-    public function jsonSerialize(): \stdClass
+    public function jsonSerialize(): array
     {
-        $returnObject = parent::jsonSerialize();
-        $returnObject->Email = $this->email;
-        if (count($this->numbers) > 0) {
-            $returnObject->Numbers = $this->numbers;
-        }
+
+        $returnArray = parent::jsonSerialize();
+        $returnArray['Email'] = $this->email;
+        $returnArray['Numbers'] = $this->numbers;
         if (count($this->contacts) > 0) {
-            $returnObject->Contacts = [];
+            $returnArray['Contacts'] = [];
             foreach ($this->contacts as $contact) {
-                $returnObject->Contacts[] = $contact->getID();
+                $returnArray['Contacts'][] = $contact->getID();
             }
         }
         if (count($this->groups) > 0) {
-            $returnObject->Groups = [];
+            $returnArray['Groups'] = [];
             foreach ($this->groups as $group) {
-                $returnObject->Groups[] = $group->getID();
+                $returnArray['Groups'][] = $group->getID();
             }
         }
-        return $returnObject;
+        return $returnArray;
     }
 }

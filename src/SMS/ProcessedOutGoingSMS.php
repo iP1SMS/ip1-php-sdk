@@ -66,5 +66,22 @@ class ProcessedOutGoingSMS extends OutGoingSMS
             $returnObject->Recipient = $this->recipient;
         }
         return $returnObject;
+    /** {@inheritDoc} */
+    public function jsonSerialize(): array
+    {
+        $parentArray = parent::jsonSerialize();
+
+        $returnArray = [
+            'ID' => $this->smsID,
+            'BundleID' => $this->bundleID,
+            'Status' => $this->status,
+            'StatusDescription' => $this->statusDescription,
+            'To' => $this->recipient,
+            'ModifiedDate' => $this->updated->format("Y-m-d\TH:i:s.").
+                substr($this->updated->format('u'), 0, 3) ?? null,
+            'CreatedDate' => $this->created->format("Y-m-d\TH:i:s.").
+                substr($this->updated->format('u'), 0, 3) ?? null,
+        ];
+        return array_filter(array_merge($parentArray, $returnArray));
     }
 }

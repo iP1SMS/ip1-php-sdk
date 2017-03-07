@@ -71,7 +71,7 @@ abstract class SMS implements \JsonSerializable
                 "Sender number too long, max length is 18 digits",
                 E_USER_WARNING
             );
-        } elseif (strlen($sender) > 11) {
+        } elseif (preg_match("/[a-zA-Z]+/m", $sender) && strlen($sender) > 11) {
             trigger_error(
                 "Sender string too long, non numeric senders have max length of 11 characters.",
                 E_USER_WARNING
@@ -83,12 +83,13 @@ abstract class SMS implements \JsonSerializable
     /**
     * {@inheritDoc}
     */
-    public function jsonSerialize(): \stdClass
+    public function jsonSerialize(): array
     {
-        $returnObject = new \stdClass();
-        $returnObject->Prio = $this->prio;
-        $returnObject->From = $this->from;
-        $returnObject->Message = $this->message;
-        return $returnObject;
+        $returnArray = [
+        'Prio' => $this->prio,
+        'From' => $this->from,
+        'Message'=> $this->message
+        ];
+        return $returnArray;
     }
 }
