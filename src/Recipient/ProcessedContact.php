@@ -108,4 +108,8 @@ class ProcessedContact extends Contact implements UpdatableComponent
         );
         return array_filter($returnArray);
     }
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }

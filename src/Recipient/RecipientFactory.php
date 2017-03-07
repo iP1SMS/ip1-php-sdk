@@ -126,7 +126,7 @@ class RecipientFactory
         );
         return $contact;
     }
-    public static function createProcessedGroupFromJSON(string $jsonContact): ProcessedGroup
+    public static function createProcessedGroupFromJSON(string $jsonGroup): ProcessedGroup
     {
         return self::createProcessedGroupFromStdClass(json_decode($jsonGroup));
     }
@@ -164,5 +164,13 @@ class RecipientFactory
     public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): array
     {
         return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
+    }
+    public static function export(array $exportables): array
+    {
+        $returnArray = [];
+        foreach ($exportables as $value) {
+            $returnArray[] = $value->jsonSerialize();
+        }
+        return $returnArray;
     }
 }
