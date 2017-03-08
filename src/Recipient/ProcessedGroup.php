@@ -19,6 +19,8 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     private $updated;
     protected $memberships = [];
     protected $fechedMemberships = false;
+    protected $contacts = [];
+    protected $contactsFetched = false;
     const IS_READ_ONLY = false;
 
     public function __construct(string $name, string $color, int $groupID, \DateTime $created, \DateTime $updated)
@@ -56,6 +58,17 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     public function memberShipsFetched(): bool
     {
         return $this->fetchedMemberships;
+    }
+    public function getGroups(Communicator $communicator = null): array
+    {
+        if ($communicator != null) {
+            $contactStd = $communicator->get('api/groups/'.$this->groupID. '/contacts');
+            $contactStd = json_decode($contactStd);
+            $contacts = RecipientFactory::createProcessedGroupsFromStdClassArray($contactStd);
+            $this->contacts = $contacts;
+            $this->contactsFetched = true;
+        }
+        return $this->contacts;
     }
 
 

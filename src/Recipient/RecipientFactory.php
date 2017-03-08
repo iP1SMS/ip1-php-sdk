@@ -144,6 +144,14 @@ class RecipientFactory
     {
         return self::createProcessedMembershipFromStdClass(json_decode($jsonMembership));
     }
+    public static function createProcessedGroupsFromStdClassArray(array $stdGroups): array
+    {
+        $groups = [];
+        foreach ($stdGroups as $value) {
+            $groups[] = self::createProcessedGroupFromStdClass($value);
+        }
+        return $groups;
+    }
     public static function createProcessedMembershipFromStdClass(\stdClass $stdMembership): ProcessedMembership
     {
         return new ProcessedMembership(

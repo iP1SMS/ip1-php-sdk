@@ -8,18 +8,25 @@
 namespace IP1\RESTClient\Recipient;
 
 use \IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Recipient\RecipientFactory;
+use IP1\RESTClient\Recipient\MembershipRelation;
+use IP1\RESTClient\Core\Communicator;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
 * @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
-* @package \IP1\RESTClient\SMS;
+* @package \IP1\RESTClient\Recipient;
 */
-class ProcessedContact extends Contact implements UpdatableComponent
+class ProcessedContact extends Contact implements UpdatableComponent, MembershipRelation
 {
     private $updated;
     private $contactID;
     private $created;
     const IS_READ_ONLY = false;
+    protected $memberships = [];
+    protected $membershipsFetched = false;
+    protected $groups = [];
+    protected $groupsFetched = false;
     /**
     * The ProcessedContact constructor
     *
@@ -50,7 +57,40 @@ class ProcessedContact extends Contact implements UpdatableComponent
         $this->created = $created ?? null;
         $this->updated = $updated ?? null;
     }
-
+    public function getMemberships(Communicator $communicator = null): array
+    {
+        if ($communicator != null) {
+            $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
+            $membershipStd = json_decode($membershipJSON);
+            $memberships = [];
+            foreach ($membershipStd as $value) {
+                $memberships[] = RecipientFactory::createProcessedMembershipFromStdClass($value);
+            }
+            $this->memberships = $memberships;
+            $this->fetchedMemberships = true;
+        }
+        //TODO: Add functionality for fetching from the API
+        return $this->memberships;
+    }
+    public function getGroups(Communicator $communicator = null): array
+    {
+        if ($communicator != null) {
+            $groupsJSON = $communicator->get('api/contacts/'.$this->contactID. '/groups');
+            $groupStd = json_decode($groupsJSON);
+            $groups = RecipientFactory::createProcessedGroupsFromStdClassArray($groupStd);
+            $this->groups = $groups;
+            $this->fetchedGroups = true;
+        }
+        return $this->groups;
+    }
+    public function isGroupsFetched(): bool
+    {
+        return $this->groupsFetched;
+    }
+    public function memberShipsFetched(): bool
+    {
+        return $this->fetchedMemberships;
+    }
     /**
     * {@inheritDoc}
     */
@@ -101,9 +141,9 @@ class ProcessedContact extends Contact implements UpdatableComponent
             $contactArray,
             [
                 'Modified' => isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
-                  substr($this->updated->format('u'), 0, 3) : null,
+                substr($this->updated->format('u'), 0, 3) : null,
                 'Created' => isset($this->created) ? $this->created->format("Y-m-d\TH:i:s.").
-                  substr($this->updated->format('u'), 0, 3) : null,
+                substr($this->updated->format('u'), 0, 3) : null,
             ]
         );
         return array_filter($returnArray);
