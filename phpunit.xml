@@ -12,5 +12,8 @@
     <testsuite name="general">
       <directory>tests/general</directory>
     </testsuite>
+    <testsuite name="core">
+      <directory>tests/core</directory>
+    </testsuite>
   </testsuites>
 </phpunit>
