@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<ruleset name="PSR2 Extended">
+  <description>The PSR2 standard with a few added elements</description>
+
+   <rule ref="PSR2"/>
+   <rule ref="Generic.Commenting.Todo"/>
+   <rule ref="Squiz.Commenting.FunctionComment" />
+  <rule ref="Squiz.Commenting.FunctionCommentThrowTag" />
+  <rule ref="Squiz.Commenting.ClassComment" />
+  <rule ref="Squiz.Commenting.VariableComment" />
+</ruleset>
