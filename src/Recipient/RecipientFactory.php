@@ -10,6 +10,7 @@ namespace IP1\RESTClient\Recipient;
 use IP1\RESTClient\Recipient\ProcessedGroup;
 use IP1\RESTClient\Recipient\ProcessedContact;
 use IP1\RESTClient\Recipient\ProcessedMembership;
+use IP1\RESTClient\Core\ClassValidationArray;
 
 /**
 * Handles construction of Recipients.
@@ -91,9 +92,9 @@ class RecipientFactory
     {
         return self::createProcessedContactFromStdClass(json_decode($jsonContact));
     }
-    public static function createProcessedContactFromStdClassArray(array $contactArray): array
+    public static function createProcessedContactFromStdClassArray(array $contactArray): ClassValidationArray
     {
-        $contacts = [];
+        $contacts = new ClassValidationArray();
         foreach ($contactArray as $c) {
             $contacts[] = self::createProcessedContactFromStdClass($c);
         }
@@ -144,9 +145,9 @@ class RecipientFactory
     {
         return self::createProcessedMembershipFromStdClass(json_decode($jsonMembership));
     }
-    public static function createProcessedGroupsFromStdClassArray(array $stdGroups): array
+    public static function createProcessedGroupsFromStdClassArray(array $stdGroups): ClassValidationArray
     {
-        $groups = [];
+        $groups = new ClassValidationArray();
         foreach ($stdGroups as $value) {
             $groups[] = self::createProcessedGroupFromStdClass($value);
         }
@@ -161,21 +162,21 @@ class RecipientFactory
             new \DateTime($stdMembership->Created)
         );
     }
-    public static function createProcessedMembershipsFromStdClassArray(array $stdMemberships): array
+    public static function createProcessedMembershipsFromStdClassArray(array $stdMemberships): ClassValidationArray
     {
-        $memberships = [];
+        $memberships = new ClassValidationArray();
         foreach ($stdMemberships as $m) {
             $memberships[] = self::createProcessedMembershipFromStdClass($m);
         }
         return $memberships;
     }
-    public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): array
+    public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): ClassValidationArray
     {
         return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
     }
-    public static function export(array $exportables): array
+    public static function export(array $exportables): ClassValidationArray
     {
-        $returnArray = [];
+        $returnArray = ClassValidationArray();
         foreach ($exportables as $value) {
             $returnArray[] = $value->jsonSerialize();
         }
