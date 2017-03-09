@@ -48,7 +48,7 @@ class ClassValidationArrayTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $array = new ClassValidationArray($validArray);
-        $array[] = new Mysqli();
+        $array[] = new ArrayObject();
     }
 
     /**
