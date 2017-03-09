@@ -78,7 +78,7 @@ class Group implements \JsonSerializable
         $this->color = $color;
     }
     /** {@inheritDoc} */
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $returnArray = [
             'Name' => $this->name,

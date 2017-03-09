@@ -37,7 +37,7 @@ class Membership implements \JsonSerializable
     * Returns Group ID
     * @return int
     */
-    public function getGroupID()
+    public function getGroupID(): int
     {
         return $this->groupID;
     }
@@ -45,11 +45,11 @@ class Membership implements \JsonSerializable
     * Returns Contact ID
     * @return int
     */
-    public function getContactID()
+    public function getContactID(): int
     {
         return $this->contactID;
     }
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         $returnArray = [
         'Group' => $this->groupID,

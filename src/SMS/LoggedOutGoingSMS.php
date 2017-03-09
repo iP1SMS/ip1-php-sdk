@@ -21,7 +21,7 @@ class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableCompone
     const IS_READ_ONLY = true;
 
 
-    public function getReadOnly()
+    public function getReadOnly(): bool
     {
         return IS_READ_ONLY;
     }

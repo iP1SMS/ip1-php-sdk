@@ -24,4 +24,8 @@ interface ProcessedComponent extends \JsonSerializable
     * @return DateTime When the Component was added
     */
     public function getCreated(\DateTimeZone $timezone = null): ?\DateTime;
+    /**
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     */
+    public function jsonSerialize(): array;
 }
