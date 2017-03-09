@@ -1,3 +1,6 @@
+# PHPDoc generation folder
+/phpdoc/
+
 # Composer directories
 composer.phar
 /vendor/
