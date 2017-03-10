@@ -16,12 +16,12 @@ class Membership implements \JsonSerializable
 
     /**
     * A Group ID.
-    * @var int $groupID
+    * @var integer $groupID
     */
     protected $groupID;
 /**
     * A Contact ID.
-    * @var int $contactID
+    * @var integer $contactID
     */
     protected $contactID;
 /**

@@ -22,7 +22,7 @@ interface MembershipRelation
     public function getMemberShips(): array;
   /**
   * Tells whether memberships has been fetched from the API or not.
-  * @return bool Whether the memberships has been fetched from the API or not
+  * @return boolean Whether the memberships has been fetched from the API or not
   */
     public function memberShipsFetched(): bool;
 }

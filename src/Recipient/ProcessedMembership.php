@@ -20,7 +20,7 @@ class ProcessedMembership extends Membership implements ProcessedComponent
 
     /**
     * The ID of the Membership.
-    * @var int $membershipID
+    * @var integer $membershipID
     */
     private $membershipID;
     /**

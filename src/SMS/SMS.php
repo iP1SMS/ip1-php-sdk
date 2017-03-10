@@ -16,7 +16,7 @@ abstract class SMS implements \JsonSerializable
 {
     /**
     * Message priority level, normal (1) or high (2).
-    * @var int $priority
+    * @var integer $priority
     */
     protected $prio = 1;
     /**

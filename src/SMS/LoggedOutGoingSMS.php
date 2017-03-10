@@ -45,7 +45,7 @@ class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableCompone
     }
     /**
     * Returns whether the object is read only or not.
-    * @return bool Whether the object is read only or not
+    * @return boolean Whether the object is read only or not
     */
     public function isReadOnly(): bool
     {

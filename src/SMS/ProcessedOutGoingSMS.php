@@ -19,7 +19,7 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
 {
     /**
     * The ID of the SMS provided by the API.
-    * @var int $smsID
+    * @var integer $smsID
     */
     private $smsID;
     /**
@@ -29,7 +29,7 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
     private $bundleID;
     /**
     * The status code of the SMS.
-    * @var int $status
+    * @var integer $status
     */
     private $status;
     /**
@@ -134,7 +134,7 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
     }
     /**
     * Returns whether the object is read only or not.
-    * @return bool Whether the object is read only or not
+    * @return boolean Whether the object is read only or not
     */
     public function isReadOnly(): bool
     {

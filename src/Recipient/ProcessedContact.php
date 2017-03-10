@@ -21,7 +21,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
 {
     /**
     * The ID of the Contact given by the API.
-    * @var int $contactID
+    * @var integer $contactID
     */
     private $contactID;
     /**
@@ -45,7 +45,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     protected $memberships = [];
     /**
     * Tells whether memberships has been fetched from the API.
-    * @var bool $fetchedMemberships Defaults to false.
+    * @var boolean $fetchedMemberships Defaults to false.
     */
     protected $fetchedMemberships = false;
     /**
@@ -59,7 +59,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     protected $groups = [];
     /**
     * Tells wheter Groups has been fetched from the API.
-    * @var bool $groupsFetched Defaults to false.
+    * @var boolean $groupsFetched Defaults to false.
     */
     protected $groupsFetched = false;
     const IS_READ_ONLY = false;
@@ -135,7 +135,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     }
     /**
     * Tells whether Groups has been fetched from the API or not.
-    * @return bool Whether the Groups has been fetched from the API or not.
+    * @return boolean Whether the Groups has been fetched from the API or not.
     */
     public function isGroupsFetched(): bool
     {
@@ -143,7 +143,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     }
     /**
     * Tells whether Memberships has been fetched from the API or not.
-    * @return bool Whether the Memberships has been fetched from the API or not.
+    * @return boolean Whether the Memberships has been fetched from the API or not.
     */
     public function memberShipsFetched(): bool
     {
@@ -165,7 +165,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
         return $this->updated ?? null;
     }
     /**
-    * @return bool Whether the object is read only or not.
+    * @return boolean Whether the object is read only or not.
     */
     public function isReadOnly(): bool
     {

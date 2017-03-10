@@ -20,7 +20,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
 {
     /**
     * The ID of the Group given by the API.
-    * @var int $groupID
+    * @var integer $groupID
     */
     private $groupID;
     /**
@@ -44,7 +44,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     protected $memberships = [];
     /**
     * Tells whether memberships has been fetched from the API.
-    * @var bool $fetchedMemberships Defaults to false.
+    * @var boolean $fetchedMemberships Defaults to false.
     */
     protected $fetchedMemberships = false;
     /**
@@ -58,7 +58,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     protected $contacts = [];
     /**
     * Tells wheter contacts has been fetched from the API.
-    * @var bool $contactsFetched Defaults to false.
+    * @var boolean $contactsFetched Defaults to false.
     */
     protected $contactsFetched = false;
     const IS_READ_ONLY = false;
@@ -86,7 +86,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     }
     /**
     * Returns whether the object is read only or not.
-    * @return bool Whether the object is read only or not.
+    * @return boolean Whether the object is read only or not.
     */
     public function isReadOnly(): bool
     {
@@ -115,7 +115,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     }
     /**
     * Tells whether memberships has been fetched from the API or not.
-    * @return bool Whether the memberships has been fetched from the API or not.
+    * @return boolean Whether the memberships has been fetched from the API or not.
     */
     public function memberShipsFetched(): bool
     {

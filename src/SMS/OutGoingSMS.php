@@ -35,7 +35,7 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     protected $groups = [];
     /**
     * If emails should be sent to the recipients aswell.
-    * @var bool $email
+    * @var boolean $email
     */
     protected $email = false;
 

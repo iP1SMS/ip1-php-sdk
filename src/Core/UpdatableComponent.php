@@ -23,7 +23,7 @@ interface UpdatableComponent extends ProcessedComponent
     public function getUpdated(\DateTimeZone $timezone = null): ?\DateTime;
     /**
     * Returns whether the object is read only or not.
-    * @return bool Whether the object is read only or not.
+    * @return boolean Whether the object is read only or not.
     */
     public function isReadOnly(): bool;
 
