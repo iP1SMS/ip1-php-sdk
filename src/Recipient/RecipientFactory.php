@@ -8,6 +8,8 @@
 */
 namespace IP1\RESTClient\Recipient;
 
+//use IP1\RESTClient\Core\ClassValidationArray;
+
 /**
 * Handles construction of Recipients.
 */
