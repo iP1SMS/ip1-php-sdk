@@ -4,6 +4,8 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package \IP1\RESTClient\SMS
+* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
 */
 
 namespace IP1\RESTClient\SMS;
@@ -12,20 +14,57 @@ use IP1\RESTClient\Core\UpdatableComponent;
 
 /**
 * The response from the API when you post an SMS to the API
-* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
-* @package \IP1\RESTClient\SMS
 */
 class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
 {
+    /**
+    * The ID of the SMS provided by the API.
+    * @var int $smsID
+    */
     private $smsID;
+    /**
+    * An ID that groups SMSes together if they where sent by the same request.
+    * @var int|null $bundleID
+    */
     private $bundleID;
+    /**
+    * The status code of the SMS.
+    * @var int $status
+    */
     private $status;
+    /**
+    * Describes what $status means.
+    * @var string $statusDescription
+    */
     private $statusDescription;
+    /**
+    * The phone number that the SMS was sent to.
+    * @var string $recipient
+    */
     private $recipient;
+    /**
+    * Stores when the sms was created in UTC.
+    * @var DateTime $created
+    */
     private $created;
+    /**
+    * Stores when the sms was last updated in UTC.
+    * @var DateTime $created
+    */
     private $updated;
     const IS_READ_ONLY = true;
-
+    /**
+    * ProcessedOutGoingSMS Constructor
+    * @param string       $sender            Phone number or name of the sender.
+    * @param string       $message           Message content.
+    * @param string       $recipient         The phone number that the SMS was sent to.
+    * @param integer      $smsID             The ID of the SMS provided by the API.
+    * @param \DateTime    $created           When the SMS was created.
+    * @param \DateTime    $updated           When the SMS was last updated (With a new status).
+    * @param integer      $status            What status code the SMS has.
+    * @param string       $statusDescription A describing sentence about the status code.
+    * @param integer|null $bundleID          An ID that groups SMSes together if they where sent by the same request.
+    */
     public function __construct(
         string $sender,
         string $message,
@@ -78,6 +117,12 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
     {
         return $this->recipient;
     }
+    /**
+    * Returns when the component was updated last.
+    * @param  \DateTimeZone $timezone The timezone that the user wants to get the DateTime in.
+    *       Default is UTC.
+    * @return \DateTime When the contact was updated/modified last.
+    */
     public function getUpdated(\DateTimeZone $timezone = null): ?\DateTime
     {
         if (!is_null($timezone)) {
@@ -88,6 +133,7 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         return $this->updated ?? null;
     }
     /**
+    * Returns whether the object is read only or not.
     * @return bool Whether the object is read only or not
     */
     public function isReadOnly(): bool
@@ -95,8 +141,9 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         return self::IS_READ_ONLY;
     }
     /**
-    * @param  DateTimeZone $timezone (optional) The timezone that the user wants to get the DateTime in. Default is UTC
-    * @return DateTime  When the Contact was added
+    * @param \DateTimeZone $timezone The timezone that the user wants to get the DateTime in.
+    *           Default is UTC.
+    * @return \DateTime|null  When the Contact was added.
     */
     public function getCreated(\DateTimeZone $timezone = null): ?\DateTime
     {
@@ -108,14 +155,18 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         return $this->created ?? null;
     }
     /**
-    * @return int SMS ID
+    * @return int SMS ID.
     */
     public function getID():int
     {
         return $this->smsID;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     * @return array Associative .
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
     public function jsonSerialize(): array
     {
         $parentArray = parent::jsonSerialize();

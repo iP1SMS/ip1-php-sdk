@@ -4,6 +4,8 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package \IP1\RESTClient\SMS
+* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
 */
 
 namespace IP1\RESTClient\SMS;
@@ -13,14 +15,12 @@ use IP1\RESTClient\Recipient\Group;
 
 /**
 * Class that is used when wanting to send SMSes to the API.
-* @link http://api.ip1sms.com/Help/Api/PUT-api-contacts-contact
-* @package \IP1\RESTClient\SMS;
 */
 class OutGoingSMS extends SMS implements \JsonSerializable
 {
     /**
-    * Contains all the phone numbers the SMS should be sent to
-    * @var array $numbers phone numbers
+    * Contains all the phone numbers the SMS should be sent to.
+    * @var array $numbers Phone numbers
     */
     protected $numbers = [];
     /**
@@ -41,38 +41,42 @@ class OutGoingSMS extends SMS implements \JsonSerializable
 
     /**
     * Adds the number to the recipient list.
-    * @param string $number A number that should be added to the recipient list
+    * @param string $number A number that should be added to the recipient list.
+    * @return void
     */
-
     public function addNumber(string $number): void
     {
         $this->numbers[] = $number;
     }
     /**
     * Adds the given array of numbers to the recipient list.
-    * @param array $numbers An array of numbers(string)
+    * @param array $numbers An array of numbers(string).
+    * @return void
     */
     public function addAllNumbers(array $numbers): void
     {
         $this->numbers = array_merge($this->numbers, $numbers);
     }
     /**
-    * Removes the given index from the number recipient list
-    * @param int $index
+    * Removes the given index from the number recipient list.
+    * @param integer $index The index being requested for deletion.
+    * @return void
     */
-    public function removeNumber(int $index)
+    public function removeNumber(int $index): void
     {
         unset($this->numbers[$index]);
         $this->numbers = array_values($this->numbers);
     }
     /**
     * Returns the number in the given index.
-    * @param int $index
+    * @param integer $index The index being requested.
+    * @return string    Phone number.
+    * @throws \UndefinedOffsetException Thrown when the index requested does not exist.
     */
-    public function getNumber(int $index)
+    public function getNumber(int $index): string
     {
         if ($index >= count($this->numbers)) {
-            throw new \IP1\RESTClient\Exception\UndefinedOffsetException();
+            throw new \UndefinedOffsetException();
         }
         return $this->numbers[$index];
     }
@@ -86,15 +90,17 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
     /**
     * Adds the ProcessedContact to the recipient list.
-    * @param ProcessedContact $contact A ProcessedContact that should be added to the recipient list
+    * @param ProcessedContact $contact A ProcessedContact that should be added to the recipient list.
+    * @return void
     */
     public function addContact(ProcessedContact $contact): void
     {
         $this->contacts[] = $contact;
     }
     /**
-    * Removes the Contact in the given index and reindexes the array
-    * @param int $index
+    * Removes the Contact in the given index and reindexes the array.
+    * @param integer $index The index being requested for deletion.
+    * @return void
     */
     public function removeContact(int $index): void
     {
@@ -103,7 +109,8 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
     /**
     * Adds the given array of contacts to the Contact recipient list.
-    * @param array An array of Contact
+    * @param array $contacts An array of Contact.
+    * @return void
     */
     public function addAllContacts(array $contacts): void
     {
@@ -111,7 +118,8 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
     /**
     * Adds the given Group to the recipient list.
-    * @param Group $group A Group that should be added to the recipient list
+    * @param Group $group A Group that should be added to the recipient list.
+    * @return void
     */
     public function addGroup(Group $group): void
     {
@@ -119,15 +127,17 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
     /**
     * Adds the given array of Groups to the recipient list.
-    * @param array $groups An array of Groups
+    * @param array $groups An array of Groups.
+    * @return void
     */
     public function addAllGroups(array $groups): void
     {
         $this->groups = array_merge($this->groups, $groups);
     }
     /**
-    * Removes the Group in the given index and reindexes the array
-    * @param int $index
+    * Removes the Group in the given index and reindexes the array.
+    * @param integer $index The index being requested for deletion.
+    * @return void
     */
     public function removeGroup(int $index): void
     {
@@ -136,11 +146,15 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
     /**
     * Returns the group in the given index.
-    * @param int $index
+    * @param integer $index The index being requested.
     * @return Group
+    * @throws \UndefinedOffsetException Thrown when the index requested does not exist.
     */
     public function getGroup(int $index): Group
     {
+        if ($index >= count($this->groups)) {
+            throw new \UndefinedOffsetException();
+        }
         return $this->groups[$index];
     }
     /**
@@ -153,7 +167,11 @@ class OutGoingSMS extends SMS implements \JsonSerializable
     }
 
 
-    /** {@inheritDoc} */
+    /**
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     * @return array Associative .
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
     public function jsonSerialize(): array
     {
 

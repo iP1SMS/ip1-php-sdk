@@ -4,13 +4,13 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package \IP1\RESTClient\SMS
 */
 
 namespace IP1\RESTClient\SMS;
 
 /**
 * Abstract class that all other SMS classes extends.
-* @package \IP1\RESTClient\SMS;
 */
 abstract class SMS implements \JsonSerializable
 {
@@ -33,9 +33,9 @@ abstract class SMS implements \JsonSerializable
 
 
     /**
-    * SMS Constructor
-    * @param string $sender Phone number or name of the sender
-    * @param string $message Message content
+    * SMS Constructor.
+    * @param string $sender  Phone number or name of the sender.
+    * @param string $message Message content.
     */
     public function __construct(string $sender, string $message)
     {
@@ -45,6 +45,7 @@ abstract class SMS implements \JsonSerializable
     /**
     * Sets what the content/message of the SMS should be.
     * @param string $message The message the SMS should contain.
+    * @return void
     */
     public function setMessage(string $message): void
     {
@@ -53,7 +54,8 @@ abstract class SMS implements \JsonSerializable
     /**
     * Setting priority high (1) will cost 0.10SEK more than setting normal (1) for Swedish customers.
     * For customers outside sweden the priority will be overritten to normal (1) by the API.
-    * @param int $priority Message priority level, normal (1) or high (2)
+    * @param integer $priority Message priority level, normal (1) or high (2).
+    * @return void
     */
     public function setPriority(int $priority): void
     {
@@ -61,7 +63,8 @@ abstract class SMS implements \JsonSerializable
     }
     /**
     * Sets the sender.
-    * @param sting $sender Sending name or phone number
+    * @param string $sender Sending name or phone number.
+    * @return void
     */
     public function setSender(string  $sender): void
     {
@@ -81,8 +84,10 @@ abstract class SMS implements \JsonSerializable
         $this->from = $sender;
     }
     /**
-    * {@inheritDoc}
-    */
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     * @return array Associative .
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
     public function jsonSerialize(): array
     {
         $returnArray = [

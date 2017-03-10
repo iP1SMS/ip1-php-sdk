@@ -4,23 +4,18 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package \IP1\RESTClient\Recipient
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Recipient\ProcessedGroup;
-use IP1\RESTClient\Recipient\ProcessedContact;
-use IP1\RESTClient\Recipient\ProcessedMembership;
-use IP1\RESTClient\Core\ClassValidationArray;
-
 /**
 * Handles construction of Recipients.
-* @package \IP1\RESTClient\Recipient
 */
 class RecipientFactory
 {
     /**
     * Creates a Contact using the stdClass given.
-    * @param string $jsonContact A JSON string matching the format of the IP1 SMS API
+    * @param string $jsonContact A JSON string matching the format of the IP1 SMS API.
     * @return Contact
     */
     public static function createContactFromJSON(string $jsonContact): Contact
@@ -29,8 +24,9 @@ class RecipientFactory
     }
     /**
     * Creates a Contact using the stdClass given.
-    * @param \stdClass $stdContact An stdClass object matching the format of the IP1 SMS API
+    * @param \stdClass $stdContact An stdClass object matching the format of the IP1 SMS API.
     * @return Contact
+    * @throws \InvalidArgumentException Thrown when required parameters in the argument is missing.
     */
     public static function createContactFromStdClass(\stdClass $stdContact): Contact
     {
@@ -54,23 +50,23 @@ class RecipientFactory
     }
     /**
     * Creates a Contact using the parameters given.
-    * @param string $firstName               The first name of the contact in question
-    * @param string $phoneNumber             Contact phone number: with country code and without spaces and dashes
-    * @param string $lastName (optional)     Contact last name
-    * @param string $title (optional)        Contact title
-    * @param string $organization (optional) Contact company or other organization
-    * @param string $email (optional)        Contact email address
-    * @param string $notes (optional)        Contact notes
+    * @param string      $firstName    The first name of the contact in question.
+    * @param string      $phoneNumber  Contact phone number: with country code and without spaces and dashes.
+    * @param string|null $lastName     Contact last name.
+    * @param string|null $title        Contact title.
+    * @param string|null $organization Contact company or other organization.
+    * @param string|null $email        Contact email address.
+    * @param string|null $notes        Contact notes.
     * @return Contact
     */
     public static function createContactFromAttributes(
         string $firstName,
         string $phoneNumber,
-        string $lastName = null,
-        string $title = null,
-        string $organization = null,
-        string $email = null,
-        string $notes = null
+        ?string $lastName = null,
+        ?string $title = null,
+        ?string $organization = null,
+        ?string $email = null,
+        ?string $notes = null
     ) : Contact {
         return new Contact(
             $firstName,
@@ -85,13 +81,18 @@ class RecipientFactory
 
     /**
     * Creates a ProcessedContact using the JSON given.
-    * @param string $jsonContact A JSON string matching the format of the IP1 SMS API
+    * @param string $jsonContact A JSON string matching the format of the IP1 SMS API.
     * @return ProcessedContact
     */
     public static function createProcessedContactFromJSON(string $jsonContact): ProcessedContact
     {
         return self::createProcessedContactFromStdClass(json_decode($jsonContact));
     }
+    /**
+    * Take an array filled with contact stdClasses and returns a ClassValidationArray filled with ProcessedContact.
+    * @param array $contactArray An array filled with stdClass contacts.
+    * @return ClassValidationArray Filled with ProcessedContact.
+    */
     public static function createProcessedContactFromStdClassArray(array $contactArray): ClassValidationArray
     {
         $contacts = new ClassValidationArray();
@@ -102,8 +103,9 @@ class RecipientFactory
     }
     /**
     * Creates a ProcessedContact using the stdClass given.
-    * @param \stdClass $stdContact An stdClass object matching the format of the IP1 SMS API
+    * @param \stdClass $stdContact An stdClass object matching the format of the IP1 SMS API.
     * @return ProcessedContact
+    * @throws \InvalidArgumentException Thrown when required parameters in the argument is missing.
     */
     public static function createProcessedContactFromStdClass(\stdClass $stdContact): ProcessedContact
     {
@@ -127,24 +129,42 @@ class RecipientFactory
         );
         return $contact;
     }
+    /**
+    * Takes a JSON string group and returns a ProcessedGroup.
+    * @param string $jsonGroup A single group JSON string.
+    * @return ProcessedGroup
+    */
     public static function createProcessedGroupFromJSON(string $jsonGroup): ProcessedGroup
     {
         return self::createProcessedGroupFromStdClass(json_decode($jsonGroup));
     }
-    public static function createProcessedGroupFromStdClass(\stdClass $stdContact): ProcessedGroup
+    /**
+    * Takes a stdClass group and returns a ProcessedGroup.
+    * @param \stdClass $stdGroup A single stdClass group.
+    * @return ProcessedGroup
+    */
+    public static function createProcessedGroupFromStdClass(\stdClass $stdGroup): ProcessedGroup
     {
         return new ProcessedGroup(
-            $stdContact->Name,
-            $stdContact->Color,
-            $stdContact->ID,
-            new \DateTime($stdContact->Created),
-            new \DateTime($stdContact->Modified)
+            $stdGroup->Name,
+            $stdGroup->Color,
+            $stdGroup->ID,
+            new \DateTime($stdGroup->Created),
+            new \DateTime($stdGroup->Modified)
         );
     }
+    /**
+    * @param string $jsonMembership A membership JSON string.
+    * @return ProcessedMembership
+    */
     public static function createProcessedMembershipFromJSON(string $jsonMembership): ProcessedMembership
     {
         return self::createProcessedMembershipFromStdClass(json_decode($jsonMembership));
     }
+    /**
+    * @param array $stdGroups An array filled with stdclass Group.
+    * @return ClassValidationArray Filled with ProcessedGroup.
+    */
     public static function createProcessedGroupsFromStdClassArray(array $stdGroups): ClassValidationArray
     {
         $groups = new ClassValidationArray();
@@ -153,6 +173,10 @@ class RecipientFactory
         }
         return $groups;
     }
+    /**
+    * @param \stdClass $stdMembership An stdClass membership.
+    * @return ProcessedMembership
+    */
     public static function createProcessedMembershipFromStdClass(\stdClass $stdMembership): ProcessedMembership
     {
         return new ProcessedMembership(
@@ -162,6 +186,10 @@ class RecipientFactory
             new \DateTime($stdMembership->Created)
         );
     }
+    /**
+    * @param array $stdMemberships An stdClass Membership.
+    * @return ClassValidationArray Filled with ProcessedMembership.
+    */
     public static function createProcessedMembershipsFromStdClassArray(array $stdMemberships): ClassValidationArray
     {
         $memberships = new ClassValidationArray();
@@ -170,16 +198,12 @@ class RecipientFactory
         }
         return $memberships;
     }
+    /**
+    * @param string $membershipJSONArray An stdClass Group array encoded as a JSON string.
+    * @return ClassValidationArray Filled with ProcessedMembership
+    */
     public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): ClassValidationArray
     {
         return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
-    }
-    public static function export(array $exportables): ClassValidationArray
-    {
-        $returnArray = ClassValidationArray();
-        foreach ($exportables as $value) {
-            $returnArray[] = $value->jsonSerialize();
-        }
-        return $returnArray;
     }
 }

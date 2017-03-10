@@ -1,11 +1,18 @@
 <?php
+/**
+* Contains the ClassValidation class
+* PHP version 7.1.1
+* @author Hannes Kindströmmer <hannes@kindstrommer.se>
+* @copyright 2017 IP1 SMS
+* @package IP1\RESTClient\Core
+*/
 
 namespace IP1\RESTClient\Core;
 
 /**
 *
 * An extension of ArrayObject that ensures that there's only one type of object in the array.
-* @package IP1\RESTClient\Core
+
 */
 class ClassValidationArray extends \ArrayObject implements \JsonSerializable
 {
@@ -22,8 +29,8 @@ class ClassValidationArray extends \ArrayObject implements \JsonSerializable
     * If the input is an array it will verify that all the objects inside the array are of the same class if not it will
     *   throw an InvalidArgumentException. If all the indexes are of the same class it will  add them to the array.
     *
-    * @param $input array|object If array it must only contain a single type of class.
-    * @throws InvalidArgumentException
+    * @param array|object $input If array it must only contain a single type of class.
+    * @throws \InvalidArgumentException Thrown when getting unexpected arguments.
     */
     public function __construct($input = [])
     {
@@ -57,7 +64,10 @@ class ClassValidationArray extends \ArrayObject implements \JsonSerializable
     /**
     *  Sets the value at the specified index to value if value's class matches the one set.
     *       If a class has not been set it will set the given object's class as the only allowed class.
-    * @throws InvalidArgumentException
+    * @param mixed  $index The index to put the value in.
+    * @param object $value The object that should be added.
+    * @return void
+    * @throws \InvalidArgumentException When $value is not an object or doesn't match the class that has been set.
     */
     public function offsetSet($index, $value): void
     {
@@ -81,9 +91,11 @@ class ClassValidationArray extends \ArrayObject implements \JsonSerializable
     {
         return $this->class;
     }
-     /**
-      * {@inheritDoc}
-      */
+    /**
+    * Serializes the object to a value that can be serialized natively by json_encode().
+    * @return array Associative.
+    * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+    */
     public function jsonSerialize(): array
     {
         $returnArray = [];

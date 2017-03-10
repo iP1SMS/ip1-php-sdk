@@ -4,29 +4,30 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package IP1\RESTClient\Recipient
 */
 namespace IP1\RESTClient\Recipient;
 
 /**
-*
+* Membership is the bridge between ProcessedGroup and ProcessedContact.
 */
 class Membership implements \JsonSerializable
 {
 
     /**
-    * A Group ID
+    * A Group ID.
     * @var int $groupID
     */
     protected $groupID;
 /**
-    * A Contact ID
+    * A Contact ID.
     * @var int $contactID
     */
     protected $contactID;
 /**
-    * Membership Constructor
-    * @param int $groupID A Group ID
-    * @param int $contactID A Contact ID
+    * Membership Constructor.
+    * @param integer $groupID   A Group ID.
+    * @param integer $contactID A Contact ID.
     */
     public function __construct(int $groupID, int $contactID)
     {
@@ -34,21 +35,26 @@ class Membership implements \JsonSerializable
         $this->contactID = $contactID;
     }
     /**
-    * Returns Group ID
-    * @return int
+    * Returns Group ID.
+    * @return integer
     */
     public function getGroupID(): int
     {
         return $this->groupID;
     }
     /**
-    * Returns Contact ID
-    * @return int
+    * Returns Contact ID.
+    * @return integer
     */
     public function getContactID(): int
     {
         return $this->contactID;
     }
+    /**
+     * Serializes the object to a value that can be serialized natively by json_encode().
+     * @return array Associative.
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
     public function jsonSerialize(): array
     {
         $returnArray = [

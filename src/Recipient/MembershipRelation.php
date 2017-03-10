@@ -4,6 +4,7 @@
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
+* @package IP1\RESTClient\Recipient
 */
 namespace IP1\RESTClient\Recipient;
 
