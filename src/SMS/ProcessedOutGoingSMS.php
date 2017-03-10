@@ -88,14 +88,14 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         $this->updated = $updated;
     }
     /**
-    * @return int Message bundle ID, if any
+    * @return integer Message bundle ID, if any
     */
     public function getBundleID(): ?int
     {
         return $this->bundleID;
     }
     /**
-    * @return int Status Code
+    * @return integer Status Code
     * @link https://www.ip1sms.com/manuals/restful/title/sms-status-codes
     */
     public function getStatus(): int
@@ -155,7 +155,7 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         return $this->created ?? null;
     }
     /**
-    * @return int SMS ID.
+    * @return integer SMS ID.
     */
     public function getID():int
     {

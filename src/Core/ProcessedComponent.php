@@ -17,7 +17,7 @@ interface ProcessedComponent extends \JsonSerializable
 
     /**
     * Returns the component ID.
-    * @return int Component ID from the API
+    * @return integer Component ID from the API
     */
     public function getID(): int;
     /**

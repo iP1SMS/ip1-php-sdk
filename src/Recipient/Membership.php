@@ -36,7 +36,7 @@ class Membership implements \JsonSerializable
     }
     /**
     * Returns Group ID.
-    * @return integer
+    * @return integereger
     */
     public function getGroupID(): int
     {
@@ -44,7 +44,7 @@ class Membership implements \JsonSerializable
     }
     /**
     * Returns Contact ID.
-    * @return integer
+    * @return integereger
     */
     public function getContactID(): int
     {

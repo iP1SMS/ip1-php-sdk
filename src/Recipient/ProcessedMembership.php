@@ -44,7 +44,7 @@ class ProcessedMembership extends Membership implements ProcessedComponent
 
     /**
     * Returns id of the Membership given by the API.
-    * @return int Membership ID given by the API.
+    * @return integer Membership ID given by the API.
     */
     public function getID(): int
     {

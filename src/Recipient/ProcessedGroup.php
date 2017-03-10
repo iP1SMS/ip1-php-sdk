@@ -78,7 +78,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
         $this->updated = $updated;
     }
     /**
-    * @return int Group ID
+    * @return integer Group ID
     */
     public function getID(): int
     {

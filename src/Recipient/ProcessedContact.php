@@ -185,7 +185,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
         return $this->created ?? null;
     }
     /**
-    * @return int Contact ID.
+    * @return integer Contact ID.
     */
     public function getID():int
     {
