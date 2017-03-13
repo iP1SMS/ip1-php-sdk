@@ -9,6 +9,7 @@
 namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Core\ClassValidationArray;
+use IP1\RESTClient\SMS\ProcessedOutGoingSMS;
 
 /**
 * Handles construction of Recipients.
@@ -207,5 +208,31 @@ class RecipientFactory
     public static function createProcessedMembershipsFromStringArray(string $membershipJSONArray): ClassValidationArray
     {
         return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
+    }
+    public static function createProcessedOutGoingSMSFromStdClass(\stdClass  $stdClassSMS): ProcessedOutGoingSMS
+    {
+        return new ProcessedOutGoingSMS(
+            $stdClassSMS->From,
+            $stdClassSMS->Message,
+            $stdClassSMS->To,
+            $stdClassSMS->ID,
+            new DateTime($stdClassSMS->Created),
+            new DateTime($stdClassSMS->Updated),
+            $stdClassSMS->Status,
+            $stdClassSMS->StatusDescription,
+            $stdClassSMS->BundleID
+        );
+    }
+    public static function createProcessedOutGoingSMSFromStdClassArray(array $stdClassArray): ClassValidationArray
+    {
+        $array = new ClassValidationArray(ProcessedOutGoingSMS::class);
+        foreach ($stdClassArray as $stdClass) {
+            $array[]= self::createProcessedOutGoingSMSFromStdClass($stdClass);
+        }
+        return $array;
+    }
+    public static function createProcessedOutGoingSMSFromJSONArray(string $jsonArray): ClassValidationArray
+    {
+        return self::createProcessedOutGoingSMSFromStdClassArray(json_decode($jsonArray));
     }
 }
