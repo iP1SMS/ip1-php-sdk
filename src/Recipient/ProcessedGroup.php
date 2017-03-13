@@ -184,4 +184,19 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
         }
         return $this->updated ?? null;
     }
+    /**
+   * Serializes the object to a value that can be serialized natively by json_encode().
+   * @return array Associative.
+   * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+   */
+    public function jsonSerialize(): array
+    {
+        $parentArray = parent::jsonSerialize();
+        $parentArray['Created'] = isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
+            substr($this->updated->format('u'), 0, 3) : null;
+        $parentArray['Updated'] = isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
+            substr($this->updated->format('u'), 0, 3) : null;
+        $parentArray['ID'] = $this->groupID;
+        return $parentArray;
+    }
 }

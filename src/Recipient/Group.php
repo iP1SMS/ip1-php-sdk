@@ -94,7 +94,7 @@ class Group implements \JsonSerializable
     {
         $returnArray = [
             'Name' => $this->name,
-            'Color' => $this->Color,
+            'Color' => $this->color,
         ];
         return $returnArray;
     }
