@@ -10,8 +10,8 @@ namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\UpdatableComponent;
-use IP1\RESTClient\Recipient\RecipientFactory;
-use Prophecy\Argument;
+use IP1\RESTClient\Core\ClassValidationArray;
+use IP1\RESTClient\Recipient\ProcessedMembership;
 
 /**
 *
@@ -39,7 +39,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     * It is empty by default but is filled when the function getMemberships() is called if a Communicator is given
     *   as an argument.
     *
-    * @var array $membership
+    * @var ClassValidationArray $membership
     */
     protected $memberships = [];
     /**
@@ -53,7 +53,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     * It is empty by default but is filled when the function getContacts() is called if a Communicator is given
     *   as an argument.
     *
-    * @var array $contacts Default empty array.
+    * @var ClassValidationArray $contacts Default empty array.
     */
     protected $contacts = [];
     /**
@@ -76,6 +76,8 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
         $this->groupID = $groupID;
         $this->created = $created;
         $this->updated = $updated;
+        $this->memberships = new ClassValidationArray();
+        $this->contacts = new ClassValidationArray();
     }
     /**
     * @return integer Group ID
@@ -99,7 +101,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     * @param Communicator $communicator Used to fetch memberships from the API.
     * @return array An array of Membership objects
     */
-    public function getMemberships(Communicator $communicator = null): array
+    public function getMemberships(Communicator $communicator = null): ClassValidationArray
     {
         if ($communicator != null) {
             $membershipJSON = $communicator->get("api/groups/".$this->groupID."/memberships");
@@ -126,9 +128,9 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     * If a communicator is not provided it will not fetch Contacts from the API
     *               but return those that has been fetched, if any.
     * @param Communicator $communicator Used to fetch Contacts from the API.
-    * @return array An array of ProcessedContact objects.
+    * @return ClassValidationArray An array of ProcessedContact objects.
     */
-    public function getContacts(Communicator $communicator = null): array
+    public function getContacts(Communicator $communicator = null): ClassValidationArray
     {
         if ($communicator != null) {
             $contactStd = $communicator->get('api/groups/'.$this->groupID. '/contacts');
@@ -139,12 +141,26 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
         }
         return $this->contacts;
     }
-
+    /**
+    * @param Communicator     $communicator Used to add the membership to the API.
+    * @param ProcessedContact $contact      The contact that is to be added to the Group.
+    * @return ProcessedMembership
+    */
+    public function addMember(Communicator $communicator, ProcessedContact $contact): ProcessedMembership
+    {
+        $membership = new Membership($this->groupID, $contact->getID());
+        $response = $communicator->post('api/memberships', $membership);
+        $returnValue = ProcessedMembership(json_decode($response));
+        if ($this->memberShipsFetched()) {
+            $this->memberships[] = $returnValue;
+        }
+        return $returnValue;
+    }
 
     /**
-  * @param  \DateTimeZone $timezone The timezone that the user wants to get the DateTime in. Default is UTC.
-  * @return \DateTime When the Component was added.
-  */
+    * @param  \DateTimeZone $timezone The timezone that the user wants to get the DateTime in. Default is UTC.
+    * @return \DateTime When the Component was added.
+    */
     public function getCreated(\DateTimeZone $timezone = null): ?\DateTime
     {
         if (!is_null($timezone)) {
@@ -155,10 +171,10 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
         return $this->created ?? null;
     }
     /**
-  * Returns when the component was updated last.
-  * @param  \DateTimeZone $timezone The timezone that the user wants to get the DateTime in. Default is UTC.
-  * @return \DateTime When the contact was updated/modified last.
-  */
+    * Returns when the component was updated last.
+    * @param  \DateTimeZone $timezone The timezone that the user wants to get the DateTime in. Default is UTC.
+    * @return \DateTime When the contact was updated/modified last.
+    */
     public function getUpdated(\DateTimeZone $timezone = null) : ?\DateTime
     {
         if (!is_null($timezone)) {

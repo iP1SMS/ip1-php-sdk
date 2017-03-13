@@ -10,9 +10,11 @@
 namespace IP1\RESTClient\Recipient;
 
 use \IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Recipient\Membership;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\MembershipRelation;
 use IP1\RESTClient\Core\Communicator;
+use IP1\RESTClient\Core\ClassValidationArray;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
@@ -93,15 +95,17 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
         $this->contactID = $contactID;
         $this->created = $created ?? null;
         $this->updated = $updated ?? null;
+        $this->memberships = new ClassValidationArray();
+        $this->groups = new ClassValidationArray();
     }
     /**
       * Returns an array of all the memberships the group is referenced in.
       * If a communicator is not provided it will not fetch memberships from the API
       *               but return those that has been fetched, if any.
       * @param Communicator $communicator Used to fetch memberships from the API.
-      * @return array An array of Membership objects.
+      * @return ClassValidationArray An array of Membership objects.
       */
-    public function getMemberships(Communicator $communicator = null): array
+    public function getMemberships(Communicator $communicator = null): ClassValidationArray
     {
         if ($communicator != null) {
             $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
@@ -120,9 +124,9 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     * If a communicator is not provided it will not fetch memberships from the API
     *               but return those that has been fetched, if any.
     * @param Communicator $communicator Used to fetch Groups from the API.
-    * @return array An array of Group objects.
+    * @return ClassValidationArray An array of Group objects.
     */
-    public function getGroups(Communicator $communicator = null): array
+    public function getGroups(Communicator $communicator = null): ClassValidationArray
     {
         if ($communicator != null) {
             $groupsJSON = $communicator->get('api/contacts/'.$this->contactID. '/groups');
@@ -132,6 +136,21 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
             $this->fetchedGroups = true;
         }
         return $this->groups;
+    }
+    /**
+    * Adds the contact to the given group and returns the membership.
+    * @param Communicator   $communicator Used to fetch Groups from the API.
+    * @param ProcessedGroup $group        The group the contact should be added to.
+    * @return ProcessedMembership
+    */
+    public function addGroup(Communicator $communicator, ProcessedGroup $group): ProcessedMembership
+    {
+        $response = $communicator->post('api/memberships', new Membership($group->getID(), $this->contactID));
+        $returnValue =  RecipientFactory::createProcessedMembershipFromJSON($response);
+        if ($this->memberShipsFetched) {
+            $this->memberships[] = $returnValue;
+        }
+        return $returnValue;
     }
     /**
     * Tells whether Groups has been fetched from the API or not.

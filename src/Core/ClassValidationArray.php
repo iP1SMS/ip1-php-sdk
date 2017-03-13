@@ -28,8 +28,10 @@ class ClassValidationArray extends \ArrayObject implements \JsonSerializable
     * If the input is an object it will add the object to the array and set the object's class to the only allowed class
     * If the input is an array it will verify that all the objects inside the array are of the same class if not it will
     *   throw an InvalidArgumentException. If all the indexes are of the same class it will  add them to the array.
+    * If input is a string then that string will set the only allowed class.
+    * @example new ClassValidationArray(get_class(new stdClass));
     *
-    * @param array|object $input If array it must only contain a single type of class.
+    * @param array|object|string $input If array it must only contain a single type of class.
     * @throws \InvalidArgumentException Thrown when getting unexpected arguments.
     */
     public function __construct($input = [])
@@ -56,6 +58,8 @@ class ClassValidationArray extends \ArrayObject implements \JsonSerializable
         } elseif (is_object($input)) {
             $this->class = get_class($input);
             parent::offsetSet(null, $input);
+        } elseif (is_string($input)) {
+            $this->class = $input;
         } else {
             throw new \InvalidArgumentException(gettype($input). " given argument was not an array or an object.");
         }
