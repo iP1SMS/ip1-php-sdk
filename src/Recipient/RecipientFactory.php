@@ -209,6 +209,11 @@ class RecipientFactory
     {
         return self::createProcessedMembershipsFromStdClassArray(json_decode($membershipJSONArray));
     }
+    /**
+    * Creates a ProcessedOutGoingSMS from an stdClass object.
+    * @param \stdClass $stdClassSMS An stdClass.
+    * @return ProcessedOutGoingSMS
+    */
     public static function createProcessedOutGoingSMSFromStdClass(\stdClass  $stdClassSMS): ProcessedOutGoingSMS
     {
         return new ProcessedOutGoingSMS(
@@ -223,6 +228,11 @@ class RecipientFactory
             $stdClassSMS->BundleID
         );
     }
+    /**
+    * Creates a ClassValidationArray filled with ProcessedOutGoingSMS given an array of stdClass.
+    * @param array $stdClassArray An array of stdClass OutGoingSMS.
+    * @return ClassValidationArray Filled with ProcessedOutGoingSMS.
+    */
     public static function createProcessedOutGoingSMSFromStdClassArray(array $stdClassArray): ClassValidationArray
     {
         $array = new ClassValidationArray(ProcessedOutGoingSMS::class);
@@ -231,6 +241,11 @@ class RecipientFactory
         }
         return $array;
     }
+    /**
+    * Creates a ClassValidationArray given a JSON string.
+    * @param string $jsonArray A JSON string that when decoded becomes an array of stdClass ProcessedOutGoingSMS.
+    * @return ClassValidationArray Filled with ProcessedOutGoingSMS.
+    */
     public static function createProcessedOutGoingSMSFromJSONArray(string $jsonArray): ClassValidationArray
     {
         return self::createProcessedOutGoingSMSFromStdClassArray(json_decode($jsonArray));
