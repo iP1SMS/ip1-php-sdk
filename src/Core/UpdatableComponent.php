@@ -26,11 +26,4 @@ interface UpdatableComponent extends ProcessedComponent
     * @return boolean Whether the object is read only or not.
     */
     public function isReadOnly(): bool;
-
-    /**
-     * Serializes the object to a value that can be serialized natively by json_encode().
-     * @return array Associative.
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     */
-    public function jsonSerialize(): array;
 }

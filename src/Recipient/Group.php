@@ -8,12 +8,12 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\ProcessableComponent;
 
 /**
 * Used to group contacts together with the Membership class.
 */
-class Group implements \JsonSerializable
+class Group implements ProcessableComponent
 {
    /**
     * Name of Group.
@@ -97,5 +97,13 @@ class Group implements \JsonSerializable
             'Color' => $this->color,
         ];
         return $returnArray;
+    }
+    /**
+    * Returns the object as a JSON string.
+    * @return string
+    */
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize());
     }
 }

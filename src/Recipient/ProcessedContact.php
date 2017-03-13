@@ -9,7 +9,7 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use \IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponent;
 use IP1\RESTClient\Recipient\Membership;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\MembershipRelation;
@@ -231,11 +231,12 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
         return array_filter($returnArray);
     }
     /**
-    * Returns the object as a JSON string.
-    * @return string
+    * Takes the given argument and replaces strings such as {id} to an actual value.
+    * @param string $endPoint The endpoint to be corrected.
+    * @return void
     */
-    public function __toString(): string
+    public function fillEndPoint(string &$endPoint): void
     {
-        return json_encode($this->jsonSerialize());
+        $endPoint = str_replace("{contact}", $this->contactID, $endPoint);
     }
 }

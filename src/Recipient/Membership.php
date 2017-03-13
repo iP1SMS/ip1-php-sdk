@@ -8,10 +8,12 @@
 */
 namespace IP1\RESTClient\Recipient;
 
+use IP1\RESTClient\Core\ProcessableComponent;
+
 /**
 * Membership is the bridge between ProcessedGroup and ProcessedContact.
 */
-class Membership implements \JsonSerializable
+class Membership implements ProcessableComponent
 {
 
     /**
@@ -62,5 +64,13 @@ class Membership implements \JsonSerializable
         'Contact' => $this->ContactID,
         ];
         return $returnArray;
+    }
+    /**
+    * Returns the object as a JSON string.
+    * @return string
+    */
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize());
     }
 }

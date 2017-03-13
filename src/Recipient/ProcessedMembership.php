@@ -63,4 +63,13 @@ class ProcessedMembership extends Membership implements ProcessedComponent
         }
         return $this->created ?? null;
     }
+    /**
+    * Takes the given argument and replaces strings such as {id} to an actual value.
+    * @param string $endPoint The endpoint to be corrected.
+    * @return void
+    */
+    public function fillEndPoint(string &$endPoint): void
+    {
+        $endPoint = str_replace("{membership}", $this->membershipID, $endPoint);
+    }
 }

@@ -10,6 +10,9 @@
 namespace IP1\RESTClient\Core;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
+use IP1\RESTClient\Core\ProcessedComponent;
+use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\ProcessableComponent;
 
 /**
 * Handles request to the API and converts the responses into the data classes.
@@ -40,23 +43,23 @@ class Communicator
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function add(\JsonSerializable $jsonSerialize): \JsonSerializable
+    public function add(ProcessableComponent $component): \JsonSerializable
     {
-        switch (get_class($jsonSerialize)) {
+        switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\Contact":
-                $response = $this->sendRequest("api/contacts", "POST", json_encode($jsonSerialize));
+                $response = $this->sendRequest("api/contacts", "POST", json_encode($component));
                 return RecipientFactory::createProcessedContactFromJSON($response);
 
             case "IP1\RESTClient\Recipient\Group":
-                $response = $this->sendRequest("api/groups", "POST", json_encode($jsonSerialize));
+                $response = $this->sendRequest("api/groups", "POST", json_encode($component));
                 return RecipientFactory::createProcessedGroupFromJSON($response);
 
             case "IP1\RESTClient\Recipient\Membership":
-                $response = $this->sendRequest("api/memberships", "POST", json_encode($jsonSerialize));
+                $response = $this->sendRequest("api/memberships", "POST", json_encode($component));
                 return RecipientFactory::createProcessedMembershipFromJSON($response);
 
             case "IP1\RESTClient\SMS\OutGoingSMS":
-                $response = $this->sendRequest("api/sms/send", "POST", json_encode($jsonSerialize));
+                $response = $this->sendRequest("api/sms/send", "POST", json_encode($component));
                 return RecipientFactory::createProcessedOutGoingSMSFromJSONArray($response);
             default:
                 throw new \InvalidArgumentException("Given JsonSerializable not supported.");
@@ -69,19 +72,19 @@ class Communicator
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function remove(\JsonSerializable $jsonSerialize): \JsonSerializable
+    public function remove(ProcessableComponent $component): \JsonSerializable
     {
-        switch (get_class($jsonSerialize)) {
+        switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
-                $response = $this->sendRequest("api/contacts/".$jsonSerialize->getID(), "DELETE");
+                $response = $this->sendRequest("api/contacts/".$component->getID(), "DELETE");
                 return RecipientFactory::createProcessedContactFromJSON($response);
 
             case "IP1\RESTClient\Recipient\ProcessedGroup":
-                $response = $this->sendRequest("api/groups/".$jsonSerialize->getID(), "DELETE");
+                $response = $this->sendRequest("api/groups/".$component->getID(), "DELETE");
                 return RecipientFactory::createProcessedGroupFromJSON($response);
 
             case "IP1\RESTClient\Recipient\ProcessedMembership":
-                $response = $this->sendRequest("api/memberships/".$jsonSerialize->getID(), "DELETE");
+                $response = $this->sendRequest("api/memberships/".$component->getID(), "DELETE");
                 return RecipientFactory::createProcessedMembershipFromJSON($response);
             default:
                 throw new \InvalidArgumentException("Given JsonSerializable not supported.");
@@ -93,22 +96,22 @@ class Communicator
     * @return \JsonSerializable ProcessedContact, ProcessedGroup or PrcessedMembership.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function edit(\JsonSerializable $jsonSerialize): \JsonSerializable
+    public function edit(UpdatableComponent $component): \JsonSerializable
     {
-        switch (get_class($jsonSerialize)) {
+        switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
                 $response = $this->sendRequest(
-                    "api/contacts/".$jsonSerialize->getID(),
+                    "api/contacts/".$component->getID(),
                     "PUT",
-                    json_encode($jsonSerialize)
+                    json_encode($component)
                 );
                 return RecipientFactory::createProcessedContactFromJSON($response);
 
             case "IP1\RESTClient\Recipient\ProcessedGroup":
                 $response = $this->sendRequest(
-                    "api/groups/".$jsonSerialize->getID(),
+                    "api/groups/".$component->getID(),
                     "PUT",
-                    json_encode($jsonSerialize)
+                    json_encode($component)
                 );
                 return RecipientFactory::createProcessedGroupFromJSON($response);
             default:
@@ -117,13 +120,18 @@ class Communicator
     }
 
     /**
-    * Fetches a ProcessedComponent(s) from the given URI.
+    * Fetches a ProcessedComponent(s) from the given URI. Replaces strings like {id} with the ID of the component
+    *       if one was provided.
     * @param string $endPoint API URI.
+    * @param ?\ProcessedComponent $component For replacing substrings such as "{id}" with an actual ID.
     * @return string JSON API Response.
     */
-    public function get(string $endPoint)
+    public function get(string $endPoint, ?ProcessedComponent $component = null)
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
+        if (!is_null($component)) {
+            $component->fillEndPoint($parsedEndPoint);
+        }
         return $this->sendRequest($parsedEndPoint, "GET");
     }
     /**
@@ -132,10 +140,10 @@ class Communicator
     * @param ?\JsonSerializable $content  The JsonSerializable that is to be posted to the API.
     * @return string JSON repsonse.
     */
-    public function post(string $endPoint, ?\JsonSerializable $content)
+    public function post(string $endPoint, ProcessedComponent $content)
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
-        return $this->sendRequest($parsedEndPoint, "POST", !is_null($content) ? json_encode($content) : "");
+        return $this->sendRequest($parsedEndPoint, "POST", json_encode($content));
     }
     /**
     * Deletes the object

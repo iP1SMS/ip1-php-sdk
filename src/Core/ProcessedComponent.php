@@ -12,7 +12,7 @@ namespace IP1\RESTClient\Core;
 * All responses from the API implements this class.
 * @package \IP1\RESTClient\Core
 */
-interface ProcessedComponent extends \JsonSerializable
+interface ProcessedComponent extends ProcessableComponent
 {
 
     /**
@@ -26,9 +26,9 @@ interface ProcessedComponent extends \JsonSerializable
     */
     public function getCreated(\DateTimeZone $timezone = null): ?\DateTime;
     /**
-     * Serializes the object to a value that can be serialized natively by json_encode().
-     * @return array Associative.
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     */
-    public function jsonSerialize(): array;
+    * Takes the given argument and replaces strings such as {id} to an actual value.
+    * @param string $endPoint The endpoint to be corrected.
+    * @return void
+    */
+    public function fillEndPoint(string &$endPoint): void;
 }
