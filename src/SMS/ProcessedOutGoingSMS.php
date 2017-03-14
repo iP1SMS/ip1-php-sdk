@@ -184,4 +184,14 @@ class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
         ];
         return array_filter(array_merge($parentArray, $returnArray));
     }
+    /**
+    * Takes the given argument and replaces strings such as {id} to an actual value.
+    * @param string $endPoint The endpoint to be corrected.
+    * @return void
+    */
+    public function fillEndPoint(string &$endPoint): void
+    {
+        $endPoint = str_replace("{sms}", $this->smsID, $endPoint);
+        $endPoint = str_replace("{bundle}", $this->bundleID ?? "", $endPoint);
+    }
 }

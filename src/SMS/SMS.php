@@ -97,4 +97,12 @@ abstract class SMS implements \JsonSerializable
         ];
         return $returnArray;
     }
+    /**
+    * Returns the object as a JSON string.
+    * @return string
+    */
+    public function __toString(): string
+    {
+        return json_encode($this->jsonSerialize());
+    }
 }
