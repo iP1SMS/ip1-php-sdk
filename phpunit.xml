@@ -1,0 +1,19 @@
+<phpunit
+  bootstrap="vendor/autoload.php"
+  convertNoticesToExceptions="true"
+  convertWarningsToExceptions="true">
+  <testsuites>
+    <testsuite name="recipient">
+      <directory>tests/recipient</directory>
+    </testsuite>
+    <testsuite name="sms">
+      <directory>tests/sms</directory>
+    </testsuite>
+    <testsuite name="general">
+      <directory>tests/general</directory>
+    </testsuite>
+    <testsuite name="core">
+      <directory>tests/core</directory>
+    </testsuite>
+  </testsuites>
+</phpunit>

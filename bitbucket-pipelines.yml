@@ -1,0 +1,30 @@
+image: php:7.1.1
+
+pipelines:
+  default:
+    - step:
+        script:
+          - apt-get update && apt-get install -y unzip git
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer install
+          - vendor/bin/phpunit
+          - vendor/bin/phpcbf --standard=PSR2 src
+          - vendor/bin/phpcs --standard=PSR2 src
+  branches: # Pipelines that run automatically on a commit to a branch
+    master:
+      - step:
+          script:
+            - apt-get update && apt-get install -y unzip git
+            - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            - composer install
+            - vendor/bin/phpunit
+            - vendor/bin/phpcs src --standard=codestandard.xml
+  custom:
+    master-preparation:
+    - step:
+        script:
+          - apt-get update && apt-get install -y unzip git
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer install
+          - vendor/bin/phpunit
+          - vendor/bin/phpcs src --standard=codestandard.xml

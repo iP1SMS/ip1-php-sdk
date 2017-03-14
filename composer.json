@@ -1,0 +1,28 @@
+{
+  "name": "ip1/phprestclient",
+  "description": "A PHP client library for the IP1SMS RESTful API",
+  "type": "library",
+  "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Hannes Kindströmmer",
+            "email": "hannes@kindstrommer.se",
+            "homepage": "http://kindstrommer.se",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+    "psr-4": {
+      "IP1\\RESTClient\\": "src"
+    }
+  },
+    "require" : {
+        "php" : "^7.1.1"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "2.*",
+        "phpmd/phpmd": "^2.6",
+        "phpunit/phpunit": "^6.0",
+        "phpdocumentor/phpdocumentor": "2.*"
+    }
+}
