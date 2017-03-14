@@ -2,6 +2,7 @@
   "name": "ip1/phprestclient",
   "description": "A PHP client library for the IP1SMS RESTful API",
   "type": "library",
+  "license": "LGPL-3.0",
     "authors": [
         {
             "name": "Hannes Kindströmmer",
