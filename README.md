@@ -61,7 +61,7 @@ $com->edit($contact);
  * ** Hannes Kindströmmer ** - _Initial work_
 
 ## License
- TODO: Add license.
+ This project is licensed under the GNU LGPLv3 License -  see LICENSE file for details.
 
 ## Contributing
 Please file issues under [SELECT PUBLIC GIT HOSTING], or submit a pull request if you'd like to directly contribute.
