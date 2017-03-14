@@ -14,7 +14,9 @@ class OutGoingSMSTest extends TestCase
 
     public function testAddRecipient()
     {
-        $contact = RecipientFactory::createProcessedContactFromJSON(file_get_contents('tests/resources/processed_contact/processed_contact.json'));
+        $contact = RecipientFactory::createProcessedContactFromJSON(
+            file_get_contents('tests/resources/processed_contact/processed_contact.json')
+        );
 
         $sms = new OutGoingSMS("Jack", "Why is the rum gone?");
         $sms->addNumber("12025550111");
@@ -33,8 +35,14 @@ class OutGoingSMSTest extends TestCase
         $this->assertEquals(['12025550111','12025550112','12025550113'], $sms->getAllNumbers());
         $sms->addNumber('12025550114');
         $sms->addAllNumbers(['12025550115','12025550116','12025550117']);
-        $this->assertEquals(['12025550111','12025550112','12025550113', '12025550114', '12025550115','12025550116','12025550117'], $sms->getAllNumbers());
+        $this->assertEquals(
+            ['12025550111','12025550112','12025550113', '12025550114', '12025550115','12025550116','12025550117'],
+            $sms->getAllNumbers()
+        );
         $sms->removeNumber(1);
-        $this->assertEquals(['12025550111','12025550113', '12025550114', '12025550115','12025550116','12025550117'], $sms->getAllNumbers());
+        $this->assertEquals(
+            ['12025550111','12025550113', '12025550114', '12025550115','12025550116','12025550117'],
+            $sms->getAllNumbers()
+        );
     }
 }

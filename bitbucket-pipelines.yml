@@ -19,7 +19,6 @@ pipelines:
             - composer install
             - vendor/bin/phpunit
             - vendor/bin/phpcs src --standard=codestandard.xml
-            - vendor/bin/phpcs tests --standard=codestandard.xml
   custom:
     master-preparation:
     - step:
