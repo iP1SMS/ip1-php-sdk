@@ -14,12 +14,20 @@ Install using Composer.
 }
 ```
 ### Getting API Credentials
+
+#### Paid Method
+Visit the [IP1 SMS Shop](https://shop.ip1sms.com/#!/cart) and add an SMS balance or service of your choice and then proceed to checkout. Create an account at the  under Customer information. When done click ``Pay by Card`` and pay for chosen balance or service. An email has by this point been sent to you with login and API credentials. The ones you're interested in for using the API are Account ID and API Key.
+
+#### Free Method
 Create a free test-account at:
+[app.ip1sms.com](https://app.ip1sms.com/account/signup)
 
-[app.ip1sms.com](https://app.ip1sms.com/account/signup?l=en)
+Then log in at this [link](https://app.ip1sms.com/login/) using the credentials sent to the phone number provided via SMS. Once logged in click on Settings and then SMS Gateway API and you will be presented in the left panel with an account ID. The API Key will be sent to the phone number provided on registration when the Send API Key is clicked.
 
-Then log in at this [link](https://app.ip1sms.com/account/) using the credentials sent to the phone number provided via SMS.
-Once logged in click on ``Settings`` and then ``SMS Gateway API`` and you will be presented in the left panel with an account ID. The API Key will be sent to the phone number provided on registration when the ``Send API Key`` is clicked.
+__ Note:  You can verify your account and get €1 of credit if you verify your account by pressing__ ``Verify yourself for test credits`` In the middle left.
+
+
+
 
 ### Basic Usage
 ###### Sending a text message.
