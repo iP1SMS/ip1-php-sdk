@@ -38,12 +38,12 @@ class Communicator
     }
     /**
     * Adds the param to the API and returns the response as the corresponding object.
-    * @param \JsonSerializable $jsonSerialize A Contact, Group, Membership or OutGoingSMS.
-    * @return \JsonSerializable ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
+    * @param ProcessableComponent $component A Contact, Group, Membership or OutGoingSMS.
+    * @return ProcessedComponent ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function add(ProcessableComponent $component): \JsonSerializable
+    public function add(ProcessableComponent $component): ProcessedComponent
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\Contact":
@@ -67,12 +67,12 @@ class Communicator
     }
     /**
     * Removes the param to the API and returns the response as the corresponding object.
-    * @param \JsonSerializable $jsonSerialize A Contact, Group, Membership.
-    * @return \JsonSerializable ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
+    * @param ProcessedComponent $component A Contact, Group, Membership.
+    * @return ProcessedComponent ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function remove(ProcessableComponent $component): \JsonSerializable
+    public function remove(ProcessedComponent $component): ProcessedComponent
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
@@ -92,11 +92,11 @@ class Communicator
     }
     /**
     * Edits the param to the API and returns the response as the corresponding object.
-    * @param \JsonSerializable $jsonSerialize A Contact, Group, Membership.
-    * @return \JsonSerializable ProcessedContact, ProcessedGroup or PrcessedMembership.
+    * @param UpdatableComponent $component A Contact, Group, Membership.
+    * @return UpdatableComponent ProcessedContact, ProcessedGroup or PrcessedMembership.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function edit(UpdatableComponent $component): \JsonSerializable
+    public function edit(UpdatableComponent $component): UpdatableComponent
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
@@ -120,51 +120,46 @@ class Communicator
     }
 
     /**
-    * Fetches a ProcessedComponent(s) from the given URI. Replaces strings like {id} with the ID of the component
-    *       if one was provided.
+    * Fetches a ProcessedComponent(s) from the given URI.
     * @param string $endPoint API URI.
-    * @param ?\ProcessedComponent $component For replacing substrings such as "{id}" with an actual ID.
     * @return string JSON API Response.
     */
-    public function get(string $endPoint, ?ProcessedComponent $component = null)
+    public function get(string $endPoint)
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
-        if (!is_null($component)) {
-            $component->fillEndPoint($parsedEndPoint);
-        }
         return $this->sendRequest($parsedEndPoint, "GET");
     }
     /**
     * Adds the content object to the endpoint and returns a processed version of given object.
-    * @param string             $endPoint API URI.
-    * @param ?\JsonSerializable $content  The JsonSerializable that is to be posted to the API.
-    * @return string JSON repsonse.
+    * @param string            $endPoint API URI.
+    * @param \JsonSerializable $content  The ProcessableComponent that is to be posted to the API.
+    * @return string JSON API Response.
     */
-    public function post(string $endPoint, ProcessedComponent $content)
+    public function post(string $endPoint, \JsonSerializable $content): string
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
         return $this->sendRequest($parsedEndPoint, "POST", json_encode($content));
     }
     /**
-    * Deletes the object
+    * Deletes the object at the given endpoint
     * @param string $endPoint API URI.
     * @return string JSON string of what got deleted.
     */
-    public function delete(string $endPoint): \JsonSerializable
+    public function delete(string $endPoint): string
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
         return $this->sendRequest($parsedEndPoint, "DELETE");
     }
     /**
     * Replaces a ProcessedComponent with the arguments given.
-    * @param string             $endPoint API URI.
-    * @param ProcessedComponent $content  The ProcessedComponent that is to be PUT to the API.
+    * @param string            $endPoint API URI.
+    * @param \JsonSerializable $content  The JsonSerializable that is to be PUT to the API.
     * @return string JSON API Response.
     */
-    public function put(string $endPoint, ProcessedComponent &$content)
+    public function put(string $endPoint, \JsonSerializable $content): string
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
-        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($content));
+        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($component));
     }
     /**
     * Turns the given endPoint string into a usable.
