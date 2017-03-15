@@ -65,7 +65,7 @@ $com->edit($contact);
  * **Hannes Kindströmmer** - _Initial work_
 
 ## License
- This project is licensed under the GNU LGPLv3 License -  see [LICENSE](LICENSE.md) file for details.
+ This project is licensed under the GNU LGPLv3 License -  see [LICENSE](LICENSE) file for details.
 
 ## Contributing
 Please file issues under Github, or submit a pull request if you'd like to directly contribute.
