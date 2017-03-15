@@ -13,12 +13,12 @@
 namespace IP1\RESTClient\Test\Recipient;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
-use PHPUnit\Framework\TestCase;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 
 /**
 * @covers Contact
 */
-class ContactTest extends TestCase
+class ContactTest extends AbstractEnviromentProvider
 {
 
     private $completeContactString;

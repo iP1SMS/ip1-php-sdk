@@ -13,13 +13,13 @@
 
 namespace IP1\RESTClient\Test\Recipient;
 
-use PHPUnit\Framework\TestCase;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\ProcessedContact;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 use \DateTime;
 use \DateTimeZone;
 
-class ProcessedContactTest extends TestCase
+class ProcessedContactTest extends AbstractEnviromentProvider
 {
     private $completeContactString;
     private $listContactString;

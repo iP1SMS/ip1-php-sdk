@@ -19,11 +19,12 @@ use IP1\RESTClient\SMS\OutGoingSMS;
 use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Exception\UndefinedOffsetException;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 
 /**
  * Tests for the \IP1\RESTClient\SMS\OutGoingSMS class
  */
-class OutGoingSMSTest extends TestCase
+class OutGoingSMSTest extends AbstractEnviromentProvider
 {
 
     public function testAddRecipient()
