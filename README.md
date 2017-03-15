@@ -13,7 +13,7 @@ Install using Composer.
 ```json
 {
   "require": {
-    "ip1sms/phprestclient": "0.1.0-beta"
+    "ip1sms/ip1-php-sdk": "*"
   }
 }
 ```
