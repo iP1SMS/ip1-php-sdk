@@ -44,7 +44,7 @@ class ContactTest extends AbstractEnviromentProvider
     {
         $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
         $newContact = $this->communicator->add($contact);
-        $this->assertEquals(get_class(ProcessedContact::class), get_class($newContact));
+        $this->assertEquals(ProcessedContact::class, get_class($newContact));
         $this->assertEquals($contact->getEmail(), $newContact->getEmail());
         $this->assertEquals($contact->getFirstName(), $newContact->getFirstName());
         $this->assertEquals($contact->getNotes(), $newContact->getNotes());
@@ -58,7 +58,7 @@ class ContactTest extends AbstractEnviromentProvider
         $newContact->setTitle("Queen");
 
         $alteredContact = $this->communicator->edit($newContact);
-        $this->assertEquals(get_class(ProcessedContact::class), get_class($alteredContact));
+        $this->assertEquals(ProcessedContact::class, get_class($alteredContact));
         $this->assertEquals($newContact->getEmail(), $alteredContact->getEmail());
         $this->assertEquals($newContact->getFirstName(), $alteredContact->getFirstName());
         $this->assertEquals($newContact->getNotes(), $alteredContact->getNotes());
@@ -69,7 +69,7 @@ class ContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getID(), $alteredContact->getID());
 
         $deletedContact = $this->communicator->remove($newContact);
-        $this->assertEquals(get_class(ProcessedContact::class), get_class($deletedContact));
+        $this->assertEquals(ProcessedContact::class, get_class($deletedContact));
         $this->assertEquals($newContact->getEmail(), $deletedContact->getEmail());
         $this->assertEquals($newContact->getFirstName(), $deletedContact->getFirstName());
         $this->assertEquals($newContact->getNotes(), $deletedContact->getNotes());
