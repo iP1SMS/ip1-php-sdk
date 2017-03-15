@@ -1,4 +1,8 @@
 # IP1 RESTClient
+[![Build Status](https://travis-ci.org/iP1SMS/ip1-php-sdk.svg?branch=master)](https://travis-ci.org/iP1SMS/ip1-php-sdk)
+[![Code Climate](https://codeclimate.com/github/iP1SMS/ip1-php-sdk/badges/gpa.svg)](https://codeclimate.com/github/iP1SMS/ip1-php-sdk)
+[![Issue Count](https://codeclimate.com/github/iP1SMS/ip1-php-sdk/badges/issue_count.svg)](https://codeclimate.com/github/iP1SMS/ip1-php-sdk)
+
 A PHP SDK for IP1's SMS services.
 
 **Note: This package is in a beta stage and it's not recommended for use in production**
