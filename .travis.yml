@@ -9,10 +9,9 @@ php:
 matrix:
     fast_finish: true
     allow_failures:
-        - php:
-            - '7.0'
-            - nightly
-            - hhvm
+        - php: '7.0'
+        - php: nightly
+        - php: hhvm 
 
 before_script:
     - composer install --ignore-platform-reqs
