@@ -1,7 +1,7 @@
 # IP1 RESTClient
 A PHP SDK for IP1's SMS services.
 
-** Note: This package is in a beta stage and it's not recommended for use in production **
+**Note: This package is in a beta stage and it's not recommended for use in production**
 
 ## Getting Started
 ### Installing
@@ -9,7 +9,7 @@ Install using Composer.
 ```json
 {
   "require": {
-    "ip1sms/phprestclient": "*"
+    "ip1sms/phprestclient": "0.1.0-beta"
   }
 }
 ```
@@ -24,7 +24,7 @@ Create a free test-account at:
 
 Then log in at this [link](https://app.ip1sms.com/login/) using the credentials sent to the phone number provided via SMS. Once logged in click on Settings and then SMS Gateway API and you will be presented in the left panel with an account ID. The API Key will be sent to the phone number provided on registration when the Send API Key is clicked.
 
-__ Note:  You can verify your account and get €1 of credit if you verify your account by pressing__ ``Verify yourself for test credits`` In the middle left.
+**Note:  You can verify your account and get €1 of credit if you verify your account by pressing** ``Verify yourself for test credits`` **In the middle left**.
 
 
 
@@ -61,10 +61,10 @@ $com->edit($contact);
  * ** Hannes Kindströmmer ** - _Initial work_
 
 ## License
- This project is licensed under the GNU LGPLv3 License -  see LICENSE file for details.
+ This project is licensed under the GNU LGPLv3 License -  see [LICENSE](LICENSE.md) file for details.
 
 ## Contributing
-Please file issues under [SELECT PUBLIC GIT HOSTING], or submit a pull request if you'd like to directly contribute.
+Please file issues under Github, or submit a pull request if you'd like to directly contribute.
 Note that this project uses an extended version of PSR2 which adds some commenting rules from Squiz in order for PHPDoc to work correctly.
 
 ### Running tests
