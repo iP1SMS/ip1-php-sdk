@@ -17,5 +17,5 @@ before_script:
     - composer install --ignore-platform-reqs
 
 script:
-    - phpunit --configuration=phpunit.xml
+    - phpunit --configuration phpunit.xml
     - ./vendor/bin/phpcs --standard=codestandard.xml src
