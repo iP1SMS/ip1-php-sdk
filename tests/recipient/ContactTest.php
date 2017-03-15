@@ -10,6 +10,8 @@
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
 
+namespace IP1\RESTClient\Test\Recipient;
+
 use IP1\RESTClient\Recipient\RecipientFactory;
 use PHPUnit\Framework\TestCase;
 

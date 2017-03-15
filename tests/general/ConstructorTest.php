@@ -9,6 +9,9 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
+namespace IP1\RESTClient\Test\General;
+
 use IP1\RESTClient\Recipient\Group;
 use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\ProcessedContact;
@@ -17,6 +20,7 @@ use IP1\RESTClient\Recipient\ProcessedMembership;
 use IP1\RESTClient\Recipient\ProcessedGroup;
 use IP1\RESTClient\SMS\ProcessedOutGoingSMS;
 use PHPUnit\Framework\TestCase;
+use \DateTime;
 
 class ConstructorTest extends TestCase
 {

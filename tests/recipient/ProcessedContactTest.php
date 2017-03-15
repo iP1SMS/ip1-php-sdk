@@ -9,9 +9,15 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
+
+namespace IP1\RESTClient\Test\Recipient;
+
 use PHPUnit\Framework\TestCase;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\ProcessedContact;
+use \DateTime;
+use \DateTimeZone;
 
 class ProcessedContactTest extends TestCase
 {

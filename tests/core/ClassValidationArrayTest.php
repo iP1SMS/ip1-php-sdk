@@ -9,8 +9,15 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
+namespace IP1\RESTClient\Test\Core;
+
 use PHPUnit\Framework\TestCase;
 use IP1\RESTClient\Core\ClassValidationArray;
+use \DateTime;
+use \stdClass;
+use \InvalidArgumentException;
+use \ArrayObject;
 
 class ClassValidationArrayTest extends TestCase
 {
@@ -46,13 +53,12 @@ class ClassValidationArrayTest extends TestCase
     */
     public function testScalarVariables($scalarVariable)
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $array = new ClassValidationArray($scalarVariable);
     }
     /**
     * @dataProvider getNonEmptyValidArrays
     * @covers ClassValidationArray::offsetSet
-    * @throws InvalidArgumentException
     */
     public function testAddWrongObjectClass($validArray)
     {

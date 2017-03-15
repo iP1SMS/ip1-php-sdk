@@ -9,6 +9,10 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
+
+namespace IP1\RESTClient\Test\SMS;
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Exception;
 use IP1\RESTClient\SMS\OutGoingSMS;
