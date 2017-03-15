@@ -62,7 +62,7 @@ $com->edit($contact);
 
 
 ## Authors
- * ** Hannes Kindströmmer ** - _Initial work_
+ * **Hannes Kindströmmer** - _Initial work_
 
 ## License
  This project is licensed under the GNU LGPLv3 License -  see [LICENSE](LICENSE.md) file for details.
