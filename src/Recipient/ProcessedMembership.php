@@ -11,7 +11,6 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ProcessedComponent;
 
 /**
