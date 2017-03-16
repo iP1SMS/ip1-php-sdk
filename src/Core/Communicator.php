@@ -161,7 +161,7 @@ class Communicator
     public function put(string $endPoint, \JsonSerializable $content): string
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
-        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($component));
+        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($content));
     }
     /**
     * Turns the given endPoint string into a usable.
