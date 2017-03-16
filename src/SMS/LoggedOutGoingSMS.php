@@ -11,12 +11,12 @@
 */
 namespace IP1\RESTClient\SMS;
 
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 
 /**
 * The response you will get when sending an OutGoingSMS. One instance per recipient.
 */
-class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableComponent
+class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableComponentInterface
 {
     /**
     * Stores when the sms was created in UTC.

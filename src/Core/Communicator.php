@@ -13,7 +13,7 @@ namespace IP1\RESTClient\Core;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Core\ProcessedComponentInterface;
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
@@ -94,11 +94,11 @@ class Communicator
     }
     /**
     * Edits the param to the API and returns the response as the corresponding object.
-    * @param UpdatableComponent $component A Contact, Group, Membership.
-    * @return UpdatableComponent ProcessedContact, ProcessedGroup or PrcessedMembership.
+    * @param UpdatableComponentInterface $component A Contact, Group, Membership.
+    * @return UpdatableComponentInterface ProcessedContact, ProcessedGroup or PrcessedMembership.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function edit(UpdatableComponent $component): UpdatableComponent
+    public function edit(UpdatableComponentInterface $component): UpdatableComponentInterface
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":

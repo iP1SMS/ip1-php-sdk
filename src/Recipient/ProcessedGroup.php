@@ -12,14 +12,14 @@
 namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Core\Communicator;
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ClassValidationArray;
 use IP1\RESTClient\Recipient\ProcessedMembership;
 
 /**
 *
 */
-class ProcessedGroup extends Group implements UpdatableComponent, MembershipRelation
+class ProcessedGroup extends Group implements UpdatableComponentInterface, MembershipRelation
 {
     /**
     * The ID of the Group given by the API.
