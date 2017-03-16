@@ -106,7 +106,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     */
     public function getMemberships(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $membershipJSON = $communicator->get("api/groups/".$this->groupID."/memberships");
             $membershipStd = json_decode($membershipJSON);
             $memberships = [];
@@ -135,7 +135,7 @@ class ProcessedGroup extends Group implements UpdatableComponent, MembershipRela
     */
     public function getContacts(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $contactStd = $communicator->get('api/groups/'.$this->groupID. '/contacts');
             $contactStd = json_decode($contactStd);
             $contacts = RecipientFactory::createProcessedGroupsFromStdClassArray($contactStd);
