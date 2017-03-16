@@ -19,7 +19,7 @@ use IP1\RESTClient\Core\ClassValidationArray;
 * @link http://api.ip1sms.com/Help/Api/GET-api-memberships
 * @package \IP1\RESTClient\Recipient
 */
-interface MembershipRelation
+interface MembershipRelationInterface
 {
     /**
     * Returns an array of all the memberships
