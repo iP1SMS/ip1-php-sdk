@@ -9,9 +9,9 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
-use IP1\RESTClient\Core\UpdatableComponent;
-
 namespace IP1\RESTClient\SMS;
+
+use IP1\RESTClient\Core\UpdatableComponent;
 
 /**
 * The response you will get when sending an OutGoingSMS. One instance per recipient.
