@@ -15,7 +15,7 @@ namespace IP1\RESTClient\Core;
 * All responses from the API implements this class.
 * @package \IP1\RESTClient\Core
 */
-interface ProcessedComponent extends ProcessableComponentInterface
+interface ProcessedComponentInterface extends ProcessableComponentInterface
 {
 
     /**
