@@ -224,8 +224,8 @@ class RecipientFactory
             $stdClassSMS->Message,
             $stdClassSMS->To,
             $stdClassSMS->ID,
-            new DateTime($stdClassSMS->Created),
-            new DateTime($stdClassSMS->Updated),
+            new \DateTime($stdClassSMS->Created),
+            new \DateTime($stdClassSMS->Updated),
             $stdClassSMS->Status,
             $stdClassSMS->StatusDescription,
             $stdClassSMS->BundleID
