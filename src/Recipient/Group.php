@@ -64,7 +64,7 @@ class Group implements ProcessableComponentInterface
     /**
     * Sets the Group's name to the given string.
     * @param string $name Name that the Group should have.
-    * @throws InvalidArgumentException When $name is empty.
+    * @throws \InvalidArgumentException When $name is empty.
     * @return void
     */
     public function setName(string $name):void
@@ -79,7 +79,7 @@ class Group implements ProcessableComponentInterface
     * @param string $color A hexadecimal color code.
     * @example #5E5E5E
     * @return void
-    * @throws InvalidArgumentException When $color isn't a valid hexadecimal color.
+    * @throws \InvalidArgumentException When $color isn't a valid hexadecimal color.
     */
     public function setColor(string $color): void
     {
