@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/iP1SMS/ip1-php-sdk.svg?branch=master)](https://travis-ci.org/iP1SMS/ip1-php-sdk)
 [![Code Climate](https://codeclimate.com/github/iP1SMS/ip1-php-sdk/badges/gpa.svg)](https://codeclimate.com/github/iP1SMS/ip1-php-sdk)
 [![Issue Count](https://codeclimate.com/github/iP1SMS/ip1-php-sdk/badges/issue_count.svg)](https://codeclimate.com/github/iP1SMS/ip1-php-sdk)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/94c13f28-e8da-4023-8eab-d477cb10f8e5/mini.png)](https://insight.sensiolabs.com/projects/94c13f28-e8da-4023-8eab-d477cb10f8e5)
 
 A PHP SDK for IP1's SMS services.
 
