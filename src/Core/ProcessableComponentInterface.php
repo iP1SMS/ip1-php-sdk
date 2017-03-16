@@ -16,7 +16,7 @@ namespace IP1\RESTClient\Core;
 * All objects that are possible to send to the Communicator implement this or any child class.
 * @package \IP1\RESTClient\Core
 */
-interface ProcessableComponent extends \JsonSerializable
+interface ProcessableComponentInterface extends \JsonSerializable
 {
 
   /**

@@ -11,12 +11,12 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Used to group contacts together with the Membership class.
 */
-class Group implements ProcessableComponent
+class Group implements ProcessableComponentInterface
 {
    /**
     * Name of Group.

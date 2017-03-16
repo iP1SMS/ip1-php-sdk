@@ -14,7 +14,7 @@ namespace IP1\RESTClient\Core;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Core\ProcessedComponent;
 use IP1\RESTClient\Core\UpdatableComponent;
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Handles request to the API and converts the responses into the data classes.
@@ -40,12 +40,12 @@ class Communicator
     }
     /**
     * Adds the param to the API and returns the response as the corresponding object.
-    * @param ProcessableComponent $component A Contact, Group, Membership or OutGoingSMS.
+    * @param ProcessableComponentInterface $component A Contact, Group, Membership or OutGoingSMS.
     * @return ProcessedComponent ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function add(ProcessableComponent $component): ProcessedComponent
+    public function add(ProcessableComponentInterface $component): ProcessedComponent
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\Contact":
@@ -134,7 +134,7 @@ class Communicator
     /**
     * Adds the content object to the endpoint and returns a processed version of given object.
     * @param string            $endPoint API URI.
-    * @param \JsonSerializable $content  The ProcessableComponent that is to be posted to the API.
+    * @param \JsonSerializable $content  The ProcessableComponentInterface that is to be posted to the API.
     * @return string JSON API Response.
     */
     public function post(string $endPoint, \JsonSerializable $content): string
