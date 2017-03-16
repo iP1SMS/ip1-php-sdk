@@ -14,14 +14,14 @@ namespace IP1\RESTClient\Recipient;
 use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Recipient\Membership;
 use IP1\RESTClient\Recipient\RecipientFactory;
-use IP1\RESTClient\Recipient\MembershipRelation;
+use IP1\RESTClient\Recipient\MembershipRelationInterface;
 use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ClassValidationArray;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
 */
-class ProcessedContact extends Contact implements UpdatableComponentInterface, MembershipRelation
+class ProcessedContact extends Contact implements UpdatableComponentInterface, MembershipRelationInterface
 {
     /**
     * The ID of the Contact given by the API.

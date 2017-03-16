@@ -19,7 +19,7 @@ use IP1\RESTClient\Recipient\ProcessedMembership;
 /**
 *
 */
-class ProcessedGroup extends Group implements UpdatableComponentInterface, MembershipRelation
+class ProcessedGroup extends Group implements UpdatableComponentInterface, MembershipRelationInterface
 {
     /**
     * The ID of the Group given by the API.
