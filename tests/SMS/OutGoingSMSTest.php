@@ -39,6 +39,7 @@ class OutGoingSMSTest extends AbstractEnviromentProvider
         $stdSMS = json_decode(json_encode($sms));
         $this->assertEquals([1735500], $stdSMS->Contacts);
     }
+
     public function testNumbers()
     {
         $sms = new OutGoingSMS("Jack", "Why is the rum gone?");
