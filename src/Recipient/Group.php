@@ -70,7 +70,7 @@ class Group implements ProcessableComponent
     public function setName(string $name):void
     {
         if (empty($name)) {
-            throw new InvalidArgumentException("Group name can not be empty");
+            throw new \InvalidArgumentException("Group name can not be empty");
         }
         $this->name = $name;
     }
@@ -84,7 +84,7 @@ class Group implements ProcessableComponent
     public function setColor(string $color): void
     {
         if (!preg_match("/^#([A-Fa-f0-9]{6})$/", $color)) {
-            throw new InvalidArgumentException($color. " is not a valid hexadecimal color");
+            throw new \InvalidArgumentException($color. " is not a valid hexadecimal color");
         }
         $this->color = $color;
     }
