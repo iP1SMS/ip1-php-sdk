@@ -9,14 +9,14 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
-use IP1\RESTClient\Core\UpdatableComponent;
-
 namespace IP1\RESTClient\SMS;
+
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 
 /**
 * The response you will get when sending an OutGoingSMS. One instance per recipient.
 */
-class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableComponent
+class LoggedOutGoingSMS extends ProcessedOutGoingSMS implements UpdatableComponentInterface
 {
     /**
     * Stores when the sms was created in UTC.

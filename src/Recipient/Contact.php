@@ -11,12 +11,12 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Contact class that represents the JSON that is sent to the API when adding a new Contact
 */
-class Contact implements ProcessableComponent
+class Contact implements ProcessableComponentInterface
 {
     /**
     * The contacts first name.

@@ -16,7 +16,7 @@ namespace IP1\RESTClient\Core;
 *   that class implements this interface.
 * @package \IP1\RESTClient\Core
 */
-interface UpdatableComponent extends ProcessedComponent
+interface UpdatableComponentInterface extends ProcessedComponentInterface
 {
     /**
     * Returns when the component was updated last.

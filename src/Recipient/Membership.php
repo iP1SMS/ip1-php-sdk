@@ -11,12 +11,12 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Membership is the bridge between ProcessedGroup and ProcessedContact.
 */
-class Membership implements ProcessableComponent
+class Membership implements ProcessableComponentInterface
 {
 
     /**

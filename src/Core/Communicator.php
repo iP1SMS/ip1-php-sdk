@@ -12,9 +12,9 @@
 namespace IP1\RESTClient\Core;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
-use IP1\RESTClient\Core\ProcessedComponent;
-use IP1\RESTClient\Core\UpdatableComponent;
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessedComponentInterface;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Handles request to the API and converts the responses into the data classes.
@@ -40,12 +40,12 @@ class Communicator
     }
     /**
     * Adds the param to the API and returns the response as the corresponding object.
-    * @param ProcessableComponent $component A Contact, Group, Membership or OutGoingSMS.
-    * @return ProcessedComponent ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
+    * @param ProcessableComponentInterface $component A Contact, Group, Membership or OutGoingSMS.
+    * @return ProcessedComponentInterface ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function add(ProcessableComponent $component): ProcessedComponent
+    public function add(ProcessableComponentInterface $component): ProcessedComponentInterface
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\Contact":
@@ -69,12 +69,12 @@ class Communicator
     }
     /**
     * Removes the param to the API and returns the response as the corresponding object.
-    * @param ProcessedComponent $component A Contact, Group, Membership.
-    * @return ProcessedComponent ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
+    * @param ProcessedComponentInterface $component A Contact, Group, Membership.
+    * @return ProcessedComponentInterface ProcessedContact, ProcessedGroup, PrcessedMembership or a ClassValidatinArray
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function remove(ProcessedComponent $component): ProcessedComponent
+    public function remove(ProcessedComponentInterface $component): ProcessedComponentInterface
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
@@ -94,11 +94,11 @@ class Communicator
     }
     /**
     * Edits the param to the API and returns the response as the corresponding object.
-    * @param UpdatableComponent $component A Contact, Group, Membership.
-    * @return UpdatableComponent ProcessedContact, ProcessedGroup or PrcessedMembership.
+    * @param UpdatableComponentInterface $component A Contact, Group, Membership.
+    * @return UpdatableComponentInterface ProcessedContact, ProcessedGroup or PrcessedMembership.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function edit(UpdatableComponent $component): UpdatableComponent
+    public function edit(UpdatableComponentInterface $component): UpdatableComponentInterface
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\ProcessedContact":
@@ -122,7 +122,7 @@ class Communicator
     }
 
     /**
-    * Fetches a ProcessedComponent(s) from the given URI.
+    * Fetches a ProcessedComponentInterface(s) from the given URI.
     * @param string $endPoint API URI.
     * @return string JSON API Response.
     */
@@ -134,7 +134,7 @@ class Communicator
     /**
     * Adds the content object to the endpoint and returns a processed version of given object.
     * @param string            $endPoint API URI.
-    * @param \JsonSerializable $content  The ProcessableComponent that is to be posted to the API.
+    * @param \JsonSerializable $content  The ProcessableComponentInterface that is to be posted to the API.
     * @return string JSON API Response.
     */
     public function post(string $endPoint, \JsonSerializable $content): string
@@ -153,7 +153,7 @@ class Communicator
         return $this->sendRequest($parsedEndPoint, "DELETE");
     }
     /**
-    * Replaces a ProcessedComponent with the arguments given.
+    * Replaces a ProcessedComponentInterface with the arguments given.
     * @param string            $endPoint API URI.
     * @param \JsonSerializable $content  The JsonSerializable that is to be PUT to the API.
     * @return string JSON API Response.
@@ -161,7 +161,7 @@ class Communicator
     public function put(string $endPoint, \JsonSerializable $content): string
     {
         $parsedEndPoint = self::parseEndPoint($endPoint);
-        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($component));
+        return $this->sendRequest($parsedEndPoint, "PUT", json_encode($content));
     }
     /**
     * Turns the given endPoint string into a usable.

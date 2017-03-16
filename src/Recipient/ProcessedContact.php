@@ -11,17 +11,17 @@
 */
 namespace IP1\RESTClient\Recipient;
 
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Recipient\Membership;
 use IP1\RESTClient\Recipient\RecipientFactory;
-use IP1\RESTClient\Recipient\MembershipRelation;
+use IP1\RESTClient\Recipient\MembershipRelationInterface;
 use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ClassValidationArray;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
 */
-class ProcessedContact extends Contact implements UpdatableComponent, MembershipRelation
+class ProcessedContact extends Contact implements UpdatableComponentInterface, MembershipRelationInterface
 {
     /**
     * The ID of the Contact given by the API.
@@ -109,7 +109,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
       */
     public function getMemberships(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
             $membershipStd = json_decode($membershipJSON);
             $memberships = [];
@@ -130,7 +130,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     */
     public function getGroups(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $groupsJSON = $communicator->get('api/contacts/'.$this->contactID. '/groups');
             $groupStd = json_decode($groupsJSON);
             $groups = RecipientFactory::createProcessedGroupsFromStdClassArray($groupStd);

@@ -14,12 +14,12 @@ namespace IP1\RESTClient\SMS;
 
 use IP1\RESTClient\Recipient\ProcessedContact;
 use IP1\RESTClient\Recipient\Group;
-use IP1\RESTClient\Core\ProcessableComponent;
+use IP1\RESTClient\Core\ProcessableComponentInterface;
 
 /**
 * Class that is used when wanting to send SMSes to the API.
 */
-class OutGoingSMS extends SMS implements ProcessableComponent
+class OutGoingSMS extends SMS implements ProcessableComponentInterface
 {
     /**
     * Contains all the phone numbers the SMS should be sent to.

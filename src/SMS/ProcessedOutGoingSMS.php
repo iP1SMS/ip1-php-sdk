@@ -12,12 +12,12 @@
 
 namespace IP1\RESTClient\SMS;
 
-use IP1\RESTClient\Core\UpdatableComponent;
+use IP1\RESTClient\Core\UpdatableComponentInterface;
 
 /**
 * The response from the API when you post an SMS to the API
 */
-class ProcessedOutGoingSMS extends SMS implements UpdatableComponent
+class ProcessedOutGoingSMS extends SMS implements UpdatableComponentInterface
 {
     /**
     * The ID of the SMS provided by the API.
