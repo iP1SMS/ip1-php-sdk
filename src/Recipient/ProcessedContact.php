@@ -109,7 +109,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
       */
     public function getMemberships(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
             $membershipStd = json_decode($membershipJSON);
             $memberships = [];
@@ -130,7 +130,7 @@ class ProcessedContact extends Contact implements UpdatableComponent, Membership
     */
     public function getGroups(Communicator $communicator = null): ClassValidationArray
     {
-        if ($communicator != null) {
+        if ($communicator !== null) {
             $groupsJSON = $communicator->get('api/contacts/'.$this->contactID. '/groups');
             $groupStd = json_decode($groupsJSON);
             $groups = RecipientFactory::createProcessedGroupsFromStdClassArray($groupStd);
