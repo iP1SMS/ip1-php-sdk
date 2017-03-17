@@ -9,17 +9,22 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
+
+namespace IP1\RESTClient\Test\SMS;
+
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Exception;
 use IP1\RESTClient\SMS\OutGoingSMS;
 use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Exception\UndefinedOffsetException;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 
 /**
  * Tests for the \IP1\RESTClient\SMS\OutGoingSMS class
  */
-class OutGoingSMSTest extends TestCase
+class OutGoingSMSTest extends AbstractEnviromentProvider
 {
 
     public function testAddRecipient()
@@ -34,6 +39,7 @@ class OutGoingSMSTest extends TestCase
         $stdSMS = json_decode(json_encode($sms));
         $this->assertEquals([1735500], $stdSMS->Contacts);
     }
+
     public function testNumbers()
     {
         $sms = new OutGoingSMS("Jack", "Why is the rum gone?");

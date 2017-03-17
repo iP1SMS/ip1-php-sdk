@@ -9,6 +9,7 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+
 namespace IP1\RESTClient\SMS;
 
 use IP1\RESTClient\Core\UpdatableComponentInterface;

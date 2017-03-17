@@ -9,14 +9,19 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+namespace IP1\RESTClient\Test\Recipient;
 
+//require_once('tests/Core/AbstractEnviromentProvider.php');
+use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
+use IP1\RESTClient\Recipient\ProcessedContact;
 use PHPUnit\Framework\TestCase;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 
 /**
 * @covers Contact
 */
-class ContactTest extends TestCase
+class ContactTest extends AbstractEnviromentProvider
 {
 
     private $completeContactString;
@@ -35,6 +40,60 @@ class ContactTest extends TestCase
         $this->completeContactStd = json_decode($this->completeContactString);
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
+    }
+    /**
+    * @group api
+    */
+    public function testAPI()
+    {
+        $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
+        $newContact = $this->getCommunicator()->add($contact);
+        $this->assertEquals(ProcessedContact::class, get_class($newContact));
+        $this->assertEquals($contact->getEmail(), $newContact->getEmail());
+        $this->assertEquals($contact->getFirstName(), $newContact->getFirstName());
+        $this->assertEquals($contact->getNotes(), $newContact->getNotes());
+        $this->assertEquals($contact->getLastName(), $newContact->getLastName());
+        $this->assertEquals($contact->getOrganization(), $newContact->getOrganization());
+        $this->assertEquals($contact->getPhoneNumber(), $newContact->getPhoneNumber());
+        $this->assertEquals($contact->getTitle(), $newContact->getTitle());
+        $this->assertTrue(is_int($newContact->getID()));
+
+        $newContact->setLastName("Swann");
+        $newContact->setTitle("Queen");
+
+        $alteredContact = $this->getCommunicator()->edit($newContact);
+        $this->assertEquals(ProcessedContact::class, get_class($alteredContact));
+        $this->assertEquals($newContact->getEmail(), $alteredContact->getEmail());
+        $this->assertEquals($newContact->getFirstName(), $alteredContact->getFirstName());
+        $this->assertEquals($newContact->getNotes(), $alteredContact->getNotes());
+        $this->assertEquals($newContact->getLastName(), $alteredContact->getLastName());
+        $this->assertEquals($newContact->getOrganization(), $alteredContact->getOrganization());
+        $this->assertEquals($newContact->getPhoneNumber(), $alteredContact->getPhoneNumber());
+        $this->assertEquals($newContact->getTitle(), $alteredContact->getTitle());
+        $this->assertEquals($newContact->getID(), $alteredContact->getID());
+
+        $deletedContact = $this->getCommunicator()->remove($newContact);
+        $this->assertEquals(ProcessedContact::class, get_class($deletedContact));
+        $this->assertEquals($newContact->getEmail(), $deletedContact->getEmail());
+        $this->assertEquals($newContact->getFirstName(), $deletedContact->getFirstName());
+        $this->assertEquals($newContact->getNotes(), $deletedContact->getNotes());
+        $this->assertEquals($newContact->getLastName(), $deletedContact->getLastName());
+        $this->assertEquals($newContact->getOrganization(), $deletedContact->getOrganization());
+        $this->assertEquals($newContact->getPhoneNumber(), $deletedContact->getPhoneNumber());
+        $this->assertEquals($newContact->getTitle(), $deletedContact->getTitle());
+        $this->assertEquals($newContact->getID(), $deletedContact->getID());
+    }
+    /**
+    * @group api
+    */
+    public function testIsContactBookEmpty()
+    {
+        $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
+            json_decode(
+                $this->getCommunicator()->get("api/contacts")
+            )
+        );
+        $this->assertEquals([], $contacts->getArrayCopy);
     }
     public function testCreateFromStdClass()
     {

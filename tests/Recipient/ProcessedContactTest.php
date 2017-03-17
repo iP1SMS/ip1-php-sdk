@@ -9,11 +9,17 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
-use PHPUnit\Framework\TestCase;
+
+
+namespace IP1\RESTClient\Test\Recipient;
+
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\ProcessedContact;
+use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
+use \DateTime;
+use \DateTimeZone;
 
-class ProcessedContactTest extends TestCase
+class ProcessedContactTest extends AbstractEnviromentProvider
 {
     private $completeContactString;
     private $listContactString;
@@ -38,7 +44,7 @@ class ProcessedContactTest extends TestCase
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
     }
-
+    
     public function testCreateCompleteFromStdClass()
     {
         $contact = RecipientFactory::createProcessedContactFromStdClass($this->completeContactStd);
