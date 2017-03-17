@@ -43,7 +43,7 @@ class ContactTest extends AbstractEnviromentProvider
     }
     public function tearDown()
     {
-        if ($this->isCommunicatorEnabled) {
+        if ($this->isCommunicatorEnabled()) {
             $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
                 json_decode($this->getCommunicator()->get('api/contacts'))
             );
