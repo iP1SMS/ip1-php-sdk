@@ -13,7 +13,8 @@
     ],
     "autoload": {
     "psr-4": {
-      "IP1\\RESTClient\\": "src"
+      "IP1\\RESTClient\\": "src",
+      "IP1\\RESTClient\\Test\\": "tests"
     }
   },
     "require" : {

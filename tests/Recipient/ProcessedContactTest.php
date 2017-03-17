@@ -44,15 +44,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
     }
-    public function testIsContactBookEmpty()
-    {
-        $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
-            json_decode(
-                $this->communicator->get("api/contacts")
-            )
-        );
-        $this->assertEquals([], $contacts->getArrayCopy);
-    }
+    
     public function testCreateCompleteFromStdClass()
     {
         $contact = RecipientFactory::createProcessedContactFromStdClass($this->completeContactStd);

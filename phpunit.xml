@@ -4,16 +4,19 @@
   convertWarningsToExceptions="true">
   <testsuites>
     <testsuite name="recipient">
-      <directory>tests/recipient</directory>
+      <directory>tests/Recipient</directory>
     </testsuite>
     <testsuite name="sms">
-      <directory>tests/sms</directory>
+      <directory>tests/SMS</directory>
     </testsuite>
     <testsuite name="general">
-      <directory>tests/general</directory>
+      <directory>tests/General</directory>
     </testsuite>
     <testsuite name="core">
-      <directory>tests/core</directory>
+      <directory>tests/Core</directory>
+    </testsuite>
+    <testsuite name="apicalls">
+      <directory>tests/APICalls</directory>
     </testsuite>
   </testsuites>
 </phpunit>

@@ -9,12 +9,13 @@
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
-
 namespace IP1\RESTClient\Test\Recipient;
 
+//require_once('tests/Core/AbstractEnviromentProvider.php');
 use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\ProcessedContact;
+use PHPUnit\Framework\TestCase;
 use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 
 /**
@@ -40,8 +41,14 @@ class ContactTest extends AbstractEnviromentProvider
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
     }
+    /**
+    * @group api
+    */
     public function testAPI()
     {
+        if (!$this->isCommunicatorEnabled()) {
+            $this->markTestSkipped("Communicator is not enabled skipping test");
+        }
         $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
         $newContact = $this->communicator->add($contact);
         $this->assertEquals(ProcessedContact::class, get_class($newContact));
@@ -78,6 +85,21 @@ class ContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getPhoneNumber(), $deletedContact->getPhoneNumber());
         $this->assertEquals($newContact->getTitle(), $deletedContact->getTitle());
         $this->assertEquals($newContact->getID(), $deletedContact->getID());
+    }
+    /**
+    * @group api
+    */
+    public function testIsContactBookEmpty()
+    {
+        if (!$this->isCommunicatorEnabled()) {
+            $this->markTestSkipped("Communicator is not enabled skipping test");
+        }
+        $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
+            json_decode(
+                $this->communicator->get("api/contacts")
+            )
+        );
+        $this->assertEquals([], $contacts->getArrayCopy);
     }
     public function testCreateFromStdClass()
     {

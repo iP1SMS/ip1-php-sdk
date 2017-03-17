@@ -24,24 +24,31 @@ use \DateTime;
 
 class ConstructorTest extends TestCase
 {
-    /**
-    * @covers Contact::__construct
-    * @covers ProcessedContact::__construct
-    */
+
     public function testRecipientConstructors()
     {
-        new Contact("Jack", "12025550161");
-        new ProcessedContact("Jack", "12025550161", 13, "Sparrow", "Captain", "Black Pearl Co.", "", "");
-        new Group("Crew men", "#ffffff");
-        new ProcessedGroup("Crew men", "#ffffff", 12, new DateTime(), new DateTime());
-        new Membership(12, 22);
-        new ProcessedMembership(12, 22, 43, new DateTime());
-        new ProcessedMembership(1, 2, 3, new  DateTime());
+        $this->_require_all("src");
         $this->addToAssertionCount(1);
     }
-    public function testSMSConstructors()
+    /**
+     * Scan the api path, recursively including all PHP files
+     *
+     * @param string  $dir
+     * @param int     $depth (optional)
+     * @author mrashad10 at github.com
+     * @author pwenzel at github.com
+     * @link https://gist.github.com/mrashad10/807456e12a6811f644ca
+     */
+    protected function _require_all($dir, $depth = 0)
     {
-        new ProcessedOutGoingSMS("Jack", "Why is the rum gone?", "12025550109", 1, new DateTime(), new DateTime(), 22);
-        $this->addToAssertionCount(1);
+        // require all php files
+        $scan = glob("$dir" . DIRECTORY_SEPARATOR . "*");
+        foreach ($scan as $path) {
+            if (preg_match('/\.php$/', $path)) {
+                require_once $path;
+            } elseif (is_dir($path)) {
+                $this->_require_all($path, $depth+1);
+            }
+        }
     }
 }
