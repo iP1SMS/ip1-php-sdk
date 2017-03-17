@@ -93,7 +93,7 @@ class ContactTest extends AbstractEnviromentProvider
                 $this->getCommunicator()->get("api/contacts")
             )
         );
-        $this->assertEquals([], $contacts->getArrayCopy);
+        $this->assertEquals([], $contacts->getArrayCopy());
     }
     public function testCreateFromStdClass()
     {
