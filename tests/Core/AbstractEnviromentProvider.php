@@ -9,7 +9,7 @@ abstract class AbstractEnviromentProvider extends TestCase
 {
     private $communicator;
     private $communicatorEnabled = false;
-    public function __construct()
+    public function setUp()
     {
         if (getenv("USER") || getenv("PASS")) {
             // Uses Enviroment Variables provided by Travis CI for security reasons.
