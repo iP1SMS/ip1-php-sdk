@@ -41,6 +41,17 @@ class ContactTest extends AbstractEnviromentProvider
         $this->incompleteContactStd = json_decode($this->incompleteContactString);
         $this->minimalContactStd = json_decode($this->minimalContactString);
     }
+    public function tearDown()
+    {
+        if ($this->isCommunicatorEnabled) {
+            $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
+                json_decode($this->getCommunicator()->get('api/contacts'))
+            );
+            foreach ($contacts as $c) {
+                $this->getCommunicator()->remove($c);
+            }
+        }
+    }
     /**
     * @group api
     */
