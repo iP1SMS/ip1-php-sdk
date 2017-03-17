@@ -145,6 +145,14 @@ class ProcessedGroup extends Group implements UpdatableComponentInterface, Membe
         return $this->contacts;
     }
     /**
+    * Tells whether contacts has been fetched from the API or not.
+    * @return boolean Whether the contacts has been fetched from the API or not.
+    */
+    public function contactsFetched(): bool
+    {
+        return $this->contactsFetched;
+    }
+    /**
     * @param Communicator     $communicator Used to add the membership to the API.
     * @param ProcessedContact $contact      The contact that is to be added to the Group.
     * @return ProcessedMembership
