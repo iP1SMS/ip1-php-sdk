@@ -7,7 +7,7 @@ use IP1\RESTClient\Core\Communicator;
 
 abstract class AbstractEnviromentProvider extends TestCase
 {
-    protected $communicator;
+    private $communicator;
     private $communicatorEnabled = false;
     public function __construct()
     {
@@ -20,5 +20,13 @@ abstract class AbstractEnviromentProvider extends TestCase
     public function isCommunicatorEnabled(): bool
     {
         return $this->communicatorEnabled;
+    }
+    public function getCommunicator(): ?Communicator
+    {
+        if (!$this->isCommunicatorEnabled()) {
+              $this->markTestSkipped("Communicator is not enabled skipping test");
+              return null;
+        }
+        return $this->communicator;
     }
 }

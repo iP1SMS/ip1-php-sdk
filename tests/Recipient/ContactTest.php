@@ -46,11 +46,8 @@ class ContactTest extends AbstractEnviromentProvider
     */
     public function testAPI()
     {
-        if (!$this->isCommunicatorEnabled()) {
-            $this->markTestSkipped("Communicator is not enabled skipping test");
-        }
         $contact = RecipientFactory::createContactFromJSON($this->completeContactString);
-        $newContact = $this->communicator->add($contact);
+        $newContact = $this->getCommunicator()->add($contact);
         $this->assertEquals(ProcessedContact::class, get_class($newContact));
         $this->assertEquals($contact->getEmail(), $newContact->getEmail());
         $this->assertEquals($contact->getFirstName(), $newContact->getFirstName());
@@ -64,7 +61,7 @@ class ContactTest extends AbstractEnviromentProvider
         $newContact->setLastName("Swann");
         $newContact->setTitle("Queen");
 
-        $alteredContact = $this->communicator->edit($newContact);
+        $alteredContact = $this->getCommunicator()->edit($newContact);
         $this->assertEquals(ProcessedContact::class, get_class($alteredContact));
         $this->assertEquals($newContact->getEmail(), $alteredContact->getEmail());
         $this->assertEquals($newContact->getFirstName(), $alteredContact->getFirstName());
@@ -75,7 +72,7 @@ class ContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getTitle(), $alteredContact->getTitle());
         $this->assertEquals($newContact->getID(), $alteredContact->getID());
 
-        $deletedContact = $this->communicator->remove($newContact);
+        $deletedContact = $this->getCommunicator()->remove($newContact);
         $this->assertEquals(ProcessedContact::class, get_class($deletedContact));
         $this->assertEquals($newContact->getEmail(), $deletedContact->getEmail());
         $this->assertEquals($newContact->getFirstName(), $deletedContact->getFirstName());
@@ -91,12 +88,9 @@ class ContactTest extends AbstractEnviromentProvider
     */
     public function testIsContactBookEmpty()
     {
-        if (!$this->isCommunicatorEnabled()) {
-            $this->markTestSkipped("Communicator is not enabled skipping test");
-        }
         $contacts = RecipientFactory::createProcessedContactFromStdClassArray(
             json_decode(
-                $this->communicator->get("api/contacts")
+                $this->getCommunicator()->get("api/contacts")
             )
         );
         $this->assertEquals([], $contacts->getArrayCopy);

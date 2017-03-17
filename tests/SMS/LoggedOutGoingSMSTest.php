@@ -12,10 +12,7 @@ class LoggedOutGoingSMSTest extends AbstractEnviromentProvider
     */
     public function testIsSMSListEmpty()
     {
-        if (!$this->isCommunicatorEnabled()) {
-              $this->markTestSkipped("Communicator is not enabled skipping test");
-        }
-        $sms = json_decode($this->communicator->get('api/sms/sent'));
+        $sms = json_decode($this->getCommunicator()->get('api/sms/sent'));
         $this->assertEquals([], $sms);
     }
 }
