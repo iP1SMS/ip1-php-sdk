@@ -125,6 +125,7 @@ class RecipientFactory
             $stdContact->FirstName,
             $stdContact->Phone,
             $stdContact->ID,
+            $stdContact->OwnerID,
             $stdContact->LastName ?? null,
             $stdContact->Title ?? null,
             $stdContact->Organization ?? null,
