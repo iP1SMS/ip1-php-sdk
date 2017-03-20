@@ -27,7 +27,7 @@ class ConstructorTest extends TestCase
 
     public function testRecipientConstructors()
     {
-        $this->_require_all("src");
+        $this->requireAll("src");
         $this->addToAssertionCount(1);
     }
     /**
@@ -39,7 +39,7 @@ class ConstructorTest extends TestCase
      * @author pwenzel at github.com
      * @link https://gist.github.com/mrashad10/807456e12a6811f644ca
      */
-    protected function _require_all($dir, $depth = 0)
+    protected function requireAll($dir, $depth = 0)
     {
         // require all php files
         $scan = glob("$dir" . DIRECTORY_SEPARATOR . "*");
