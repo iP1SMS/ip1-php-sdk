@@ -33,7 +33,7 @@ class ProcessedBlacklistEntry extends BlacklistEntry implements ProcessedCompone
     }
     /**
     * Returns the ID of the ProcessedBlacklistEntry
-    * @return int ID of the ProcessedBlacklistEntry
+    * @return integer ID of the ProcessedBlacklistEntry
     */
     public function getID(): int
     {

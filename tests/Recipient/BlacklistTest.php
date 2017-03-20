@@ -34,6 +34,7 @@ class BlacklistTest extends AbstractEnviromentProvider
     {
         $blackListEntry = $this->getCommunicator()->add($entry);
         $this->assertEquals($entry->getPhoneNumber(), $blackListEntry->getPhoneNumber());
+        return $blackListEntry;
     }
     public function removeBlacklistEntryToAPI(ProcessedBlacklistEntry $entry): ProcessedBlacklistEntry
     {
