@@ -39,4 +39,12 @@ class Util
         }
         return $color;
     }
+    /**
+    * @todo Write account ID generator
+    */
+    public static function getRandomAccountID(): string
+    {
+      //TODO: Write account ID generator
+        return "ip1-xxxxx";
+    }
 }

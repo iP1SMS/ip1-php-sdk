@@ -156,6 +156,7 @@ class RecipientFactory
             $stdGroup->Name,
             $stdGroup->Color,
             $stdGroup->ID,
+            $stdGroup->OwnerID,
             new \DateTime($stdGroup->Created),
             new \DateTime($stdGroup->Modified)
         );
