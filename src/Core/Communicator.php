@@ -12,6 +12,7 @@
 namespace IP1\RESTClient\Core;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
+use IP1\RESTClient\Recipient\ProcessedBlacklistEntry;
 use IP1\RESTClient\Core\ProcessedComponentInterface;
 use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ProcessableComponentInterface;
@@ -63,6 +64,11 @@ class Communicator
             case "IP1\RESTClient\SMS\OutGoingSMS":
                 $response = $this->sendRequest("api/sms/send", "POST", json_encode($component));
                 return RecipientFactory::createProcessedOutGoingSMSFromJSONArray($response);
+            case "IP1\RESTClient\Recipient\BlacklistEntry":
+                $response = $this->sendRequest("api/blacklist", "POST", json_encode($component));
+                $stdResponse = json_decode($response);
+                $created = new \DateTime($stdResponse->Created);
+                return new ProcessedBlacklistEntry($stdResponse->Phone, $stdResponse->ID, $created);
             default:
                 throw new \InvalidArgumentException("Given JsonSerializable not supported.");
         }
@@ -88,6 +94,13 @@ class Communicator
             case "IP1\RESTClient\Recipient\ProcessedMembership":
                 $response = $this->sendRequest("api/memberships/".$component->getID(), "DELETE");
                 return RecipientFactory::createProcessedMembershipFromJSON($response);
+
+            case "IP1\RESTClient\Recipient\ProcessedBlacklistEntry":
+                $response = $this->sendRequest("api/blacklist/".$component->getID(), "DELETE");
+                $stdResponse = json_decode($response);
+                $created = new \DateTime($stdResponse->Created);
+                return new ProcessedBlacklistEntry($stdResponse->Phone, $stdResponse->ID, $created);
+
             default:
                 throw new \InvalidArgumentException("Given JsonSerializable not supported.");
         }

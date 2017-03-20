@@ -13,7 +13,8 @@
     ],
     "autoload": {
     "psr-4": {
-      "IP1\\RESTClient\\": "src"
+      "IP1\\RESTClient\\": "src",
+      "IP1\\RESTClient\\Test\\": "tests"
     }
   },
     "require" : {
@@ -21,8 +22,6 @@
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "2.*",
-        "phpmd/phpmd": "^2.6",
-        "phpunit/phpunit": "^6.0",
-        "phpdocumentor/phpdocumentor": "2.*"
+        "phpunit/phpunit": "^6.0"
     }
 }
