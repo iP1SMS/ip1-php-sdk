@@ -4,13 +4,17 @@
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.1.0-beta
+* @version 0.2.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
+namespace IP1\RESTClient\Test\Recipient;
 
+//require_once('tests/Core/AbstractEnviromentProvider.php');
+use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\RecipientFactory;
+use IP1\RESTClient\Recipient\ProcessedContact;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -26,9 +30,8 @@ class ContactTest extends TestCase
     private $minimalContactString;
     private $minimalContactStd;
 
-    public function __construct()
+    public function setUp()
     {
-        parent::__construct();
         $this->completeContactString = trim(file_get_contents("tests/resources/contact/contact.json"));
         $this->incompleteContactString = trim(file_get_contents("tests/resources/contact/incomplete_contact.json"));
         $this->minimalContactString = trim(file_get_contents("tests/resources/contact/minimal_contact.json"));
@@ -100,6 +103,26 @@ class ContactTest extends TestCase
         $this->assertEquals($this->completeContactStd->Title, $contact->getTitle());
         $this->assertEquals($this->completeContactStd->Organization, $contact->getOrganization());
         $this->assertEquals($this->completeContactStd->Notes, $contact->getNotes());
+    }
+    public function testMethodChaining()
+    {
+        $contact = RecipientFactory::createContactFromJSON($this->minimalContactString);
+
+        $contact->setFirstName("Lorem")
+                ->setLastName("Ipsum")
+                ->setTitle("dolor")
+                ->setOrganization("sit")
+                ->setPhoneNumber("12025550148")
+                ->setEmail("amet")
+                ->setNotes("Facilis dolores mea ut.");
+        $this->addToAssertionCount(7);
+        $this->assertEquals("Lorem", $contact->getFirstName());
+        $this->assertEquals("Ipsum", $contact->getLastName());
+        $this->assertEquals("dolor", $contact->getTitle());
+        $this->assertEquals("sit", $contact->getOrganization());
+        $this->assertEquals("12025550148", $contact->getPhoneNumber());
+        $this->assertEquals("amet", $contact->getEmail());
+        $this->assertEquals("Facilis dolores mea ut.", $contact->getNotes());
     }
     public function testGettersWithMembersNotSet()
     {

@@ -4,7 +4,7 @@
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 IP1 SMS
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.1.0-beta
+* @version 0.2.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
@@ -116,65 +116,72 @@ class Contact implements ProcessableComponentInterface
     }
     /**
     * @param string $firstName Sets the first name of the contact.
-    * @return void
+    * @return self
     */
-    public function setFirstName(string $firstName) :void
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
+        return $this;
     }
 
     /**
     * @param ?string $lastName Sets the last name of the contact.
-    * @return void
+    * @return self
     */
-    public function setLastName(?string $lastName): void
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
+        return $this;
     }
 
     /**
     * @param string $phoneNumber Sets the phone number of the contact.
-    * @return void
+    * @return self
     */
-    public function setPhoneNumber(string $phoneNumber): void
+    public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phone = $phoneNumber;
+        return $this;
     }
 
     /**
     * @param ?string $title Sets the title of the contact.
-    * @return void
+    * @return self
     */
-    public function setTitle(?string $title): void
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
+        return $this;
     }
 
     /**
     * @param ?string $organization Sets the contact company or other organization the contact belongs to.
-    * @return void
+    * @return self
     */
-    public function setOrganization(?string $organization): void
+    public function setOrganization(?string $organization): self
     {
         $this->organization = $organization;
+        return $this;
     }
 
     /**
     * @param ?string $email Sets the email adress of the contact.
-    * @return void
+    * @return self
     */
-    public function setEmail(?string $email): void
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
+        return $this;
     }
 
     /**
     * @param ?string $notes Sets the notes of the contact.
-    * @return void
+    * @return self
     */
-    public function setNotes(?string $notes): void
+    public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
+        return $this;
     }
     /**
     * @return string The contacts first name.
