@@ -47,7 +47,7 @@ class ConstructorTest extends TestCase
             if (preg_match('/\.php$/', $path)) {
                 require_once $path;
             } elseif (is_dir($path)) {
-                $this->_require_all($path, $depth+1);
+                $this->requireAll($path, $depth+1);
             }
         }
     }
