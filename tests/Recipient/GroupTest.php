@@ -35,6 +35,20 @@ class GroupTest extends TestCase
 
         $this->assertEquals($color, $group->getColor());
     }
+    /**
+    * @dataProvider getValidGroupInputs
+    */
+    public function testMethodChaining($name, $color)
+    {
+        $group = new Group("Jack", "#ffddff");
+        $group->setName($name)
+              ->setColor($color)
+              ->setName($name);
+
+        $this->assertEquals($name, $group->getName());
+
+        $this->assertEquals($color, $group->getColor());
+    }
     public function getValidGroupInputs(): array
     {
         return [
