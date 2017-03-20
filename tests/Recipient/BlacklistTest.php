@@ -41,7 +41,7 @@ class BlacklistTest extends AbstractEnviromentProvider
         $blackListEntry = $this->getCommunicator()->remove($entry);
         $this->assertEquals($entry->getID(), $blackListEntry->getID());
         $this->assertEquals($entry->getCreated(), $blackListEntry->getCreated());
-        $this->assertEquals($entry->getPhoneNumber()(), $blackListEntry->getPhoneNumber());
+        $this->assertEquals($entry->getPhoneNumber(), $blackListEntry->getPhoneNumber());
         return $blackListEntry;
     }
     public function tearDown()
