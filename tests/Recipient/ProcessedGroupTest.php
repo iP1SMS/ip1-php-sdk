@@ -102,5 +102,6 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         $this->assertEquals($editedGroup->getMemberships(), $removedGroup->getMemberships());
         $this->assertEquals($editedGroup->memberShipsFetched(), $removedGroup->memberShipsFetched());
         $this->assertEquals($editedGroup->contactsFetched(), $removedGroup->contactsFetched());
+        return $removedGroup;
     }
 }
