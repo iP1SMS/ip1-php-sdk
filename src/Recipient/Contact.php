@@ -121,7 +121,7 @@ class Contact implements ProcessableComponentInterface
     public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -131,7 +131,7 @@ class Contact implements ProcessableComponentInterface
     public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -141,7 +141,7 @@ class Contact implements ProcessableComponentInterface
     public function setPhoneNumber(string $phoneNumber): self
     {
         $this->phone = $phoneNumber;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -151,7 +151,7 @@ class Contact implements ProcessableComponentInterface
     public function setTitle(?string $title): self
     {
         $this->title = $title;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -161,7 +161,7 @@ class Contact implements ProcessableComponentInterface
     public function setOrganization(?string $organization): self
     {
         $this->organization = $organization;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -171,7 +171,7 @@ class Contact implements ProcessableComponentInterface
     public function setEmail(?string $email): self
     {
         $this->email = $email;
-        return &$this;
+        return $this;
     }
 
     /**
@@ -181,7 +181,7 @@ class Contact implements ProcessableComponentInterface
     public function setNotes(?string $notes): self
     {
         $this->notes = $notes;
-        return &$this;
+        return $this;
     }
     /**
     * @return string The contacts first name.
