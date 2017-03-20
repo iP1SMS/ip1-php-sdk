@@ -7,7 +7,7 @@ use IP1\RESTClient\Core\ProcessedComponentInterface;
 /**
 * A BlacklistEntry that has been processed by the API.
 */
-class ProcessedBlacklistEntry implements ProcessedComponentInterface
+class ProcessedBlacklistEntry extends BlacklistEntry implements ProcessedComponentInterface
 {
     /**
     * The ID of the BlacklistEntry

@@ -26,7 +26,7 @@ class BlacklistEntry implements ProcessableComponentInterface
     * Returns the phone number of the BlacklistEntry
     * @return string Phone Number
     */
-    public function getPhone(): string
+    public function getPhoneNumber(): string
     {
         return $this->phone;
     }
