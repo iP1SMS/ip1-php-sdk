@@ -104,6 +104,26 @@ class ContactTest extends TestCase
         $this->assertEquals($this->completeContactStd->Organization, $contact->getOrganization());
         $this->assertEquals($this->completeContactStd->Notes, $contact->getNotes());
     }
+    public function testMethodChaining()
+    {
+        $contact = RecipientFactory::createContactFromJSON($this->minimalContactString);
+
+        $contact->setFirstName("Lorem")
+                ->setLastName("Ipsum")
+                ->setTitle("dolor")
+                ->setOrganization("sit")
+                ->setPhoneNumber("12025550148")
+                ->setEmail("amet")
+                ->setNotes("Facilis dolores mea ut.");
+        $this->addToAssertionCount(7);
+        $this->assertEquals("Lorem", $contact->getFirstName());
+        $this->assertEquals("Ipsum", $contact->getLastName());
+        $this->assertEquals("dolor", $contact->getTitle());
+        $this->assertEquals("sit", $contact->getOrganization());
+        $this->assertEquals("12025550148", $contact->getPhoneNumber());
+        $this->assertEquals("amet", $contact->getEmail());
+        $this->assertEquals("Facilis dolores mea ut.", $contact->getNotes());
+    }
     public function testGettersWithMembersNotSet()
     {
         $contact = RecipientFactory::createContactFromJSON($this->minimalContactString);

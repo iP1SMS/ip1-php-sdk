@@ -64,29 +64,31 @@ class Group implements ProcessableComponentInterface
     /**
     * Sets the Group's name to the given string.
     * @param string $name Name that the Group should have.
+    * @return self
     * @throws \InvalidArgumentException When $name is empty.
-    * @return void
     */
-    public function setName(string $name):void
+    public function setName(string $name): self
     {
         if (empty($name)) {
             throw new \InvalidArgumentException("Group name can not be empty");
         }
         $this->name = $name;
+        return $this;
     }
     /**
     * Sets the groups color.
     * @param string $color A hexadecimal color code.
     * @example #5E5E5E
-    * @return void
+    * @return self
     * @throws \InvalidArgumentException When $color isn't a valid hexadecimal color.
     */
-    public function setColor(string $color): void
+    public function setColor(string $color): self
     {
         if (!preg_match("/^#([A-Fa-f0-9]{6})$/", $color)) {
             throw new \InvalidArgumentException($color. " is not a valid hexadecimal color");
         }
         $this->color = $color;
+        return $this;
     }
     /**
      * Serializes the object to a value that can be serialized natively by json_encode().
