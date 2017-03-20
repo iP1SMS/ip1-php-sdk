@@ -94,7 +94,7 @@ class Communicator
             case "IP1\RESTClient\Recipient\ProcessedMembership":
                 $response = $this->sendRequest("api/memberships/".$component->getID(), "DELETE");
                 return RecipientFactory::createProcessedMembershipFromJSON($response);
-            case "IP1\RESTClient\Recipient\BlacklistEntry":
+            case "IP1\RESTClient\Recipient\ProcessedBlacklistEntry":
                 $response = $this->sendRequest("api/blacklist/".$component->getID(), "DELETE");
                 $stdResponse = json_decode($response);
                 $created = new \DateTime($stdResponse->Created);
