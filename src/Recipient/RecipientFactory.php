@@ -191,6 +191,7 @@ class RecipientFactory
             $stdMembership->Group,
             $stdMembership->Contact,
             $stdMembership->ID,
+            $stdMembership->OwnerID,
             new \DateTime($stdMembership->Created)
         );
     }
