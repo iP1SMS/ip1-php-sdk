@@ -87,7 +87,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         } else {
             $this->fail();
         }
-        $this->assertEquals($editedGroup->getCreated(), $processedGroup->getCreated());
+        $this->assertEquals($processedGroup->getCreated(), $editedGroup->getCreated());
         return $editedGroup;
     }
     public function removeGroupToAPI(ProcessedGroup $editedGroup): ProcessedGroup
