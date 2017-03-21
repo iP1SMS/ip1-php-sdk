@@ -42,6 +42,7 @@ class MembershipTest extends AbstractEnviromentProvider
             $groups[] = $this->getCommunicator()->add($g);
             $m = new Membership($groups[$i]->getID(), $contacts[$i]->getID());
             $memberships[] = $this->getCommunicator()->add($m);
+            var_dump($this->getCommunicator()->errorResponses);
         }
         $this->assertEquals(10, count($contacts));
         $this->assertEquals(10, count($groups));
