@@ -12,12 +12,13 @@
 namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Core\ProcessedComponentInterface;
+use IP1\RESTClient\Core\OwnableInterface;
 
 /**
 * ProcessedMembership class.
 * Is the relation between contacts and groups.
 */
-class ProcessedMembership extends Membership implements ProcessedComponentInterface
+class ProcessedMembership extends Membership implements ProcessedComponentInterface, OwnableInterface
 {
 
     /**

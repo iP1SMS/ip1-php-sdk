@@ -15,11 +15,12 @@ use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ClassValidationArray;
 use IP1\RESTClient\Recipient\ProcessedMembership;
+use IP1\RESTClient\Core\OwnableInterface;
 
 /**
 *
 */
-class ProcessedGroup extends Group implements UpdatableComponentInterface, MembershipRelationInterface
+class ProcessedGroup extends Group implements UpdatableComponentInterface, MembershipRelationInterface, OwnableInterface
 {
     /**
     * The ID of the Group given by the API.

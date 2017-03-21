@@ -17,11 +17,15 @@ use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\MembershipRelationInterface;
 use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ClassValidationArray;
+use IP1\RESTClient\Core\OwnableInterface;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
 */
-class ProcessedContact extends Contact implements UpdatableComponentInterface, MembershipRelationInterface
+class ProcessedContact extends Contact implements
+    UpdatableComponentInterface,
+    MembershipRelationInterface,
+    OwnableInterface
 {
     /**
     * The ID of the Contact given by the API.
