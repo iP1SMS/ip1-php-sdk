@@ -67,11 +67,11 @@ class MembershipTest extends AbstractEnviromentProvider
 
             $contacts = json_decode($this->getCommunicator()->get('api/memberships'));
             foreach ($contacts as $key => $value) {
-                $this->getCommunicator()->delete('api/contacts/'.$value->ID);
+                $this->getCommunicator()->delete('api/memberships/'.$value->ID);
             }
             $groups = json_decode($this->getCommunicator()->get('api/groups'));
             foreach ($groups as $key => $value) {
-                $this->getCommunicator()->delete('api/contacts/'.$value->ID);
+                $this->getCommunicator()->delete('api/groups/'.$value->ID);
             }
         }
     }
