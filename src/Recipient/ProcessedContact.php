@@ -125,7 +125,7 @@ class ProcessedContact extends Contact implements
         if ($communicator !== null) {
             $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
             $membershipStd = json_decode($membershipJSON);
-            $memberships = [];
+            $memberships = new ClassValidationArray();
             foreach ($membershipStd as $value) {
                 $memberships[] = RecipientFactory::createProcessedMembershipFromStdClass($value);
             }

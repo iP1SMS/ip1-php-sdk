@@ -6,6 +6,7 @@ use IP1\RESTClient\Recipient\Contact;
 use IP1\RESTClient\Recipient\Membership;
 use IP1\RESTClient\Test\Core\AbstractEnviromentProvider;
 use IP1\RESTClient\Test\Util\Util;
+use IP1\RESTClient\Core\ClassValidationArray;
 
 class MembershipTest extends AbstractEnviromentProvider
 {
@@ -37,25 +38,24 @@ class MembershipTest extends AbstractEnviromentProvider
         $memberships = [];
         for ($i = 0; $i < 10; $i++) {
             $c = new Contact(Util::getRandomAlphaString(), Util::getRandomPhoneNumber());
-            $contacts[] = $this->getCommunicator()->add($c);
+            $contacts[] =  $this->getCommunicator()->add($c);
             $g = new Group(Util::getRandomAlphaString(), Util::getRandomHex());
             $groups[] = $this->getCommunicator()->add($g);
             $m = new Membership($groups[$i]->getID(), $contacts[$i]->getID());
             $memberships[] = $this->getCommunicator()->add($m);
-            var_dump($this->getCommunicator()->errorResponses);
         }
         $this->assertEquals(10, count($contacts));
         $this->assertEquals(10, count($groups));
         $this->assertEquals(10, count($memberships));
         for ($i = 0; $i < count($memberships); $i++) {
             $contactMemberships = $contacts[$i]->getMemberships($this->getCommunicator());
-            $this->assertTrue(1, count($contactMemberships));
+            $this->assertEquals(1, count($contactMemberships));
             $this->assertEquals($contactMemberships[0]->getContactID(), $contacts[$i]->getID());
             $this->assertEquals($contactMemberships[0]->getGroupID(), $groups[$i]->getID());
 
-            $contactGroups = $contact[$i]->getGroups($this->getCommunicator());
-            $this->assertTrue(1, count($contactGroups));
-            $this->assertEquals([$groups[$i]], $contactGroups);
+            $contactGroups = $contacts[$i]->getGroups($this->getCommunicator());
+            $this->assertEquals(1, count($contactGroups));
+            $this->assertEquals(new ClassValidationArray($groups[$i]), $contactGroups);
         }
     }
     public function tearDown()
