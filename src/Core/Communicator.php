@@ -226,7 +226,7 @@ class Communicator
         $response = $request->send();
 
         if ($response->hasErrors()) {
-            $this->$errorResponses[] = $response;
+            $this->errorResponses[] = $response;
         }
         return $response->__toString();
     }
