@@ -64,7 +64,7 @@ class Membership implements ProcessableComponentInterface
     {
         $returnArray = [
         'Group' => $this->groupID,
-        'Contact' => $this->ContactID,
+        'Contact' => $this->contactID,
         ];
         return $returnArray;
     }

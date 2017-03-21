@@ -82,7 +82,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         $processedGroup = $this->getCommunicator()->add($group);
         $this->assertEquals($group->getName(), $processedGroup->getName());
         $this->assertEquals($group->getColor(), $processedGroup->getColor());
-        $this->assertStringStartsWith("ip1-", $group->getOwnerID());
+        $this->assertStringStartsWith("ip1-", $processedGroup->getOwnerID());
         $this->assertTrue(is_int($processedGroup->getID()));
         $this->assertTrue(0 < $processedGroup->getID());
 

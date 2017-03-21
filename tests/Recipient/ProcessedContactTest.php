@@ -97,7 +97,6 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->assertEquals($contact->getOrganization(), $newContact->getOrganization());
         $this->assertEquals($contact->getPhoneNumber(), $newContact->getPhoneNumber());
         $this->assertEquals($contact->getTitle(), $newContact->getTitle());
-        $this->assertEquals($contact->getOwnerID(), $newContact->getOwnerID());
         $this->assertTrue(is_int($newContact->getID()));
 
         $newContact->setLastName("Swann");
