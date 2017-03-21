@@ -2,9 +2,9 @@
 /**
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
-* @copyright 2017 IP1 SMS
+* @copyright 2017 iP.1 Networks AB
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.1.0-beta
+* @version 0.3.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
@@ -125,6 +125,7 @@ class RecipientFactory
             $stdContact->FirstName,
             $stdContact->Phone,
             $stdContact->ID,
+            $stdContact->OwnerID,
             $stdContact->LastName ?? null,
             $stdContact->Title ?? null,
             $stdContact->Organization ?? null,
@@ -155,6 +156,7 @@ class RecipientFactory
             $stdGroup->Name,
             $stdGroup->Color,
             $stdGroup->ID,
+            $stdGroup->OwnerID,
             new \DateTime($stdGroup->Created),
             new \DateTime($stdGroup->Modified)
         );
@@ -189,6 +191,7 @@ class RecipientFactory
             $stdMembership->Group,
             $stdMembership->Contact,
             $stdMembership->ID,
+            $stdMembership->OwnerID,
             new \DateTime($stdMembership->Created)
         );
     }

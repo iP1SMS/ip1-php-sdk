@@ -2,9 +2,9 @@
 /**
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
-* @copyright 2017 IP1 SMS
+* @copyright 2017 iP.1 Networks AB
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.1.0-beta
+* @version 0.3.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
@@ -17,11 +17,15 @@ use IP1\RESTClient\Recipient\RecipientFactory;
 use IP1\RESTClient\Recipient\MembershipRelationInterface;
 use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ClassValidationArray;
+use IP1\RESTClient\Core\OwnableInterface;
 
 /**
 * A Contact that has been added to the API. Has all the options that a normal Contact has.
 */
-class ProcessedContact extends Contact implements UpdatableComponentInterface, MembershipRelationInterface
+class ProcessedContact extends Contact implements
+    UpdatableComponentInterface,
+    MembershipRelationInterface,
+    OwnableInterface
 {
     /**
     * The ID of the Contact given by the API.
@@ -38,6 +42,12 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
     * @var \DateTime $updated
     */
     private $updated;
+
+    /**
+    * The Account ID  of the Contact's owner.
+    * @var string $ownerID
+    */
+    private $ownerID;
     /**
     * An array of Memberships that the Group has.
     *
@@ -73,6 +83,7 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
     * @param string     $firstName    The first name of the contact in question.
     * @param string     $phoneNumber  Contact phone number: with country code and without spaces and dashes.
     * @param integer    $contactID    Contact ID.
+    * @param string     $ownerID      ID of account owning the Contact.
     * @param ?string    $lastName     Contact last name.
     * @param ?string    $title        The contacts title.
     * @param ?string    $organization Contact company or other organization.
@@ -85,6 +96,7 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
         string $firstName,
         string $phoneNumber,
         int $contactID,
+        string $ownerID,
         ?string $lastName,
         ?string $title,
         ?string $organization,
@@ -94,6 +106,7 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
         ?\DateTime $updated = null
     ) {
         parent::__construct($firstName, $phoneNumber, $lastName, $title, $organization, $email, $notes);
+        $this->ownerID = $ownerID;
         $this->contactID = $contactID;
         $this->created = $created ?? null;
         $this->updated = $updated ?? null;
@@ -112,7 +125,7 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
         if ($communicator !== null) {
             $membershipJSON = $communicator->get("api/contacts/".$this->contactID."/memberships");
             $membershipStd = json_decode($membershipJSON);
-            $memberships = [];
+            $memberships = new ClassValidationArray();
             foreach ($membershipStd as $value) {
                 $memberships[] = RecipientFactory::createProcessedMembershipFromStdClass($value);
             }
@@ -213,6 +226,13 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
         return $this->contactID;
     }
     /**
+    * @return string OwnerID
+    */
+    public function getOwnerID(): string
+    {
+        return $this->ownerID;
+    }
+    /**
      * Serializes the object to a value that can be serialized natively by json_encode().
      * @return array Associative.
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
@@ -220,17 +240,14 @@ class ProcessedContact extends Contact implements UpdatableComponentInterface, M
     public function jsonSerialize(): array
     {
         $contactArray = parent::jsonSerialize();
-        $returnArray = array_merge(
-            ['ID' => $this->contactID],
-            $contactArray,
-            [
-                'Modified' => isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
-                substr($this->updated->format('u'), 0, 3) : null,
-                'Created' => isset($this->created) ? $this->created->format("Y-m-d\TH:i:s.").
-                substr($this->updated->format('u'), 0, 3) : null,
-            ]
-        );
-        return array_filter($returnArray);
+        $contactArray['ID'] = $this->contactID;
+        $contactArray['OwnerID'] = $this->ownerID;
+        $contactArray['Modified'] = isset($this->created) ? $this->updated->format("Y-m-d\TH:i:s.").
+            substr($this->updated->format('u'), 0, 3) : null;
+        $contactArray['Created'] = isset($this->created) ? $this->created->format("Y-m-d\TH:i:s.").
+            substr($this->updated->format('u'), 0, 3) : null;
+
+        return array_filter($contactArray);
     }
     /**
     * Takes the given argument and replaces strings such as {id} to an actual value.

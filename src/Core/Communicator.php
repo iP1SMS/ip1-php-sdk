@@ -2,9 +2,9 @@
 /**
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
-* @copyright 2017 IP1 SMS
+* @copyright 2017 iP.1 Networks AB
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.2.0-beta
+* @version 0.3.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
@@ -16,6 +16,7 @@ use IP1\RESTClient\Recipient\ProcessedBlacklistEntry;
 use IP1\RESTClient\Core\ProcessedComponentInterface;
 use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ProcessableComponentInterface;
+use \Httpful\Response;
 
 /**
 * Handles request to the API and converts the responses into the data classes.
@@ -24,11 +25,20 @@ use IP1\RESTClient\Core\ProcessableComponentInterface;
 class Communicator
 {
     /**
-    * The accountToken and $accessToken combined into the HTTP Basic Auth format.
-    * @var string $accessQuery
+    * The accountToken used for the first argument in HTTP Basic Auth.
+    * @var string $accountToken
     */
-    private $accessQuery;
-
+    private $accountToken;
+    /**
+    * The apiToken used for the second argument in HTTP Basic Auth.
+    * @var string $apiToken
+    */
+    private $apiToken;
+    /**
+    * An array of \Httpful\Response that returned HTTP code above or equal to 400.
+    * @var array \Httpful\Response
+    */
+    public $errorResponses = [];
     const DOMAIN = "api.ip1sms.com";
     /**
     * Communicator constructor
@@ -37,7 +47,8 @@ class Communicator
     */
     public function __construct(string $accountToken, string $apiToken)
     {
-        $this->accessQuery =  base64_encode($accountToken .":" . $apiToken);
+        $this->accountToken = $accountToken;
+        $this->apiToken = $apiToken;
     }
     /**
     * Adds the param to the API and returns the response as the corresponding object.
@@ -196,28 +207,28 @@ class Communicator
     * Sends a HTTP request to the RESTful API and returns the result as a JSON string.
     *
     *   @param string  $endPoint The URI that the function should use.
-    *   @param string  $method   The HTTP method that should be used, valid ones are: POST, GET, DELETE, PUT.
+    *   @param string  $method   The HTTP method that should be used, valid ones are:
+    *                                   METH_POST, METH_GET, METH_DELETE and METH_PUT.
     *   @param string  $content  A JSON string containing all additional data that can not be provided by $endPoint.
     *   @param boolean $https    Whether the the API call should use HTTPS or not(HTTP).
     *   @return string             The response from the API.
     */
-    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): string
+    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): Response
     {
-        $options = array(
-            'http' => array(
-                'header'  => array(
-                    'Content-Type: application/json',
-                    'Authorization: Basic '. $this->accessQuery,
-                    'Content-Length: ' . strlen($content),
-                ),
-                'user_agent' => 'IP1sms/indev',
-                'method'  => $method,
-                'content' => $content,
-            )
-        );
         $url = ($https ? "https://" : "http://") . self::DOMAIN . "/" .$endPoint;
-        $context  = stream_context_create($options);
-        $response = file_get_contents($url, false, $context);
+        $request = \Httpful\Request::init($method, 'application/json');
+        $request->basicAuth($this->accountToken, $this->apiToken)
+                ->addHeader('User-Agent', 'iP1sms/indev')
+                ->expectsJson()
+                ->Uri($url)
+                ->body($content, 'application/json')
+                ->neverSerialize();
+
+        $response = $request->send();
+
+        if ($response->hasErrors()) {
+            $this->errorResponses[] = $response;
+        }
         return $response;
     }
 }

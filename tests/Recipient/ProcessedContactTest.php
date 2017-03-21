@@ -2,15 +2,13 @@
 /**
 * PHP version 7.1.1
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
-* @copyright 2017 IP1 SMS
+* @copyright 2017 iP.1 Networks AB
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.2.0-beta
+* @version 0.3.0-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
 */
-
-
 namespace IP1\RESTClient\Test\Recipient;
 
 use IP1\RESTClient\Recipient\RecipientFactory;
@@ -77,6 +75,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
             new \DateTime($this->completeContactStd->Created, new DateTimeZone("UTC")),
             $contact->getCreated()
         );
+        $this->assertEquals($this->completeContactStd->OwnerID, $contact->getOwnerID());
         $this->assertEquals($this->completeContactStd->ID, $contact->getID());
         $this->assertEquals(ProcessedContact::IS_READ_ONLY, $contact->isReadOnly());
         $this->assertEquals(false, $contact->isReadOnly());
@@ -110,6 +109,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getOrganization(), $alteredContact->getOrganization());
         $this->assertEquals($newContact->getPhoneNumber(), $alteredContact->getPhoneNumber());
         $this->assertEquals($newContact->getTitle(), $alteredContact->getTitle());
+        $this->assertEquals($newContact->getOwnerID(), $alteredContact->getOwnerID());
         $this->assertEquals($newContact->getID(), $alteredContact->getID());
 
         $deletedContact = $this->getCommunicator()->remove($newContact);
@@ -121,6 +121,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getOrganization(), $deletedContact->getOrganization());
         $this->assertEquals($newContact->getPhoneNumber(), $deletedContact->getPhoneNumber());
         $this->assertEquals($newContact->getTitle(), $deletedContact->getTitle());
+        $this->assertEquals($newContact->getOwnerID(), $deletedContact->getOwnerID());
         $this->assertEquals($newContact->getID(), $deletedContact->getID());
     }
     /**
