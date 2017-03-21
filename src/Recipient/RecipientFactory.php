@@ -125,6 +125,7 @@ class RecipientFactory
             $stdContact->FirstName,
             $stdContact->Phone,
             $stdContact->ID,
+            $stdContact->OwnerID,
             $stdContact->LastName ?? null,
             $stdContact->Title ?? null,
             $stdContact->Organization ?? null,
@@ -155,6 +156,7 @@ class RecipientFactory
             $stdGroup->Name,
             $stdGroup->Color,
             $stdGroup->ID,
+            $stdGroup->OwnerID,
             new \DateTime($stdGroup->Created),
             new \DateTime($stdGroup->Modified)
         );
@@ -189,6 +191,7 @@ class RecipientFactory
             $stdMembership->Group,
             $stdMembership->Contact,
             $stdMembership->ID,
+            $stdMembership->OwnerID,
             new \DateTime($stdMembership->Created)
         );
     }

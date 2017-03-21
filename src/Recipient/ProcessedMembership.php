@@ -12,12 +12,13 @@
 namespace IP1\RESTClient\Recipient;
 
 use IP1\RESTClient\Core\ProcessedComponentInterface;
+use IP1\RESTClient\Core\OwnableInterface;
 
 /**
 * ProcessedMembership class.
 * Is the relation between contacts and groups.
 */
-class ProcessedMembership extends Membership implements ProcessedComponentInterface
+class ProcessedMembership extends Membership implements ProcessedComponentInterface, OwnableInterface
 {
 
     /**
@@ -31,16 +32,23 @@ class ProcessedMembership extends Membership implements ProcessedComponentInterf
     */
     private $created;
     /**
+    * ID of account owning the membership
+    * @var string $ownerID
+    */
+    private $ownerID;
+    /**
     * ProcessedMembership Constructor
     * @param integer   $groupID      The ID of the group.
     * @param integer   $contactID    The ID of the contact.
     * @param integer   $membershipID The ID of the membership.
+    * @param string    $ownerID      ID of account owning the membership.
     * @param \DateTime $created      When the Membership was created.
     */
-    public function __construct(int $groupID, int $contactID, int $membershipID, \DateTime $created)
+    public function __construct(int $groupID, int $contactID, int $membershipID, string $ownerID, \DateTime $created)
     {
         parent::__construct($groupID, $contactID);
         $this->membershipID = $membershipID;
+        $this->ownerID = $ownerID;
         $this->created = $created;
     }
 
@@ -51,6 +59,14 @@ class ProcessedMembership extends Membership implements ProcessedComponentInterf
     public function getID(): int
     {
         return $this->membershipID;
+    }
+    /**
+    * Returns ID of account owning the Membership
+    * @return string ID of account owning the Membership
+    */
+    public function getOwnerID(): string
+    {
+        return $this->ownerID;
     }
     /**
     * @param \DateTimeZone $timezone The timezone that the user wants to get the DateTime in. Default is UTC.

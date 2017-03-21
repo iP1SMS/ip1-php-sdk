@@ -31,6 +31,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         $this->assertTrue(0 < $group->getID());
         $this->assertEquals(\DateTime::class, get_class($group->getCreated()));
         $this->assertEquals(\DateTime::class, get_class($group->getUpdated()));
+        $this->assertStringStartsWith("ip1-", $group->getOwnerID());
         $this->assertEquals($group->getCreated(), $group->getCreated(new \DateTimeZone("UTC")));
         $this->assertEquals($group->getUpdated(), $group->getUpdated(new \DateTimeZone("UTC")));
         if ($group->getCreated(new \DateTimeZone("Indian/Reunion")) !== $group->getCreated()) {
@@ -52,6 +53,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
                 Util::getRandomAlphaString(),
                 Util::getRandomHex(),
                 random_int(1, PHP_INT_MAX),
+                Util::getRandomAccountID(),
                 Util::getRandomDateTime(),
                 Util::getRandomDateTime()
             );
@@ -80,6 +82,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         $processedGroup = $this->getCommunicator()->add($group);
         $this->assertEquals($group->getName(), $processedGroup->getName());
         $this->assertEquals($group->getColor(), $processedGroup->getColor());
+        $this->assertStringStartsWith("ip1-", $processedGroup->getOwnerID());
         $this->assertTrue(is_int($processedGroup->getID()));
         $this->assertTrue(0 < $processedGroup->getID());
 
@@ -88,7 +91,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
     public function editGroupToAPI(ProcessedGroup $processedGroup): ProcessedGroup
     {
         $editedGroup = $this->getCommunicator()->edit($processedGroup);
-
+        $this->assertEquals($processedGroup->getOwnerID(), $editedGroup->getOwnerID());
         $this->assertEquals($processedGroup->getName(), $editedGroup->getName());
         $this->assertEquals($processedGroup->getColor(), $editedGroup->getColor());
         if ($editedGroup->getUpdated() !== $processedGroup->getUpdated()) {
@@ -107,6 +110,7 @@ class ProcessedGroupTest extends AbstractEnviromentProvider
         $this->assertEquals($editedGroup->getColor(), $removedGroup->getColor());
         $this->assertEquals($editedGroup->getCreated(), $removedGroup->getCreated());
         $this->assertEquals($editedGroup->getUpdated(), $removedGroup->getUpdated());
+        $this->assertEquals($editedGroup->getOwnerID(), $removedGroup->getOwnerID());
         $this->assertEquals($editedGroup->getContacts(), $removedGroup->getContacts());
         $this->assertEquals($editedGroup->getMemberships(), $removedGroup->getMemberships());
         $this->assertEquals($editedGroup->memberShipsFetched(), $removedGroup->memberShipsFetched());

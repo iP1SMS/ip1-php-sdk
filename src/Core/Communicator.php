@@ -16,6 +16,7 @@ use IP1\RESTClient\Recipient\ProcessedBlacklistEntry;
 use IP1\RESTClient\Core\ProcessedComponentInterface;
 use IP1\RESTClient\Core\UpdatableComponentInterface;
 use IP1\RESTClient\Core\ProcessableComponentInterface;
+use \Httpful\Response;
 
 /**
 * Handles request to the API and converts the responses into the data classes.
@@ -212,7 +213,7 @@ class Communicator
     *   @param boolean $https    Whether the the API call should use HTTPS or not(HTTP).
     *   @return string             The response from the API.
     */
-    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): string
+    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): Response
     {
         $url = ($https ? "https://" : "http://") . self::DOMAIN . "/" .$endPoint;
         $request = \Httpful\Request::init($method, 'application/json');
@@ -226,8 +227,8 @@ class Communicator
         $response = $request->send();
 
         if ($response->hasErrors()) {
-            $this->$errorResponses[] = $response;
+            $this->errorResponses[] = $response;
         }
-        return $response->__toString();
+        return $response;
     }
 }

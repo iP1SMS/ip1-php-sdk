@@ -39,4 +39,16 @@ class Util
         }
         return $color;
     }
+    public static function getRandomAccountID(): string
+    {
+        return "ip1-".random_int(10000, 99999);
+    }
+    public static function getRandomPhoneNumber(): string
+    {
+        $retval = '';
+        for ($i=0; $i < 11; $i++) {
+            $retval.=random_int(0, 9);
+        }
+        return $retval;
+    }
 }

@@ -77,6 +77,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
             new \DateTime($this->completeContactStd->Created, new DateTimeZone("UTC")),
             $contact->getCreated()
         );
+        $this->assertEquals($this->completeContactStd->OwnerID, $contact->getOwnerID());
         $this->assertEquals($this->completeContactStd->ID, $contact->getID());
         $this->assertEquals(ProcessedContact::IS_READ_ONLY, $contact->isReadOnly());
         $this->assertEquals(false, $contact->isReadOnly());
@@ -110,6 +111,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getOrganization(), $alteredContact->getOrganization());
         $this->assertEquals($newContact->getPhoneNumber(), $alteredContact->getPhoneNumber());
         $this->assertEquals($newContact->getTitle(), $alteredContact->getTitle());
+        $this->assertEquals($newContact->getOwnerID(), $alteredContact->getOwnerID());
         $this->assertEquals($newContact->getID(), $alteredContact->getID());
 
         $deletedContact = $this->getCommunicator()->remove($newContact);
@@ -121,6 +123,7 @@ class ProcessedContactTest extends AbstractEnviromentProvider
         $this->assertEquals($newContact->getOrganization(), $deletedContact->getOrganization());
         $this->assertEquals($newContact->getPhoneNumber(), $deletedContact->getPhoneNumber());
         $this->assertEquals($newContact->getTitle(), $deletedContact->getTitle());
+        $this->assertEquals($newContact->getOwnerID(), $deletedContact->getOwnerID());
         $this->assertEquals($newContact->getID(), $deletedContact->getID());
     }
     /**
