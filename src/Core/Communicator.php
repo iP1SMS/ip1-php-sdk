@@ -57,7 +57,7 @@ class Communicator
     *           filled with ProcessedOutGoingSMS.
     * @throws \InvalidArgumentException When param isn't any of the classes listed in param args.
     */
-    public function add(ProcessableComponentInterface $component): ProcessedComponentInterface
+    public function add(ProcessableComponentInterface $component)
     {
         switch (get_class($component)) {
             case "IP1\RESTClient\Recipient\Contact":
