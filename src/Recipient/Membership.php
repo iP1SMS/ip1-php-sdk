@@ -11,7 +11,10 @@
 */
 namespace IP1\RESTClient\Recipient;
 
+use IP1\RESTClient\Core\Communicator;
 use IP1\RESTClient\Core\ProcessableComponentInterface;
+use IP1\RESTClient\Recipient\ProcessedGroup;
+use IP1\RESTClient\Recipient\ProcessedContact;
 
 /**
 * Membership is the bridge between ProcessedGroup and ProcessedContact.
@@ -54,6 +57,28 @@ class Membership implements ProcessableComponentInterface
     public function getContactID(): int
     {
         return $this->contactID;
+    }
+    /**
+    * Returns the Group this membership is referenced to.
+    * @param Communicator $communicator Used to fetch the Group from the API.
+    * @return ProcessedGroup
+    */
+    public function getGroup(Communicator $communicator): ProcessedGroup
+    {
+            $groupJSON = $communicator->get('api/groups/'.$this->groupID);
+            $group = RecipientFactory::createProcessedGroupFromJSON($groupJSON);
+            return $group;
+    }
+    /**
+    * Returns the Contact this membership is referenced to.
+    * @param Communicator $communicator Used to fetch the Contact from the API.
+    * @return ProcessedContact
+    */
+    public function getContact(Communicator $communicator): ProcessedContact
+    {
+            $contactJSON = $communicator->get('api/groups/'.$this->contactID);
+            $contact = RecipientFactory::createProcessedGroupFromJSON($contactJSON);
+            return $contact;
     }
     /**
      * Serializes the object to a value that can be serialized natively by json_encode().
