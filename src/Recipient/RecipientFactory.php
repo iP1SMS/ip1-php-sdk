@@ -4,7 +4,7 @@
 * @author Hannes Kindströmmer <hannes@kindstrommer.se>
 * @copyright 2017 iP.1 Networks AB
 * @license https://www.gnu.org/licenses/lgpl-3.0.txt LGPL-3.0
-* @version 0.3.0-beta
+* @version 0.3.1-beta
 * @since File available since Release 0.1.0-beta
 * @link http://api.ip1sms.com/Help
 * @link https://github.com/iP1SMS/ip1-php-sdk
@@ -227,8 +227,8 @@ class RecipientFactory
             $stdClassSMS->Message,
             $stdClassSMS->To,
             $stdClassSMS->ID,
-            new \DateTime($stdClassSMS->Created),
-            new \DateTime($stdClassSMS->Updated),
+            new \DateTime($stdClassSMS->Created ?? null),
+            new \DateTime($stdClassSMS->Updated ?? null),
             $stdClassSMS->Status,
             $stdClassSMS->StatusDescription,
             $stdClassSMS->BundleID
