@@ -213,7 +213,7 @@ class Communicator
     *   @param boolean $https    Whether the the API call should use HTTPS or not(HTTP).
     *   @return string             The response from the API.
     */
-    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = false): Response
+    private function sendRequest(string $endPoint, string $method, string $content = "", bool $https = true): Response
     {
         $url = ($https ? "https://" : "http://") . self::DOMAIN . "/" .$endPoint;
         $request = \Httpful\Request::init($method, 'application/json');
