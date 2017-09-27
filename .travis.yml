@@ -10,8 +10,9 @@ matrix:
     fast_finish: true
     allow_failures:
         - php: '7.0'
+        - php: '7.1'
         - php: nightly
-        - php: hhvm 
+        - php: hhvm
 
 before_script:
     - composer install --ignore-platform-reqs
@@ -21,4 +22,11 @@ script:
     - ./vendor/bin/phpcs --standard=codestandard.xml src
 
 notifications:
-    webhooks: https://outlook.office.com/webhook/59c61282-44e7-42f4-bb20-ebd5ce17f70c@fb016bf1-5ab2-44e1-904c-76f1a18774a5/TravisCI/72fee7a357484a8faa2486e69242caf6/79142c66-cd95-41bd-a5ed-b900d03a315e
+    webhooks:
+      urls:
+        - https://outlook.office.com/webhook/59c61282-44e7-42f4-bb20-ebd5ce17f70c@fb016bf1-5ab2-44e1-904c-76f1a18774a5/TravisCI/72fee7a357484a8faa2486e69242caf6/79142c66-cd95-41bd-a5ed-b900d03a315e
+      on_success: change # default: always
+      on_failure: always # default: always
+      on_start: never   # default: never
+      on_cancel: always # default: always
+      on_error: always # default: always
